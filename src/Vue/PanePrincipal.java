@@ -1,9 +1,6 @@
 package Vue;
 
 
-import java.awt.Point;
-
-import Controleur.Utilisateur.CoordonneesSouris;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
@@ -13,19 +10,17 @@ public class PanePrincipal extends BorderPane{
 	Cadre rightView; //exemple
 	Cadre bottomView; //exemple
 		
-	private class RightView extends Cadre{//exemple
-		Point coord;
-		
-		RightView(int w,int h){
+	private class TestView extends Cadre{//exemple
+		String s;
+		TestView(int w,int h,String s){
 			super(w,h);
-			coord = new Point(0,0);
-			this.setOnMouseMoved(new CoordonneesSouris(coord));
+			this.s = s;
 		}
 		void Draw() {
 			gc.clearRect(0, 0, this.getWidth(), this.getHeight());
 			gc.setStroke(Color.RED);
 			gc.strokeRect(0, 0, this.getWidth(), this.getHeight());
-			gc.fillText(coord.toString(), 10, 20);
+			gc.fillText(s, 10, 20);
 		}
 	}
 	
@@ -33,8 +28,8 @@ public class PanePrincipal extends BorderPane{
 		super();
 		
 		gameView = new VuePlateau(800,600);
-		rightView = new RightView(200,50);
-		bottomView = new Cadre(100,50);
+		rightView = new TestView(200,50,"coucou");
+		bottomView = new TestView(100,50,"On en a gros!");
 
 		this.setCenter(gameView);
 		this.setBottom(bottomView);
