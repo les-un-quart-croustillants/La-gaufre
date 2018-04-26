@@ -1,0 +1,2 @@
+# La-gaufre
+Une gaufre.
