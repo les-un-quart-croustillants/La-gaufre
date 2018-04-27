@@ -11,6 +11,8 @@ public class PanePrincipal extends GridPane {
 	Cadre gameView;
 	Cadre enteteView;
 	Cadre infoView;
+	
+	public Plateau plateau;
 
 	private class TestView extends Cadre {// exemple
 		String s;
@@ -31,7 +33,8 @@ public class PanePrincipal extends GridPane {
 	public PanePrincipal(){
 		super();
 		
-		gameView = new VuePlateau(800,600, new Plateau());
+		plateau = new Plateau();
+		gameView = new VuePlateau(800,600, plateau);
 		enteteView = new TestView(200,50,"coucou");
 		infoView = new TestView(100,50,"On en a gros!");
 
