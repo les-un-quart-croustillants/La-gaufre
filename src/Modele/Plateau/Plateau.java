@@ -37,8 +37,8 @@ public class Plateau {
      * @return : booléen vrai si la case est dans le plateau, faux sinon.
      */
     public boolean estSurPlateau(Couple coord) {
-        return 0 < coord.x && coord.x < largeur
-                && 0 < coord.y && coord.y < hauteur;
+        return 0 <= coord.i && coord.i < hauteur
+                && 0 <= coord.j && coord.j < largeur;
     }
 
     /** FIXME : possible redondance avec estMangeable
@@ -50,16 +50,16 @@ public class Plateau {
         return true;
     }
 
-    /*
-     * manger : mange les cases en fonction de la position donnée
-     * @param coord : coordonnées de la case
+    /**
+     * manger : mange les cases en fonction de la position donnée.
+     * @param coord : coordonnées de la case.
      */
-    public void manger(Point coord) {
+    public void manger(Couple coord) {
         if(estMangeable(coord)) {
             // mange toutes les cases en dessous et à droite de la position donnée
-            for(int i = coord.getX(); i < largeur; i++) {
-                for (int j = coord.getY(); j < hauteur; j++) {
-                    if (!estMangee(new Point(i,j))) {
+            for(int i = coord.i; i < hauteur; i++) {
+                for (int j = coord.j; j < largeur; j++) {
+                    if (!estMangee(new Couple(i,j))) {
                         tab[i][j] = compteurCoups;
                     }
                 }

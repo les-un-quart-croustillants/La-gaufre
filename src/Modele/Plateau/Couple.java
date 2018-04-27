@@ -1,19 +1,27 @@
 package Modele.Plateau;
 
 public class Couple {
-    public int x, y;
+    public int i, j;
 
     public Couple() {
         this(0,0);
     }
 
-    public Couple(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Couple(int i, int j) {
+        this.i = i;
+        this.j = j;
+    }
+
+    public int getI() {
+        return i;
+    }
+
+    public int getJ() {
+        return j;
     }
 
     @Override
     public String toString() {
-        return "("+ x + ","+ y + ")";
+        return "("+ i + ","+ j + ")";
     }
 }
