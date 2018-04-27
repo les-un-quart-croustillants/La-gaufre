@@ -1,8 +1,7 @@
 package Vue;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -22,14 +21,14 @@ public class InterfaceGraphique extends Application {
         primaryStage.setScene(s);
 		primaryStage.show();
 		
-		/*new AnimationTimer() {
+		new AnimationTimer() {
 			@Override
 			public void handle(long currentNanoTime) {
 				//gp.Update(); ??
 				gp.Draw();
 			}
-		}.start();*/
-		gp.Draw();
+		}.start();
+		/*gp.Draw();
 		
 		s.widthProperty().addListener(new ChangeListener<Number>() {
 		    @Override 
@@ -41,7 +40,7 @@ public class InterfaceGraphique extends Application {
 		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
 		        gp.Draw();
 		    }
-		});
+		});*/
 
 	}
 

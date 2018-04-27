@@ -23,8 +23,8 @@ public class ClicVuePlateau implements EventHandler<MouseEvent> {
 			i = (float) ((event.getY() - gv.origine.y) / gv.tailleCase);
 			j =  (float) ((event.getX() - gv.origine.x) / gv.tailleCase);
 			p.manger(new Couple((int)i,(int)j));
-			p.notifier();
-			System.out.println(i+" "+j);
+			//p.notifier();
+			//System.out.println(i+" "+j);
 		}
 
 	}
