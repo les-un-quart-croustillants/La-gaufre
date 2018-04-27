@@ -34,7 +34,7 @@ public class InterfaceGraphique extends Application {
 		s.widthProperty().addListener(new ChangeListener<Number>() {
 		    @Override 
 		    public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-		        gp.Draw();
+		    	gp.Draw();
 		    }
 		});
 		s.heightProperty().addListener(new ChangeListener<Number>() {
