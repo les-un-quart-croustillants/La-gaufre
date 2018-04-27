@@ -1,4 +1,4 @@
-package Modele.Plateau;
+package Modele;
 
 public class Couple {
     public int i, j;
