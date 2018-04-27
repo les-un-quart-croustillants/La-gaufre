@@ -2,16 +2,16 @@ package Controleur;
 
 import Modele.Couple;
 import Modele.Plateau;
-import Vue.VuePlateau;
+import Vue.PlateauGraphique;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 public class ClicVuePlateau implements EventHandler<MouseEvent> {
 
-	VuePlateau gv;
+	PlateauGraphique gv;
 	Plateau p;
 
-	public ClicVuePlateau(VuePlateau gv, Plateau p) {
+	public ClicVuePlateau(PlateauGraphique gv, Plateau p) {
 		this.gv = gv;
 		this.p = p;
 	}

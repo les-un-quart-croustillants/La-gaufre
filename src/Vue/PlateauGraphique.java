@@ -8,12 +8,11 @@ import Modele.Plateau;
 
 public class PlateauGraphique extends Cadre {
 	Plateau plateau;
-	/*public int tailleCase = 20;
-	public Point origine;*/
+	public int tailleCase = 20;
+	public Point origine;
 		
 	private void Initialisation(Plateau p) {		
 		plateau = p;
-		plateau.ajouter_observateur(this);
 		tailleCase = (int) (this.getHeight()*0.9/plateau.hauteur());
 		origine = new Point((int) (this.getWidth()/2-(tailleCase*plateau.largeur()/2)),(int) (this.getWidth()/2-(tailleCase*plateau.hauteur()/2)));
 		
