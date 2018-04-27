@@ -76,4 +76,18 @@ public class Plateau {
             compteurCoups++;
         }
     }
+
+    // DEBUG FONCTION
+    public void setCase(Couple coord, int value) {
+        this.tab[coord.i][coord.j] = value;
+    }
+
+    @Override
+    public String toString() {
+        String res = "[\n";
+        for (int[] e : tab) {
+            res += Arrays.toString(e) + "\n";
+        }
+        return res +"," + largeur +","+ hauteur + "]";
+    }
 }
