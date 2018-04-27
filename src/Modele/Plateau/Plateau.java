@@ -1,6 +1,7 @@
 package Modele.Plateau;
 
 import java.awt.Point;
+import java.util.Arrays;
 
 public class Plateau {
     int [][] tab;
@@ -8,20 +9,28 @@ public class Plateau {
         hauteur,
         largeur;
 
-    Plateau() {
-        this(10,10, 0);
+    public Plateau() {
+        this(10,10, 1);
     }
 
-    Plateau(int hauteur, int largeur, int compteurCoups) {
-        this.compteurCoups = compteurCoups;
-        this.hauteur = hauteur;
+    public Plateau(int hauteur, int largeur) {
+        this(hauteur, largeur, 1);
+    }
+
+    public Plateau(int hauteur, int largeur, int compteurCoups) {
         this.largeur = largeur;
-        this.tab = new int[largeur][hauteur];
-    }
-    Plateau(int [][] tab){
-        this.tab = tab;
+        this.hauteur = hauteur;
+        this.compteurCoups = compteurCoups;
+        this.tab = initTab(largeur, hauteur);
     }
 
+    private int[][] initTab(int largeur, int hauteur) {
+        int[][] tab = new int[hauteur][largeur];
+        for (int[] e : tab) {
+            Arrays.fill(e, 0);
+        }
+        return tab;
+    }
     /**
      * estMangeable : Si une case est mangeable.
      *  @param coord : coordonnées de la case.
