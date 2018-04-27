@@ -1,7 +1,9 @@
 package Modele;
 
-import java.awt.Point;
 import java.util.Arrays;
+import java.util.LinkedList;
+
+import Vue.Vue;
 
 public class Plateau {
 	 int [][] tab;
@@ -18,6 +20,7 @@ public class Plateau {
 	    }
 
 	    public Plateau(int hauteur, int largeur, int compteurCoups) {
+	    	this.observers = new LinkedList<Vue>();
 	        this.largeur = largeur;
 	        this.hauteur = hauteur;
 	        this.compteurCoups = compteurCoups;

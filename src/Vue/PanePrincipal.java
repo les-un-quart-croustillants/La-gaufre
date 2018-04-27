@@ -11,6 +11,8 @@ public class PanePrincipal extends GridPane {
 	Cadre gameView;
 	Cadre enteteView;
 	Cadre infoView;
+	
+	public Plateau plateau;
 
 	private class TestView extends Cadre { // exemple
 		String s;
