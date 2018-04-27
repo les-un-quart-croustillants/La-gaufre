@@ -3,7 +3,7 @@ package Modele;
 import java.awt.Point;
 import java.util.Arrays;
 
-public class Plateau extends Modele {
+public class Plateau {
 	 int [][] tab;
 	    int compteurCoups,
 	        hauteur,
