@@ -1,4 +1,4 @@
-package Modele.Plateau;
+package Modele.PlateauTest;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
