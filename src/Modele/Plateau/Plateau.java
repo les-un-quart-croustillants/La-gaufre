@@ -22,13 +22,13 @@ public class Plateau {
         this.tab = tab;
     }
 
-    /*
-     * estMangeable : Si une case est mangeable
-     *  @params coord : coordonnées de la case
-     *  @return : booléen vrai si la case est mangeable, faux sinon
+    /**
+     * estMangeable : Si une case est mangeable.
+     *  @param coord : coordonnées de la case.
+     *  @return : booléen vrai si la case est mangeable, faux sinon.
      */
-    public boolean estMangeable(Point coord) { // TODO : à implémenter
-        return true;
+    public boolean estMangeable(Couple coord) {
+        return estSurPlateau(coord) && tab[coord.x][coord.y] == 0;
     }
 
     /* FIXME : possible redondance avec estMangeable
