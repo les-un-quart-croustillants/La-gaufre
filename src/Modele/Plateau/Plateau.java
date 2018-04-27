@@ -37,7 +37,7 @@ public class Plateau {
      *  @return : booléen vrai si la case est mangeable, faux sinon.
      */
     public boolean estMangeable(Couple coord) {
-        return estSurPlateau(coord) && tab[coord.x][coord.y] == 0;
+        return estSurPlateau(coord) && !estMangee(coord);
     }
 
     /**
@@ -55,8 +55,8 @@ public class Plateau {
      * @param coord : coordonnée de la case
      * @return : vrai si la case a été mangée faux sinon
      */
-    public boolean estMangee(Point coord) { // TODO : à implémenter
-        return true;
+    public boolean estMangee(Couple coord) {
+        return tab[coord.i][coord.j] != 0;
     }
 
     /**
