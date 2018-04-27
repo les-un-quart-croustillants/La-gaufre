@@ -1,5 +1,8 @@
 package Joueurs;
 
+import Modele.Couple;
+import Modele.Plateau;
+
 /**
  * 
  * @author Louka Soret
@@ -31,11 +34,13 @@ public abstract class Joueur {
 		static public Difficulte fromString (String s) {
 			switch(s) {
 				case "facile":
-					return FACILE;
+					return Difficulte.FACILE;
 				case "moyen":
-					return MOYEN;
+					return Difficulte.MOYEN;
 				case "difficile":
-					return DIFFICILE;
+					return Difficulte.DIFFICILE;
+				default:
+					return Difficulte.FACILE;
 			}
 		}
 	}
@@ -73,7 +78,7 @@ public abstract class Joueur {
 	 * @param j ordonnée
 	 * @return True si le coup a bien été joué, False si le coup n'était pas jouable
 	 */
-	boolean jouerCoup(int i, int j) {
+	boolean jouerCoup(Couple pos) {
 		return false;
 	}
 }

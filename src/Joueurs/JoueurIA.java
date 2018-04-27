@@ -40,7 +40,7 @@ public class JoueurIA extends Joueur {
             i = r.nextInt(plateau.hauteur());
             j = r.nextInt(plateau.largeur());
         }
-        plateau.jouer(new Couple(i,j));
+        plateau.manger(new Couple(i,j));
         return true;
 
 	}
