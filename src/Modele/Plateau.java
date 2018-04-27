@@ -81,6 +81,14 @@ public class Plateau extends Modele {
 	    public void setCase(Couple coord, int value) {
 	        this.tab[coord.i][coord.j] = value;
 	    }
+	    
+	    public int hauteur() {
+	    	return hauteur;
+	    }
+	    
+	    public int largeur() {
+	    	return largeur;
+	    }
 
 	    @Override
 	    public String toString() {
