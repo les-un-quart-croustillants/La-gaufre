@@ -31,7 +31,17 @@ public class Plateau {
         return estSurPlateau(coord) && tab[coord.x][coord.y] == 0;
     }
 
-    /* FIXME : possible redondance avec estMangeable
+    /**
+     * estSurPlateau : Si une case est sur le plateau.
+     * @param coord : coordonée de la case.
+     * @return : booléen vrai si la case est dans le plateau, faux sinon.
+     */
+    public boolean estSurPlateau(Couple coord) {
+        return 0 < coord.x && coord.x < largeur
+                && 0 < coord.y && coord.y < hauteur;
+    }
+
+    /** FIXME : possible redondance avec estMangeable
      * estMangee : Si une case a déjà été mangée ou non
      * @param coord : coordonnée de la case
      * @return : vrai si la case a été mangée faux sinon

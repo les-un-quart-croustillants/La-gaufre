@@ -36,4 +36,11 @@ class PlateauTest {
         assertFalse(sujet.estMangeable(new Couple(2,3)));
     }
 
+    @Test
+    void estSurPlateau() {
+        System.out.println(sujet.tab[2][3]);
+        assertTrue(sujet.estSurPlateau(new Couple(0,0)));
+        assertTrue(sujet.estSurPlateau(new Couple(2,3)));
+        assertTrue(sujet.estSurPlateau(new Couple(2,1)));
+        assertFalse(sujet.estSurPlateau(new Couple(4,3)));
 }
