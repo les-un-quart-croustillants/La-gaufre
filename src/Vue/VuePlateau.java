@@ -1,6 +1,8 @@
 package Vue;
 
-public class VuePlateau extends Cadre{	
+import Modele.Plateau;
+
+public class VuePlateau extends Vue {	
 	/*public int tailleCase = 20;
 	public Point origine;*/
 		
@@ -11,13 +13,19 @@ public class VuePlateau extends Cadre{
 		this.setOnMousePressed(new ClicVuePlateau(this, plateau));*/
 	}
 	
-	VuePlateau(){
+	VuePlateau(Plateau p){
 		super();
+		model = p;
 		Initialisation();
 	}
-	VuePlateau(int wpref,int hpref){
+	VuePlateau(int wpref,int hpref, Plateau p){
 		super(wpref,hpref);
+		model = p;
 		Initialisation();
+	}
+	
+	public void maj() {
+		
 	}
 	
 	void Draw() {
