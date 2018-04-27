@@ -7,9 +7,9 @@ import Vue.Vue;
 public abstract class Modele {
 	List<Vue> observers;
 
-	void notifief() {
+	void notifier() {
 		for(Vue o : observers) {
-			o.maj(this);
+			o.maj();
 		}
 	}
 

@@ -3,6 +3,7 @@ package Vue;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import Modele.Plateau;
 
 public class PanePrincipal extends BorderPane{
 
@@ -27,7 +28,7 @@ public class PanePrincipal extends BorderPane{
 	public PanePrincipal(){
 		super();
 		
-		gameView = new VuePlateau(800,600);
+		gameView = new VuePlateau(800,600, new Plateau());
 		rightView = new TestView(200,50,"coucou");
 		bottomView = new TestView(100,50,"On en a gros!");
 
