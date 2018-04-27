@@ -1,9 +1,9 @@
 package Modele.PlateauTest;
 
+import Modele.Couple;
+import Modele.Plateau;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,8 +39,9 @@ class PlateauTest {
     @Test
     void estSurPlateau() {
         System.out.println(sujet.tab[2][3]);
-        assertTrue(sujet.estSurPlateau(new Couple(0,0)));
-        assertTrue(sujet.estSurPlateau(new Couple(2,3)));
-        assertTrue(sujet.estSurPlateau(new Couple(2,1)));
-        assertFalse(sujet.estSurPlateau(new Couple(4,3)));
+        assertTrue(sujet.estSurPlateau(new Couple(0, 0)));
+        assertTrue(sujet.estSurPlateau(new Couple(2, 3)));
+        assertTrue(sujet.estSurPlateau(new Couple(2, 1)));
+        assertFalse(sujet.estSurPlateau(new Couple(4, 3)));
+    }
 }
