@@ -32,8 +32,8 @@ public class PanePrincipal extends GridPane {
 		super();
 		
 		gameView = new VuePlateau(800,600, new Plateau());
-		rightView = new TestView(200,50,"coucou");
-		bottomView = new TestView(100,50,"On en a gros!");
+		enteteView = new TestView(200,50,"coucou");
+		infoView = new TestView(100,50,"On en a gros!");
 
 		GridPane.setConstraints(enteteView,0,0);
 		GridPane.setConstraints(infoView,0,1);
