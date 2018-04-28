@@ -90,7 +90,7 @@ public class Plateau {
 			}
 			compteurCoups++;
 		}
-		return tmp == compteurCoups;
+		return tmp != compteurCoups;
 	}
 
 	/**

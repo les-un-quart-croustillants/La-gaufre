@@ -58,10 +58,10 @@ public class PlateauTest {
         Plateau p = sujet;
 
         Couple coord = new Couple(0,1);
-        p.manger(coord);
+        assertTrue(p.manger(coord));
         verifManger(p);
         assertEquals(5, p.getCompteurCoups());
-        p.manger(coord);
+        assertFalse(p.manger(coord));
         verifManger(p);
         assertEquals(5, p.getCompteurCoups());
     }
