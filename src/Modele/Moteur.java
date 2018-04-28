@@ -1,7 +1,7 @@
 package Modele;
 
 import Modele.Plateau;
-import Vue.PlateauGraphique;
+import Vue.GameObject.PlateauGraphique;
 
 public class Moteur {
 	public enum FSA_state {

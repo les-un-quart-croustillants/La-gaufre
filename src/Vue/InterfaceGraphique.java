@@ -20,27 +20,16 @@ public class InterfaceGraphique extends Application {
         Scene s = new Scene(gp, 800, 600);
         primaryStage.setScene(s);
 		primaryStage.show();
-		
+		primaryStage.setMinHeight(400);
+		primaryStage.setMinWidth(400);
+
 		new AnimationTimer() {
 			@Override
 			public void handle(long currentNanoTime) {
-				//gp.Update(); ??
+				gp.Update();
 				gp.Draw();
 			}
 		}.start();
-		/*gp.Draw();
-		
-		s.widthProperty().addListener(new ChangeListener<Number>() {
-		    @Override 
-		    public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-		    	gp.Draw();
-		    }
-		});
-		s.heightProperty().addListener(new ChangeListener<Number>() {
-		    @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
-		        gp.Draw();
-		    }
-		});*/
 
 	}
 
