@@ -44,7 +44,7 @@ public class Cadre extends Pane {
 	
 	public void Draw() {
 		gc.clearRect(0, 0, this.getWidth(), this.getHeight());
-		gc.strokeRect(0, 0, this.getWidth(), this.getHeight());
+		//gc.strokeRect(0, 0, this.getWidth(), this.getHeight());
 		Iterator<GameObject> it = gameObjects.iterator();
 		while(it.hasNext()) {
 			GameObject go = it.next();

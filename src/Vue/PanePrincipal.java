@@ -7,10 +7,10 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
 import Modele.Plateau;
 import Vue.Cadre.Cadre;
 import Vue.Cadre.EnteteCadre;
+import Vue.Cadre.InfoCadre;
 import Vue.Cadre.PlateauCadre;
 
 public class PanePrincipal extends GridPane {
@@ -21,29 +21,12 @@ public class PanePrincipal extends GridPane {
 	
 	public Plateau plateau;
 
-	private class TestView extends Cadre { // exemple
-		String s;
-
-		TestView(int w, int h, String s) {
-			super(w, h);
-			this.s = s;
-		}
-
-		@Override
-		public void Draw() {
-			gc.clearRect(0, 0, this.getWidth(), this.getHeight());
-			gc.setStroke(Color.RED);
-			gc.strokeRect(0, 0, this.getWidth(), this.getHeight());
-			gc.fillText(s, 10, 20);
-		}
-	}
-
 	public PanePrincipal(){
 		super();
 		
-		gameView = new PlateauCadre(800,600, new Plateau());
+		gameView = new PlateauCadre(800,600, new Plateau(6,8));
 		enteteView = new EnteteCadre(100,50);
-		infoView = new TestView(100,50,"On en a gros!");
+		infoView = new InfoCadre(100,50);
 
 		//Mise en place des Pane à la bonne position
 		GridPane.setConstraints(enteteView,0,0);
@@ -72,6 +55,7 @@ public class PanePrincipal extends GridPane {
 	void Update() {
 		gameView.update();
 		enteteView.update();
+		infoView.update();
 	}
 	
 	//Cette fonction destiné au dessin est appelée une fois par frame

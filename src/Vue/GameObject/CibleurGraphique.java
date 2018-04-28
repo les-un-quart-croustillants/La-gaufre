@@ -49,17 +49,14 @@ public class CibleurGraphique extends GameObject {
 	@Override
 	public void draw(GraphicsContext gc) {
 		if (visible) {
-			gc.setStroke(Color.RED);
-			gc.setLineWidth(2);
-			gc.strokeRect(caseCible.j * plateauGraphique.tailleCase() + plateauGraphique.position().x,
+			gc.setStroke(Color.WHITE);
+			gc.setLineWidth(plateauGraphique.tailleCase()*0.05);
+			gc.strokeRoundRect(caseCible.j * plateauGraphique.tailleCase() + plateauGraphique.position().x,
 					caseCible.i * plateauGraphique.tailleCase() + plateauGraphique.position().y,
-					plateauGraphique.tailleCase(), plateauGraphique.tailleCase());
-			gc.strokeLine(centre.x, centre.y,
-					centre.x + plateauGraphique.tailleCase() * largeurCibleur,
-					centre.y);
-			gc.strokeLine(centre.x, centre.y,
-					centre.x,
-					centre.y + plateauGraphique.tailleCase() * hauteurCibleur);
+					plateauGraphique.tailleCase(), plateauGraphique.tailleCase(),plateauGraphique.tailleCase()*0.2,plateauGraphique.tailleCase()*0.2);
+			gc.setFill(new Color(1,1,1,0.5));
+			gc.fillRect(caseCible.j * plateauGraphique.tailleCase() + plateauGraphique.position().x,
+					caseCible.i * plateauGraphique.tailleCase() + plateauGraphique.position().y, plateauGraphique.tailleCase() * largeurCibleur,plateauGraphique.tailleCase() * hauteurCibleur);
 			gc.setLineWidth(1);
 
 		}
