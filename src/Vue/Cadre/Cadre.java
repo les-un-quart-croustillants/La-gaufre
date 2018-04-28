@@ -28,6 +28,9 @@ public class Cadre extends Pane {
 		this.setPrefSize(wpref, hpref);
 	}
 	
+	/**
+     * update : Appelle la fonction update de tous ses gameobjects.
+     */
 	public void update() {
 		Iterator<GameObject> it = gameObjects.iterator();
 		while(it.hasNext()) {
@@ -42,6 +45,9 @@ public class Cadre extends Pane {
 		}
 	}
 	
+	 /**
+     * draw : Appelle la fonction draw de tous ses gameobjects.
+     */
 	public void Draw() {
 		gc.clearRect(0, 0, this.getWidth(), this.getHeight());
 		//gc.strokeRect(0, 0, this.getWidth(), this.getHeight());

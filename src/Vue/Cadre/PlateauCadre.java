@@ -7,6 +7,7 @@ import Vue.GameObject.AnimationGraphique;
 import Vue.GameObject.CibleurGraphique;
 import Vue.GameObject.OnDestroyHandler;
 import Vue.GameObject.PlateauGraphique;
+import Vue.GameObject.PoisonGaphique;
 
 public class PlateauCadre extends Cadre {
 	Plateau plateau;
@@ -19,6 +20,8 @@ public class PlateauCadre extends Cadre {
 		plateauGraphique = new PlateauGraphique(plateau,this,(int)this.getWidth()/2,(int)this.getHeight()/2,20);
 		this.gameObjects.add(plateauGraphique);
 		
+		this.gameObjects.add(new PoisonGaphique(plateauGraphique));
+		
 		cibleurGraphique = new CibleurGraphique(plateauGraphique,0,0);
 		this.gameObjects.add(cibleurGraphique);
 
@@ -30,7 +33,7 @@ public class PlateauCadre extends Cadre {
 			}
 		});
 		this.gameObjects.add(an);
-		
+				
 		this.setOnMousePressed(new ClicVuePlateau(this));
 		this.setOnMouseMoved(new SourisBougerCibleur(this, cibleurGraphique));
 	}

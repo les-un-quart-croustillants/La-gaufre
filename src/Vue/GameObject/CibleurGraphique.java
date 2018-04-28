@@ -17,7 +17,7 @@ public class CibleurGraphique extends GameObject {
 	public CibleurGraphique(PlateauGraphique plateauGraphique, int x, int y) {
 		super(x, y);
 		this.plateauGraphique = plateauGraphique;
-		caseCible = new Couple(5, 5);
+		caseCible = new Couple(-1,-1);
 		centre = new Vec2d();
 	}
 

@@ -65,8 +65,6 @@ public class PlateauGraphique extends GameObject {
 				}
 			}
 		}
-		float poisonEchelle = 0.5f;
-		gc.drawImage(Donnees.IMG_POISON, offset.x + position.x + tailleCase*poisonEchelle/2,  offset.y + position.y + tailleCase*poisonEchelle/2, tailleCase*poisonEchelle, tailleCase*poisonEchelle);
 	}
 	
 	@Override
@@ -76,7 +74,7 @@ public class PlateauGraphique extends GameObject {
 		shadow.setWidth(1);
 		gc.setEffect(shadow);
 		gc.setGlobalAlpha(0.5);
-		dessinerPlateau(gc, new Vec2d(20,20));
+		dessinerPlateau(gc, new Vec2d(tailleCase*0.2,tailleCase*0.2));
 		gc.setEffect(null);
 		gc.setGlobalAlpha(1);
 		dessinerPlateau(gc, new Vec2d(0,0));

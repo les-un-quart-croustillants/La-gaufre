@@ -20,9 +20,4 @@ public class AnimationGraphique extends GameObject{
 		}
 	}
 	
-	public static int [][]truc(int N,int M) {
-		int [][] ab = new int [N][M];
-		return ab;
-	}
-	
 }

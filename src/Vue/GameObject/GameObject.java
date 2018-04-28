@@ -9,6 +9,10 @@ public class GameObject {
 	private boolean estDetruit=false;
 	OnDestroyHandler odh;
 	
+	public GameObject() {
+		this(0,0);
+	}
+	
 	public GameObject(int x,int y) {
 		position = new Vec2d(x,y);
 	}
@@ -21,9 +25,17 @@ public class GameObject {
 		return estDetruit;
 	}
 	
+	 /**
+     * update : Méthode à surcharger pour modifier l'objet (appelee à chaque frame)
+     */
 	public void update() {
 		
 	}
+	
+	 /**
+     * draw : Méthode à surcharger pour dessiner l'objet (appelee à chaque frame)
+     *  @param gc : le context graphic.
+     */
 	public void draw(GraphicsContext gc) {
 		
 	}
@@ -32,6 +44,10 @@ public class GameObject {
 		estDetruit = true;
 	}
 	
+	/**
+     * setOnDestroyHandler: La methode handle de la classe donnee en parametre sera appelee lors de la destruction de l'objet
+     *  @param odh : l'objet contenant la methode handle.
+     */
 	public void setOnDestroyHandler(OnDestroyHandler odh) {
 		this.odh = odh;
 	}
