@@ -103,6 +103,23 @@ public class Plateau {
 	}
 
 	/**
+	 * estPoison
+	 * @param coord : les coordonnées de la case
+	 * @return : si la case est le poison ou non
+	 */
+	public boolean estPoison(Couple coord) {
+		return coord.i == 0 && coord.j == 0;
+	}
+
+	/**
+	 * getCasePoison
+	 * @return le couple de coordonnées la case poison
+	 */
+	public Couple getCasePoison() {
+		return new Couple(0,0);
+	}
+
+	/**
 	 * setCase : affecte une valeur a la case donnée
 	 * @param coord : les coordonnées de la case dans le tableau
 	 * @param value : la valeur à affecter
