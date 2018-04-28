@@ -80,6 +80,29 @@ public class Plateau {
 	}
 
 	/**
+	 * toBinary : traduit le tableau en un vecteur de bit représentant la frontière entre
+	 * la partie mangée de la gauffre et la partie restante.
+	 * @return : le vecteur de bit avec 1 signifie que la frontière remonte
+	 * et zéro qu'elle continue vers la droite.
+	 */
+	public int toBinary() {
+		int res = 0b0;
+		int i = this.hauteur -1,
+			j = 0;
+		while(i >= 0 || j < this.largeur - 1) {
+			res = res << 1;
+			if(j == this.largeur - 1 || this.tab[i][j] != 0) {
+				res = res | 1;
+				i--;
+			}
+			else {
+				j++;
+			}
+		}
+		return res;
+	}
+
+	/**
 	 * setCase : affecte une valeur a la case donnée
 	 * @param coord : les coordonnées de la case dans le tableau
 	 * @param value : la valeur à affecter

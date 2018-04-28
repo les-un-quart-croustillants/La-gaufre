@@ -68,4 +68,11 @@ public class PlateauTest {
             }
         }
     }
+
+    @Test
+    public void toBinary() {
+        Plateau p = new Plateau(3,3);
+        assertEquals(0b000111, p.toBinary());
+        assertEquals(0b011001, sujet.toBinary());
+    }
 }
