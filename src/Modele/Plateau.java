@@ -23,6 +23,20 @@ public class Plateau {
 		this.tab = initTab(largeur, hauteur);
 	}
 
+	public Plateau(int hauteur, int largeur, int [][] tab) {
+		this(hauteur, largeur, 1, tab);
+	}
+
+	public Plateau(int hauteur, int largeur, int compteurCoups, int [][] tab) {
+		this.hauteur = hauteur;
+		this.largeur = largeur;
+		this.tab = new int[this.hauteur][this.largeur];
+		this.compteurCoups = compteurCoups;
+		for (int i = 0; i < this.hauteur - 1; i++) {
+			System.arraycopy(tab[i], 0, this.tab[i], 0, tab[i].length);
+		}
+	}
+
 	private int[][] initTab(int largeur, int hauteur) {
 		int[][] tab = new int[hauteur][largeur];
 		for (int[] e : tab) {

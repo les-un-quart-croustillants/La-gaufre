@@ -28,6 +28,16 @@ public class PlateauTest {
     }
 
     @Test
+    public void constructorPlateau() {
+        Plateau p = new Plateau(sujet.hauteur(), sujet.largeur(), sujet.getCompteurCoups(), sujet.getTab());
+
+        for (int i = 0; i < sujet.hauteur() - 1; i++) {
+            for (int j = 0; j < sujet.hauteur() - 1; j++) {
+                assertEquals(sujet.getTab()[i][j], p.getTab()[i][j]);
+            }
+        }
+    }
+    @Test
     public void estMangeable() {
         assertTrue(sujet.estMangeable(new Couple(0,0)));
         assertFalse(sujet.estMangeable(new Couple(1,1)));
