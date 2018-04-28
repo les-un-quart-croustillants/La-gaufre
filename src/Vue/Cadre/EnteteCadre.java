@@ -12,7 +12,7 @@ import javafx.scene.layout.StackPane;
 
 
 public class EnteteCadre extends Cadre {
-	Label label;
+	public Label label;
 	
 	StackPane sp;
 	HBox hbox;

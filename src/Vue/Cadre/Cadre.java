@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 public class Cadre extends Pane {
 	private Canvas canvas;
 	public GraphicsContext gc;
-	ArrayList<GameObject> gameObjects;
+	public ArrayList<GameObject> gameObjects;
 	
 	public Cadre() {
 		super();
@@ -35,13 +35,13 @@ public class Cadre extends Pane {
 		Iterator<GameObject> it = gameObjects.iterator();
 		while(it.hasNext()) {
 			GameObject go = it.next();
+			go.update();
+
 			if(go.estDetruit()) {
 				it.remove();
 				go.onDestroy();
 			}
-			else {
-				go.update();
-			}
+
 		}
 	}
 	

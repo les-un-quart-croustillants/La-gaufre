@@ -3,6 +3,7 @@ package Vue.Cadre;
 import Controleur.ClicVuePlateau;
 import Controleur.SourisBougerCibleur;
 import Modele.Plateau;
+import Vue.PanePrincipal;
 import Vue.GameObject.AnimationGraphique;
 import Vue.GameObject.CibleurGraphique;
 import Vue.GameObject.OnDestroyHandler;
@@ -14,8 +15,8 @@ public class PlateauCadre extends Cadre {
 	PlateauGraphique plateauGraphique;
 	CibleurGraphique cibleurGraphique;
 		
-	private void Initialisation(Plateau p) {		
-		plateau = p;
+	private void Initialisation(PanePrincipal pp) {		
+		plateau = pp.plateau;
 		
 		plateauGraphique = new PlateauGraphique(plateau,this,(int)this.getWidth()/2,(int)this.getHeight()/2,20);
 		this.gameObjects.add(plateauGraphique);
@@ -34,18 +35,18 @@ public class PlateauCadre extends Cadre {
 		});
 		this.gameObjects.add(an);
 				
-		this.setOnMousePressed(new ClicVuePlateau(this));
+		this.setOnMousePressed(new ClicVuePlateau(pp));
 		this.setOnMouseMoved(new SourisBougerCibleur(this, cibleurGraphique));
 	}
 	
-	public PlateauCadre(Plateau p){
+	public PlateauCadre(PanePrincipal pp){
 		super();
-		Initialisation(p);
+		Initialisation(pp);
 	}
 	
-	public PlateauCadre(int wpref,int hpref, Plateau p){
+	public PlateauCadre(int wpref,int hpref, PanePrincipal pp){
 		super(wpref,hpref);
-		Initialisation(p);
+		Initialisation(pp);
 	}
 	
 	public Plateau plateau() {
