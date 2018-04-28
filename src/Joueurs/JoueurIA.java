@@ -20,7 +20,7 @@ public class JoueurIA extends Joueur {
 	 * @param d difficulte de l'IA
 	 */
 	JoueurIA (Plateau p, Difficulte d){
-		super(p);
+		super();
 		r = new Random();
 		this.difficulte = d;
 	}
@@ -31,7 +31,7 @@ public class JoueurIA extends Joueur {
 	 * 
 	 * @return True si le coup a bien ete joue, False sinon
 	 */
-	boolean jouerCoupFacile() {
+	boolean jouerCoupFacile(Plateau plateau) {
 		int i, j;
         
         i = r.nextInt(plateau.hauteur());
@@ -50,7 +50,7 @@ public class JoueurIA extends Joueur {
 	 * 
 	 * @return True si le coup a bien ete joue, False sinon
 	 */
-	boolean jouerCoupMoyen() {
+	boolean jouerCoupMoyen(Plateau plateau) {
 		return false;
 	}
 	
@@ -59,7 +59,7 @@ public class JoueurIA extends Joueur {
 	 * 
 	 * @return True si le coup a bien ete joue, False sinon
 	 */
-	boolean jouerCoupDifficile() {
+	boolean jouerCoupDifficile(Plateau plateau) {
 		return false;
 	}
 	
@@ -77,14 +77,14 @@ public class JoueurIA extends Joueur {
 	}
 	
 	@Override
-	boolean delaiEcoule() {
+	boolean prochainCoup(Plateau p) {
 		switch(this.difficulte) {
 			case FACILE:
-				return jouerCoupFacile();
+				return jouerCoupFacile(p);
 			case MOYEN:
-				return jouerCoupMoyen();
+				return jouerCoupMoyen(p);
 			case DIFFICILE:
-				return jouerCoupDifficile();
+				return jouerCoupDifficile(p);
 			default:
 				return false;
 		}
