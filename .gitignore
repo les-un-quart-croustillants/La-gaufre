@@ -26,5 +26,8 @@ hs_err_pid*
 /bin/
 .project
 
-# Classpath
+# config
 .classpath
+.project
+/bin
+/bin1/
