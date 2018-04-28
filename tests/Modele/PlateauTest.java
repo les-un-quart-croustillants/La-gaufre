@@ -1,16 +1,15 @@
-package Modele.PlateauTest;
+package Modele;
 
-import Modele.Couple;
-import Modele.Plateau;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class PlateauTest {
+public class PlateauTest {
+
     Plateau sujet;
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         sujet = new Plateau(3, 4, 4);
         sujet.setCase(new Couple(1,1), 3);
         sujet.setCase(new Couple(2,1), 3);
@@ -29,7 +28,7 @@ class PlateauTest {
     }
 
     @Test
-    void estMangeable() {
+    public void estMangeable() {
         assertTrue(sujet.estMangeable(new Couple(0,0)));
         assertFalse(sujet.estMangeable(new Couple(1,1)));
         assertFalse(sujet.estMangeable(new Couple(2,1)));
@@ -37,7 +36,7 @@ class PlateauTest {
     }
 
     @Test
-    void estSurPlateau() {
+    public void estSurPlateau() {
         System.out.println(sujet.tab[2][3]);
         assertTrue(sujet.estSurPlateau(new Couple(0, 0)));
         assertTrue(sujet.estSurPlateau(new Couple(2, 3)));
