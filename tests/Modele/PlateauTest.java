@@ -43,4 +43,29 @@ public class PlateauTest {
         assertTrue(sujet.estSurPlateau(new Couple(2, 1)));
         assertFalse(sujet.estSurPlateau(new Couple(4, 3)));
     }
+    @Test
+    public void manger() {
+        Plateau p = sujet;
+
+        Couple coord = new Couple(0,1);
+        p.manger(coord);
+        verifManger(p);
+        assertEquals(5, p.getCompteurCoups());
+        p.manger(coord);
+        verifManger(p);
+        assertEquals(5, p.getCompteurCoups());
+    }
+
+    private void verifManger(Plateau p) {
+        assertEquals(4, p.getTab()[0][1]);
+        assertEquals(4, p.getTab()[0][2]);
+        assertEquals(4, p.getTab()[0][3]);
+        for (int i = 0; i < p.hauteur(); i++) {
+            for (int j = 1; j < p.largeur(); j++) {
+                assertTrue(p.getTab()[i][j] != 0);
+                if(sujet.getTab()[i][j] == 0)
+                    assertEquals(4, p.getTab()[i][j]);
+            }
+        }
+    }
 }
