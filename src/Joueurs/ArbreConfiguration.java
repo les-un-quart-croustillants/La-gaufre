@@ -8,6 +8,10 @@ public class ArbreConfiguration {
 
 	// Constructeurs
 
+	public ArbreConfiguration() {
+		this.racine = new Noeud();
+	}
+	
 	/**
 	 * Constructeur pour une feuille
 	 *

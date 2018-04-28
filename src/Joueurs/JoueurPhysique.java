@@ -23,5 +23,4 @@ public class JoueurPhysique extends Joueur{
 	boolean estIA() {
 		return false;
 	}
-
 }

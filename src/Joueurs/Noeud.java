@@ -4,17 +4,37 @@ import java.util.LinkedList;
 
 public class Noeud {
 	private int valeur;
-	private int tag;
+	private boolean tag;
 	private Noeud pere;
 	private LinkedList<Noeud> fils;
 	
+	public Noeud() {
+		this.valeur = 0;
+		this.tag = false;
+		this.pere = null;
+		this.fils = new LinkedList<Noeud>();
+	}
+	
 	public Noeud(int v) {
 		this.valeur = v;
-		fils = new LinkedList<Noeud>();
+		this.tag = false;
+		this.pere = null;
+		this.fils = new LinkedList<Noeud>();
+	}
+	
+	public Noeud(int v, Noeud p) {
+		this.valeur = v;
+		this.tag = false;
+		this.pere = p;
+		this.fils = new LinkedList<Noeud>();
+	}
+	
+	public boolean estFeuille() {
+		return this.fils.isEmpty();
 	}
 	
 	/**
-	 * 
+	 *
 	 * @return valeur du noeud
 	 */
 	public int valeur() {
@@ -25,7 +45,7 @@ public class Noeud {
 	 * 
 	 * @return tag du noeud
  	 */
-	public int tag() {
+	public boolean tag() {
 		return this.tag;
 	}
 	
@@ -54,6 +74,16 @@ public class Noeud {
 		return this.fils.get(i);
 	}
 	
+	public LinkedList<Noeud> filsTaggue(){
+		LinkedList<Noeud> res = new LinkedList<Noeud>();
+		for(Noeud n : this.fils) {
+			if (n.tag()) {
+				res.add(n);
+			}
+		}
+		return res;
+	}
+	
 	/**
 	 * 
 	 * @param v nouvelle valeur pour le noeud
@@ -66,7 +96,7 @@ public class Noeud {
 	 * 
 	 * @param t nouveau tag pour le noeud
  	 */
-	public void setTag(int t) {
+	public void setTag(boolean t) {
 		this.tag = t; 
 	}
 	

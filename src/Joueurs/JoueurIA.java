@@ -1,5 +1,6 @@
 package Joueurs;
 
+import java.util.LinkedList;
 import java.util.Random;
 import Modele.Couple;
 import Modele.Plateau;
@@ -23,6 +24,55 @@ public class JoueurIA extends Joueur {
 		super();
 		r = new Random();
 		this.difficulte = d;
+	}
+	
+	private Couple reconstruireCoup(Plateau origin, Plateau nouveau) {
+		Couple c;
+		for(int i=0;i < origin.largeur();i++) {
+			for(int j=0;i < origin.hauteur();j++) {
+				c = new Couple(i,j);
+				if(nouveau.estMangee(c) && !origin.estMangee(c)) {
+					return c;
+				}
+			}
+		}
+		return new Couple(0,0);
+	}
+	
+	private boolean minimaxA(Noeud n) {
+		if (n.estFeuille()) {
+			// la configuration ne permet pas de jouer,
+			// le joueur B gagne
+			n.setTag(false);
+			return false;
+		} else {
+			// Le joueur A doit jouer
+			boolean tag = false;
+			// On parcours l'ensemble des coups jouables par A
+			for(Noeud fils : n.fils()) {
+				tag = tag || minimaxB(fils);
+			}
+			n.setTag(tag);
+			return tag;
+		}
+	}
+	
+	private boolean minimaxB(Noeud n) {
+		if (n.estFeuille()) {
+			// la configuration ne permet pas de jouer
+			// le joueur A gagne
+			n.setTag(true);
+			return true;
+		} else {
+			// Le joueur B doit jouer
+			boolean tag = true;
+			// On parcours l'ensemble des coups jouables par B
+			for(Noeud fils : n.fils()) {
+				tag = tag && minimaxB(fils);
+			}
+			n.setTag(tag);
+			return tag;
+		}
 	}
 	
 	/**
@@ -60,7 +110,13 @@ public class JoueurIA extends Joueur {
 	 * @return True si le coup a bien ete joue, False sinon
 	 */
 	boolean jouerCoupDifficile(Plateau plateau) {
-		return false;
+		ArbreConfiguration a = new ArbreConfiguration(); // construction de l'arbre des configurations
+		if(minimaxA(a.racine())) {
+			LinkedList<Noeud> cp = a.racine().filsTaggue();
+			return reconstruireCoup(PlateauConverter(cp.get(r.nextInt(cp.size())).valeur())); //remplacer Converter !
+		} else {
+			return false;
+		}
 	}
 	
 	@Override
