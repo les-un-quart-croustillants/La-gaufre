@@ -3,7 +3,7 @@ package Modele;
 import java.util.Arrays;
 
 public class Plateau {
-	 int [][] tab;
+	int [][] tab;
 	int compteurCoups,
 		hauteur,
 		largeur;
@@ -49,7 +49,7 @@ public class Plateau {
 				&& 0 <= coord.j && coord.j < largeur;
 	}
 
-	/** FIXME : possible redondance avec estMangeable
+	/**
 	 * estMangee : Si une case a déjà été mangée ou non
 	 * @param coord : coordonnée de la case
 	 * @return : vrai si la case a été mangée faux sinon
