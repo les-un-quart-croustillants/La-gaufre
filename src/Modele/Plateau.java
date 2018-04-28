@@ -79,7 +79,11 @@ public class Plateau {
 		return tmp == compteurCoups;
 	}
 
-	// DEBUG FONCTION
+	/**
+	 * setCase : affecte une valeur a la case donnée
+	 * @param coord : les coordonnées de la case dans le tableau
+	 * @param value : la valeur à affecter
+	 */
 	public void setCase(Couple coord, int value) {
 		this.tab[coord.i][coord.j] = value;
 	}
