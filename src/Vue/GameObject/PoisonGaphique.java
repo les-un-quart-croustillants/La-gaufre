@@ -10,6 +10,8 @@ public class PoisonGaphique extends GameObject{
 	boolean visible=true;
 	float poisonEchelle = 0.5f;
 	
+	float alpha;
+	
 	private long time;
 
 	
@@ -21,18 +23,22 @@ public class PoisonGaphique extends GameObject{
 	@Override
 	public void draw(GraphicsContext gc) {
 		if(visible) {
+			gc.setGlobalAlpha(alpha);
 			gc.drawImage(Donnees.IMG_POISON, position.x + pg.tailleCase()*poisonEchelle/2,  position.y + pg.tailleCase()*poisonEchelle/2, pg.tailleCase()*poisonEchelle, pg.tailleCase()*poisonEchelle);
+			gc.setGlobalAlpha(1);
 		}
 	}
-	
+		
 	@Override
 	public void update() {
 		position.x = pg.position().x;
 		position.y = pg.position().y;
-		if(time+delay<System.currentTimeMillis()) {
+		/*if(time+delay<System.currentTimeMillis()) {
 			visible=!visible;
 			time=System.currentTimeMillis();
-		}
+		}*/
+		alpha = (float) ((1+Math.cos((System.currentTimeMillis()-time)*5/1000.0))/2);
+		System.out.println(alpha);
 	}
 	
 }
