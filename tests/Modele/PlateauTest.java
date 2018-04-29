@@ -85,4 +85,15 @@ public class PlateauTest {
         assertEquals(0b000111, p.toBinary());
         assertEquals(0b011001, sujet.toBinary());
     }
+
+
+    @Test
+    public void equals() {
+        Plateau p = new Plateau(3,3);
+        assertFalse(p.equals(sujet));
+        p = new Plateau(3,4, 4);
+        assertFalse(p.equals(sujet));
+        p = sujet.clone();
+        assertTrue(p.equals(sujet));
+    }
 }

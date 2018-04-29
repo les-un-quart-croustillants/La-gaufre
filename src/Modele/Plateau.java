@@ -160,6 +160,17 @@ public class Plateau {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		boolean b = ((Plateau) obj).hauteur() == this.hauteur
+					&& ((Plateau) obj).largeur() == this.largeur
+					&& ((Plateau) obj).getCompteurCoups() == this.compteurCoups;
+		if (b)
+			for (int i = 0; i < this.hauteur; i++)
+				b = b && Arrays.equals(((Plateau) obj).getTab()[i], this.tab[i]);
+		return b;
+	}
+
+	@Override
 	public String toString() {
 		String res = "[\n";
 		for (int[] e : tab) {
