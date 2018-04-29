@@ -1,5 +1,6 @@
-package Modele;
+package Joueurs;
 
+import Modele;
 import java.util.LinkedList;
 import java.lang.Integer;
 
