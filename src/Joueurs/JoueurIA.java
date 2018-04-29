@@ -116,7 +116,7 @@ public class JoueurIA extends Joueur {
 	 * 
 	 * @return True si le coup a bien ete joue, False sinon
 	 */
-	boolean jouerCoupFacile(Plateau plateau) {
+	Couple jouerCoupFacile(Plateau plateau) {
 		int i, j;
         
         i = r.nextInt(plateau.hauteur());
@@ -125,8 +125,8 @@ public class JoueurIA extends Joueur {
             i = r.nextInt(plateau.hauteur());
             j = r.nextInt(plateau.largeur());
         }
-        plateau.manger(new Couple(i,j));
-        return true;
+        //plateau.manger(new Couple(i,j));
+        return new Couple(i,j);
 
 	}
 	
@@ -135,8 +135,8 @@ public class JoueurIA extends Joueur {
 	 * 
 	 * @return True si le coup a bien ete joue, False sinon
 	 */
-	boolean jouerCoupMoyen(Plateau plateau) {
-		return false;
+	Couple jouerCoupMoyen(Plateau plateau) {
+		return new Couple(-1,-1);
 	}
 	
 	/**
@@ -144,7 +144,7 @@ public class JoueurIA extends Joueur {
 	 * 
 	 * @return True si le coup a bien ete joue, False sinon
 	 */
-	boolean jouerCoupDifficile(Plateau plateau) {
+	Couple jouerCoupDifficile(Plateau plateau) {
 		ArbreConfiguration a = new ArbreConfiguration(); // construction de l'arbre des configurations
 		HashMap<Integer,Boolean> memo = new HashMap<Integer,Boolean>();
 		if(minimaxA(a.racine(),memo)) {
@@ -152,10 +152,10 @@ public class JoueurIA extends Joueur {
 			int rand = r.nextInt(cp.size()); //choix d'une solution admissible aleatoire
 			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur(),plateau.largeur(),plateau.hauteur()); //traduction de la solution en Plateau
 			Couple res = reconstruireCoup(plateau , nouveau); //traduction de la solution en Couple
-			plateau.manger(res); //Appliquer solution
-			return true;
+			//plateau.manger(res); //Appliquer solution
+			return res;
 		} else {
-			return false;
+			return jouerCoupFacile(plateau);
 		}
 	}
 	
@@ -173,7 +173,7 @@ public class JoueurIA extends Joueur {
 	}
 	
 	@Override
-	boolean prochainCoup(Plateau p) {
+	Couple prochainCoup(Plateau p) {
 		switch(this.difficulte) {
 			case FACILE:
 				return jouerCoupFacile(p);
@@ -182,7 +182,7 @@ public class JoueurIA extends Joueur {
 			case DIFFICILE:
 				return jouerCoupDifficile(p);
 			default:
-				return false;
+				return new Couple(-1,-1);
 		}
 	}
 	
