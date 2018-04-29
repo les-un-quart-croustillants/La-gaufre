@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class PlateauTest {
 
-    Plateau sujet;
+    private Plateau sujet;
     @Before
     public void setUp() {
         sujet = new Plateau(3, 4, 4);
@@ -90,14 +90,14 @@ public class PlateauTest {
     public void undo() {
         Plateau p = sujet.clone();
         p.manger(new Couple(0,1));
-        assertFalse(p.equals(sujet));
+        assertNotEquals(p, sujet);
         p.undo();
-        assertTrue(p.equals(sujet));
+        assertEquals(p, sujet);
         assertTrue(p.history.contains(new Couple(0,1)));
         p = new Plateau(3,3);
         Plateau tmp = p.clone();
         p.undo();
-        assertTrue(p.equals(tmp));
+        assertEquals(p, tmp);
         assertTrue(p.history.isEmpty());
     }
 
@@ -121,10 +121,10 @@ public class PlateauTest {
     @Test
     public void equals() {
         Plateau p = new Plateau(3,3);
-        assertFalse(p.equals(sujet));
+        assertNotEquals(p, sujet);
         p = new Plateau(3,4, 4);
-        assertFalse(p.equals(sujet));
+        assertNotEquals(p, sujet);
         p = sujet.clone();
-        assertTrue(p.equals(sujet));
+        assertEquals(p, sujet);
     }
 }
