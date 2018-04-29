@@ -102,6 +102,23 @@ public class PlateauTest {
     }
 
     @Test
+    public void redo() {
+        sujet.undo();
+        sujet.undo();
+        assertFalse(sujet.history.isEmpty());
+        assertEquals(new Couple(1,1), sujet.history.getFirst());
+        assertEquals(new Couple(1,2), sujet.history.getLast());
+        assertEquals(0, sujet.getTab()[1][1]);
+        assertEquals(0, sujet.getTab()[1][2]);
+        sujet.redo();
+        assertEquals(0, sujet.getTab()[1][1]);
+        assertEquals(2, sujet.getTab()[1][2]);
+        assertEquals(new Couple(1,1), sujet.history.getFirst());
+        sujet.redo();
+        assertEquals(3, sujet.getTab()[1][1]);
+        assertTrue(sujet.history.isEmpty());
+    }
+    @Test
     public void equals() {
         Plateau p = new Plateau(3,3);
         assertFalse(p.equals(sujet));

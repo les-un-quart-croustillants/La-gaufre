@@ -138,6 +138,11 @@ public class Plateau {
 		}
 	}
 
+	public void redo() {
+		if(!this.history.isEmpty())
+			manger(this.history.removeLast());
+	}
+
 	/**
 	 * estPoison
 	 * @param coord : les coordonnées de la case
