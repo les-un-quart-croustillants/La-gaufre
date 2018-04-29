@@ -82,8 +82,8 @@ public abstract class Joueur {
 	 * @return True si le traitement a reussi, False sinon
 	 * @author Louka Soret
 	 */
-	boolean prochainCoup(Plateau p) {
-		return false;
+	Couple prochainCoup(Plateau p) {
+		return new Couple(-2,-2);
 	}
 	
 	/**
