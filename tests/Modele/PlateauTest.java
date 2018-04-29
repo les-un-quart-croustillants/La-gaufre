@@ -91,12 +91,12 @@ public class PlateauTest {
         Plateau p = sujet.clone();
         p.manger(new Couple(0,1));
         assertNotEquals(p, sujet);
-        p.undo();
+        assertTrue(p.undo());
         assertEquals(p, sujet);
         assertTrue(p.history.contains(new Couple(0,1)));
         p = new Plateau(3,3);
         Plateau tmp = p.clone();
-        p.undo();
+        assertFalse(p.undo());
         assertEquals(p, tmp);
         assertTrue(p.history.isEmpty());
     }
@@ -110,13 +110,14 @@ public class PlateauTest {
         assertEquals(new Couple(1,2), sujet.history.getLast());
         assertEquals(0, sujet.getTab()[1][1]);
         assertEquals(0, sujet.getTab()[1][2]);
-        sujet.redo();
+        assertTrue(sujet.redo());
         assertEquals(0, sujet.getTab()[1][1]);
         assertEquals(2, sujet.getTab()[1][2]);
         assertEquals(new Couple(1,1), sujet.history.getFirst());
-        sujet.redo();
+        assertTrue(sujet.redo());
         assertEquals(3, sujet.getTab()[1][1]);
         assertTrue(sujet.history.isEmpty());
+        assertFalse(sujet.redo());
     }
     @Test
     public void equals() {

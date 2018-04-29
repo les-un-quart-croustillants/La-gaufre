@@ -119,8 +119,10 @@ public class Plateau {
 
 	/**
 	 * undo : annule la dernière action.
+	 * @return vrai si une annulation a été effectuée
+	 * faux sinon.
 	 */
-	public void undo() {
+	public boolean undo() {
 		Couple pos = new Couple(this.hauteur,this.largeur);
 		if(this.compteurCoups > 1) {
 			for (int i = 0; i < this.hauteur; i++) {
@@ -136,14 +138,21 @@ public class Plateau {
 			history.add(pos);
 			this.compteurCoups--;
 		}
+		return !pos.equals(new Couple(this.hauteur, this.largeur));
 	}
 
 	/**
 	 * redo : réapplique la dernièrre action annulée.
+	 * @return vrai si une action a été réappliquée
+	 * faux sinon.
 	 */
-	public void redo() {
-		if(!this.history.isEmpty())
+	public boolean redo() {
+		boolean b = false;
+		if(!this.history.isEmpty()) {
 			manger(this.history.removeLast());
+			b = true;
+		}
+		return b;
 	}
 
 	/**
