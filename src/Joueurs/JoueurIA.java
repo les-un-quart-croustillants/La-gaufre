@@ -26,6 +26,14 @@ public class JoueurIA extends Joueur {
 		this.difficulte = d;
 	}
 	
+	/**
+	 * Trouve le coup pour passer d'un Plateau à un autre
+	 * retourne (0,0) si le couple n'as pas ete trouve
+	 * 
+	 * @param origin Plateau avant le coup joue
+	 * @param nouveau Plateau après le coup joué
+	 * @return un Couple c la position a cliquer pour passer de origin a nouveau
+	 */
 	private Couple reconstruireCoup(Plateau origin, Plateau nouveau) {
 		Couple c;
 		for(int i=0;i < origin.largeur();i++) {
@@ -39,6 +47,13 @@ public class JoueurIA extends Joueur {
 		return new Couple(0,0);
 	}
 	
+	/**
+	 * Calcule si la configuration a la racine de l'arbre des configurations
+	 * est gagnante pour le joueur A en sachant que c'est au joeur A de jouer
+	 * 
+	 * @param n racine de l'arbre des configurations
+	 * @return true si la configuration est gagnante pour le joueur A false sinon
+	 */
 	private boolean minimaxA(Noeud n) {
 		if (n.estFeuille()) {
 			// la configuration ne permet pas de jouer,
@@ -47,6 +62,7 @@ public class JoueurIA extends Joueur {
 			return false;
 		} else {
 			// Le joueur A doit jouer
+			//ajouter fonction calcul des fils
 			boolean tag = false;
 			// On parcours l'ensemble des coups jouables par A
 			for(Noeud fils : n.fils()) {
@@ -57,6 +73,13 @@ public class JoueurIA extends Joueur {
 		}
 	}
 	
+	/**
+	 * Calcule si la configuration a la racine de l'arbre des configurations
+	 * est gagnante pour le joueur A en sachant que c'est au joeur B de jouer
+	 * 
+	 * @param n racine de l'arbre des configurations
+	 * @return true si la configuration est gagnante pour le joueur A false sinon
+	 */
 	private boolean minimaxB(Noeud n) {
 		if (n.estFeuille()) {
 			// la configuration ne permet pas de jouer
@@ -65,6 +88,7 @@ public class JoueurIA extends Joueur {
 			return true;
 		} else {
 			// Le joueur B doit jouer
+			//ajouter fonction calcul des fils
 			boolean tag = true;
 			// On parcours l'ensemble des coups jouables par B
 			for(Noeud fils : n.fils()) {
@@ -112,8 +136,12 @@ public class JoueurIA extends Joueur {
 	boolean jouerCoupDifficile(Plateau plateau) {
 		ArbreConfiguration a = new ArbreConfiguration(); // construction de l'arbre des configurations
 		if(minimaxA(a.racine())) {
-			LinkedList<Noeud> cp = a.racine().filsTaggue();
-			return reconstruireCoup(PlateauConverter(cp.get(r.nextInt(cp.size())).valeur())); //remplacer Converter !
+			LinkedList<Noeud> cp = a.racine().filsTaggue(); //recuperations des solutions
+			int rand = r.nextInt(cp.size()); //choix d'une solution admissible aleatoire
+			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur(),plateau.hauteur() ,plateau.largeur()); //traduction de la solution en Plateau
+			Couple res = reconstruireCoup(plateau , nouveau); //traduction de la solution en Couple
+			plateau.manger(res); //Appliquer solution
+			return true;
 		} else {
 			return false;
 		}
