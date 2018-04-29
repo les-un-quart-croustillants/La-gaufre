@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class PlateauTest {
 
-    Plateau sujet;
+    private Plateau sujet;
     @Before
     public void setUp() {
         sujet = new Plateau(3, 4, 4);
@@ -84,5 +84,47 @@ public class PlateauTest {
         Plateau p = new Plateau(3,3);
         assertEquals(0b000111, p.toBinary());
         assertEquals(0b011001, sujet.toBinary());
+    }
+
+    @Test
+    public void undo() {
+        Plateau p = sujet.clone();
+        p.manger(new Couple(0,1));
+        assertNotEquals(p, sujet);
+        p.undo();
+        assertEquals(p, sujet);
+        assertTrue(p.history.contains(new Couple(0,1)));
+        p = new Plateau(3,3);
+        Plateau tmp = p.clone();
+        p.undo();
+        assertEquals(p, tmp);
+        assertTrue(p.history.isEmpty());
+    }
+
+    @Test
+    public void redo() {
+        sujet.undo();
+        sujet.undo();
+        assertFalse(sujet.history.isEmpty());
+        assertEquals(new Couple(1,1), sujet.history.getFirst());
+        assertEquals(new Couple(1,2), sujet.history.getLast());
+        assertEquals(0, sujet.getTab()[1][1]);
+        assertEquals(0, sujet.getTab()[1][2]);
+        sujet.redo();
+        assertEquals(0, sujet.getTab()[1][1]);
+        assertEquals(2, sujet.getTab()[1][2]);
+        assertEquals(new Couple(1,1), sujet.history.getFirst());
+        sujet.redo();
+        assertEquals(3, sujet.getTab()[1][1]);
+        assertTrue(sujet.history.isEmpty());
+    }
+    @Test
+    public void equals() {
+        Plateau p = new Plateau(3,3);
+        assertNotEquals(p, sujet);
+        p = new Plateau(3,4, 4);
+        assertNotEquals(p, sujet);
+        p = sujet.clone();
+        assertEquals(p, sujet);
     }
 }

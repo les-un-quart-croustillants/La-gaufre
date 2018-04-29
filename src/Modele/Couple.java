@@ -21,6 +21,12 @@ public class Couple {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        return ((Couple) obj).i == this.i
+                && ((Couple) obj).j == this.j;
+    }
+
+    @Override
     public String toString() {
         return "("+ i + ","+ j + ")";
     }

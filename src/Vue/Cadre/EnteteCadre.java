@@ -2,6 +2,7 @@ package Vue.Cadre;
 
 import Vue.Donnees;
 import Vue.ImageBouton;
+import Vue.PanePrincipal;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -12,6 +13,7 @@ import javafx.scene.layout.StackPane;
 
 
 public class EnteteCadre extends Cadre {
+	PanePrincipal panePrincipal;
 	public Label label;
 	
 	StackPane sp;
@@ -24,7 +26,7 @@ public class EnteteCadre extends Cadre {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Undo");
+				panePrincipal.plateau.undo();
 			}
 		});
 		return b;
@@ -36,7 +38,7 @@ public class EnteteCadre extends Cadre {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Redo");
+				panePrincipal.plateau.redo();
 			}
 		});
 		return b;
@@ -97,7 +99,8 @@ public class EnteteCadre extends Cadre {
 		return hbox;
 	}
 	
-	private void Initialisation() {	
+	private void Initialisation(PanePrincipal pp) {	
+		this.panePrincipal = pp;
 		label = new Label("Joueur 1");
 		label.setFont(Donnees.FONT_TEXT);
 		label.setTextFill(Donnees.COULEUR_TEXT);
@@ -108,9 +111,9 @@ public class EnteteCadre extends Cadre {
 		
 	}
 	
-	public EnteteCadre(){
+	public EnteteCadre(PanePrincipal pp){
 		super();
-		Initialisation();
+		Initialisation(pp);
 	}
 	
 	@Override
@@ -126,8 +129,8 @@ public class EnteteCadre extends Cadre {
 		gc.clearRect(0, 0, this.getWidth(), this.getHeight());
 	}
 	
-	public EnteteCadre(int wpref,int hpref){
+	public EnteteCadre(int wpref,int hpref,PanePrincipal pp){
 		super(wpref,hpref);
-		Initialisation();
+		Initialisation(pp);
 	}
 }

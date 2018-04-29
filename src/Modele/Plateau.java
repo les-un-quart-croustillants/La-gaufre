@@ -1,12 +1,14 @@
 package Modele;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Plateau {
 	int [][] tab;
 	int compteurCoups,
 		hauteur,
 		largeur;
+	LinkedList<Couple> history;
 
 	public Plateau() {
 		this(10,10, 1);
@@ -21,6 +23,7 @@ public class Plateau {
 		this.hauteur = hauteur;
 		this.compteurCoups = compteurCoups;
 		this.tab = initTab(largeur, hauteur);
+		this.history = new LinkedList<>();
 	}
 
 	public Plateau(int hauteur, int largeur, int [][] tab) {
@@ -32,6 +35,7 @@ public class Plateau {
 		this.largeur = largeur;
 		this.tab = tab;
 		this.compteurCoups = compteurCoups;
+		this.history = new LinkedList<>();
 	}
 
 	private int[][] initTab(int largeur, int hauteur) {
@@ -114,6 +118,35 @@ public class Plateau {
 	}
 
 	/**
+	 * undo : annule la dernière action.
+	 */
+	public void undo() {
+		Couple pos = new Couple(this.hauteur,this.largeur);
+		if(this.compteurCoups > 1) {
+			for (int i = 0; i < this.hauteur; i++) {
+				for (int j = 0; j < this.largeur; j++) {
+					if (this.tab[i][j] == (this.compteurCoups - 1)) {
+						if(pos.i > i || pos.j > j) {
+							pos = new Couple(i, j);
+						}
+						setCase(new Couple(i, j), 0);
+					}
+				}
+			}
+			history.add(pos);
+			this.compteurCoups--;
+		}
+	}
+
+	/**
+	 * redo : réapplique la dernièrre action annulée.
+	 */
+	public void redo() {
+		if(!this.history.isEmpty())
+			manger(this.history.removeLast());
+	}
+
+	/**
 	 * estPoison
 	 * @param coord : les coordonnées de la case
 	 * @return : si la case est le poison ou non
@@ -153,6 +186,21 @@ public class Plateau {
 
 	public int getCompteurCoups() {
 		return compteurCoups;
+	}
+
+	public Plateau clone() {
+		return new Plateau(this.hauteur(), this.largeur(), this.getCompteurCoups(), this.getTab());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean b = ((Plateau) obj).hauteur() == this.hauteur
+					&& ((Plateau) obj).largeur() == this.largeur
+					&& ((Plateau) obj).getCompteurCoups() == this.compteurCoups;
+		if (b)
+			for (int i = 0; i < this.hauteur; i++)
+				b = b && Arrays.equals(((Plateau) obj).getTab()[i], this.tab[i]);
+		return b;
 	}
 
 	@Override
