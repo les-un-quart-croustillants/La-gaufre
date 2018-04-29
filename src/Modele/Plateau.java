@@ -1,12 +1,14 @@
 package Modele;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Plateau {
 	int [][] tab;
 	int compteurCoups,
 		hauteur,
 		largeur;
+	LinkedList<Couple> history;
 
 	public Plateau() {
 		this(10,10, 1);
@@ -21,6 +23,7 @@ public class Plateau {
 		this.hauteur = hauteur;
 		this.compteurCoups = compteurCoups;
 		this.tab = initTab(largeur, hauteur);
+		this.history = new LinkedList<>();
 	}
 
 	public Plateau(int hauteur, int largeur, int [][] tab) {
@@ -32,6 +35,7 @@ public class Plateau {
 		this.largeur = largeur;
 		this.tab = tab;
 		this.compteurCoups = compteurCoups;
+		this.history = new LinkedList<>();
 	}
 
 	private int[][] initTab(int largeur, int hauteur) {
@@ -111,6 +115,27 @@ public class Plateau {
 			}
 		}
 		return res;
+	}
+
+	/**
+	 * undo : annule la dernière action.
+	 */
+	public void undo() {
+		Couple pos = new Couple(this.hauteur,this.largeur);
+		if(this.compteurCoups > 1) {
+			for (int i = 0; i < this.hauteur; i++) {
+				for (int j = 0; j < this.largeur; j++) {
+					if (this.tab[i][j] == (this.compteurCoups - 1)) {
+						if(pos.i > i || pos.j > j) {
+							pos = new Couple(i, j);
+						}
+						setCase(new Couple(i, j), 0);
+					}
+				}
+			}
+			history.add(pos);
+			this.compteurCoups--;
+		}
 	}
 
 	/**

@@ -86,6 +86,20 @@ public class PlateauTest {
         assertEquals(0b011001, sujet.toBinary());
     }
 
+    @Test
+    public void undo() {
+        Plateau p = sujet.clone();
+        p.manger(new Couple(0,1));
+        assertFalse(p.equals(sujet));
+        p.undo();
+        assertTrue(p.equals(sujet));
+        assertTrue(p.history.contains(new Couple(0,1)));
+        p = new Plateau(3,3);
+        Plateau tmp = p.clone();
+        p.undo();
+        assertTrue(p.equals(tmp));
+        assertTrue(p.history.isEmpty());
+    }
 
     @Test
     public void equals() {
