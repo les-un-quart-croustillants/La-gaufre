@@ -52,7 +52,7 @@ public class TabConverter {
 			
 			boolean pass = true;
 			int curr = 0;
-			int res = 0;
+			int res = 1; // ajout d'un 1 pour ne pas perdre d'informations
 			if(tableau[N-1][M-1] == 0) return 0; // cas trivial
 			for(int i = 0; i < M && pass; i++) { // traitement de la premiere ligne
 				if(tableau[N-1][i] == 0) { 
@@ -101,6 +101,7 @@ public class TabConverter {
 					res = addbin(res,0);
 				}
 			}
+			res = addbin(res,1); // ajout d'un 1 pour ne pas perdre d'informations
 			return res;
 	    }
 		
@@ -109,25 +110,29 @@ public class TabConverter {
 	     *  Honnetement, je sais pas pourquoi la partie en haut a gauche du tableau est initialisée à 0, mais ca marche mais     
 	     *  ToTab : Traduit un int en une configuration du tableau ( O(n²) )
 	     *  @param base : l'int à traduire
-	     *  @param M :  largeur M 
-	     *  @param N :  hauteur N
 	     *  @return : un plateau contenant le tableau créé, et sa taille
 	     */
 		
-		public static Plateau ToTab(int base,int M,int N) {
+		public static Plateau ToTab(int base) {
+			LinkedList<Integer> binary = new LinkedList<>();
+			binary = intToBinary(base); // representation binaire de l'int
+
+			int osef = binary.removeFirst(); // on enleve le premier et dernier 1 de la liste (warning normal)
+			osef = binary.removeLast();
+			
+			int N=0, M=0; // on reconstruit la taille du tableau
+			for(int i = 0; i < binary.size(); i++) {
+				if(binary.get(i) == 1)
+					N++;
+				else
+					M++;
+			}
 			
 			int [][] res = new int[N][M];
-			LinkedList<Integer> binary = new LinkedList<>();
 			int curr;
 			int temp = 0;
 			boolean pass = true ; // represente le faire de ne rencontrer qu'un un par ligne
-			
-			binary = intToBinary(base); // representation binaire de l'int
-			int nbajout = N+M-binary.size();
-			
-			for(int i = 0; i< nbajout ;i++) { // on ajoute les bits non significatifs du INT qui nous interessent
-				binary.addFirst(0);
-			}
+
 			int i = N-1; // on remplit depuis la derniere ligne 
 			temp = 0;
 			//System.out.println(binary);
@@ -158,20 +163,111 @@ public class TabConverter {
 			
 			return new Plateau(N,M,res);
 		}
+		
 	    /**
 	     * IntToBinary : traduit un int en une linkedlist
 	     *  @param base : l'int à traduire
 	     *  @return : une linked list contenant le binaire de l'int donne
 	     */
-		public static LinkedList<Integer> intToBinary(int base)
-		{
+		public static LinkedList<Integer> intToBinary(int base){
 		    LinkedList<Integer> res = new LinkedList<>();
 		    while (base > 0)
 		    {
 		        res.addFirst((base % 2 ) == 0 ? 0 : 1);
 		        base = base / 2;
 		    }
+
 		    return res;
 		}
-
+		
+	    /**
+	     * binaryToInt : traduit un int en une linkedlist
+	     *  @param bin : la linked list a traduire
+	     *  @return : le int correspondant
+	     */
+		public static int binaryToInt(LinkedList<Integer> bin) {
+		    int res = 0;
+		    for( int i = 0; i < bin.size() ; i++){
+		    	if(bin.get(i) == 0) {
+		        	res = res << 1;
+		        }
+		        else {
+		        	res = res << 1;
+		        	res++;
+		        }
+		    }
+		    return res;
+		}
+		
+		public static int nbunfun(LinkedList<Integer> bin) {
+			int M = 0;
+		    for( int i = 0; i < bin.size() ; i++){
+		        if(bin.get(i) == 1) {
+		        	M++;
+		        }
+		    }
+		    return M;
+		}
+		public static  int nbzerofun(LinkedList<Integer> bin) {
+			int M = 0;
+		    for (int i = 0; i < bin.size() ; i++){
+		        if(bin.get(i) == 0) {
+		        	M++;
+		        }
+		    }
+		    return M;
+		}
+		
+		
+		public static void FilsNoeud (Noeud N) {
+			LinkedList<Noeud> filsN = new LinkedList<Noeud>(); // la linked list de fils a integrer
+			LinkedList<Integer> vector = new LinkedList<Integer>(); // la linked list de la representation binaire de la valeur du noeud
+			LinkedList<Integer> max = new LinkedList<Integer>(); // la linked list de la representation binaire du vecteur de bit maximal
+			LinkedList<Integer> current = new LinkedList<Integer>(); // la linked list de la representation binaire de l'entier traité
+			LinkedList<Integer> tmp = new LinkedList<Integer>();
+			int nbzero = 0; // nombre de 0 de la representation binaire de la valeur de N
+			int nbun = 0; // nombre de 1 de la representation binaire de la valeur de N
+			
+			vector = intToBinary(N.valeur()); // valeur binaire de la valeur du noeud N
+			
+			int osef = vector.removeFirst(); // on enleve le premier et dernier 1 de la liste (warning normal)
+			osef = vector.removeLast();
+			
+			nbun = nbunfun(vector);
+			nbzero = nbzerofun(vector);
+			
+			int newNval = binaryToInt(vector);
+			System.out.println("le vecteur initial : "+ vector +" son int = "+ newNval);
+			
+			for(int i = 0; i < nbun; i++) { // calcul du vecteur binaire maximal
+				max.addLast(1);
+			}
+			for(int i = 0; i < nbzero; i++) {
+				max.addLast(0);
+			}
+			int intmax = binaryToInt(max); // et de son INT correspondant
+			
+			System.out.println("le vecteur maximal : "+ max +" et son int : "+ intmax);
+			System.out.println("fils : ");
+			int sorti = 0;
+			for(int i = 0; i < vector.size(); i++) {
+				sorti = vector.get(i);
+				if(sorti == 1) {
+					tmp = (LinkedList<Integer>) vector.clone(); // je sais pas enlever le warning
+					tmp.set(i, 0);
+					for(int j = 0; j < i; j++) {
+						if(j != i && tmp.get(j) == 0) {
+							current = (LinkedList<Integer>) tmp.clone();// je sais pas enlever le warning
+							current.set(j, 1);
+							if( binaryToInt(current) <= intmax && binaryToInt(current) > newNval ) {
+								System.out.println("le vecteur courant : "+ current +" et son int : "+ binaryToInt(current));
+								filsN.add(new Noeud(binaryToInt(current), N));
+							}	
+						}
+					}
+				}
+			}
+			N.setFils(filsN); // assignation des fils
+			
+		}	
 }
