@@ -1,6 +1,6 @@
 package Joueurs;
 
-import Modele;
+import Modele.Plateau;
 import java.util.LinkedList;
 import java.lang.Integer;
 
