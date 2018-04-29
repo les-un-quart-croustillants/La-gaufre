@@ -38,6 +38,17 @@ public class Plateau {
 		this.history = new LinkedList<>();
 	}
 
+	public Plateau(int hauteur, int largeur, int [][] tab) {
+		this(hauteur, largeur, 1, tab);
+	}
+
+	public Plateau(int hauteur, int largeur, int compteurCoups, int [][] tab) {
+		this.hauteur = hauteur;
+		this.largeur = largeur;
+		this.tab = tab;
+		this.compteurCoups = compteurCoups;
+	}
+
 	private int[][] initTab(int largeur, int hauteur) {
 		int[][] tab = new int[hauteur][largeur];
 		for (int[] e : tab) {
