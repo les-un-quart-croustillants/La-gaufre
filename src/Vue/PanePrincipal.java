@@ -28,7 +28,7 @@ public class PanePrincipal extends GridPane {
 		plateau = new Plateau(6,8);
 		
 		gameView = new PlateauCadre(800,600, this);
-		enteteView = new EnteteCadre(100,50);
+		enteteView = new EnteteCadre(100,50, this);
 		infoView = new InfoCadre(100,50);
 		
 		moteur=new Moteur(this);
