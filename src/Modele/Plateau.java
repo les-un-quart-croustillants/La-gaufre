@@ -155,6 +155,10 @@ public class Plateau {
 		return compteurCoups;
 	}
 
+	public Plateau clone() {
+		return new Plateau(this.hauteur(), this.largeur(), this.getCompteurCoups(), this.getTab());
+	}
+
 	@Override
 	public String toString() {
 		String res = "[\n";
