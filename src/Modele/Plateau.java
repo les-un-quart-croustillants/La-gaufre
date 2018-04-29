@@ -138,6 +138,9 @@ public class Plateau {
 		}
 	}
 
+	/**
+	 * redo : réapplique la dernièrre action annulée.
+	 */
 	public void redo() {
 		if(!this.history.isEmpty())
 			manger(this.history.removeLast());
