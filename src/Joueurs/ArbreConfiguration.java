@@ -1,32 +1,35 @@
 package Joueurs;
 
+import java.util.LinkedList;
+
 public class ArbreConfiguration {
-	private int valeur;
-	private ArbreConfiguration fg, fd;
+	
+	private Noeud racine;
 
 	// Constructeurs
 
+	public ArbreConfiguration() {
+		this.racine = new Noeud();
+	}
+	
 	/**
 	 * Constructeur pour une feuille
 	 *
 	 * @param  v  	Valeur entiere
 	 */
 	public ArbreConfiguration(int v) {
-		this.valeur = v;
+		this.racine = new Noeud(v);
 	}
 
 	/**
-	 * Constructeur pour un arbre avec pour etiquette de racine v, pour sous arbre gauche g
-	 * et pour sous arbre droit d
+	 * Constructeur pour un arbre
 	 * 
-	 * @param v		Valeur de la racine
-	 * @param g		Sous arbre gauche
-	 * @param d		Sous arbre droit
+	 * @param v valeur du noeud a la racine
+	 * @param l liste des fils de la racine
 	 */
-	public ArbreConfiguration(int v, ArbreConfiguration g, ArbreConfiguration d) {
-		this.valeur = v;
-		this.fg = g;
-		this.fd = d;
+	public ArbreConfiguration(int v, LinkedList<Noeud> l) {
+		this.racine = new Noeud(v);
+		racine.setFils(l);
 	}
 	
 	/**
@@ -34,30 +37,7 @@ public class ArbreConfiguration {
 	 * 
 	 * @return valeur de l'etiquette de la racine
 	 */
-	public int valeur() {
-		return this.valeur;
-	}
-
-	@Override
-	public String toString() {
-		return toString("\t");
-	}
-
-	/**
-	 * construction de l'affichage recurcif d'un arbre dans la sortie standard 
-	 * 
-	 * @param s type de separateur
-	 * @return chaine de characteres contenant l'affichage cree
-	 */
-	public String toString(String s) {
-		if (fg != null) {
-			if (fd != null)
-				return (s + valeur + "\n" + fg.toString(s + "\t") + fd.toString(s + "\t"));
-			else
-				return (s + valeur + "\n" + fg.toString(s + "\t") + "\n");
-		} else if (fd != null)
-			return (s + valeur + "\n\n" + fd.toString(s + "\t"));
-		else
-			return (s + valeur + "\n");
+	public Noeud racine() {
+		return this.racine;
 	}
 }

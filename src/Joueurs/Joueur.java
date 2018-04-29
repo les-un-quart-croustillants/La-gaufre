@@ -9,15 +9,22 @@ import Modele.Plateau;
  *
  */
 public abstract class Joueur {
-	Plateau plateau;
-	int num;
-
 	
+	/**
+	 * 
+	 * @author Louka Soret
+	 *
+	 */
 	public enum Difficulte {
 		FACILE,
 		MOYEN,
 		DIFFICILE;
 		
+		/**
+		 * 
+		 * @param d
+		 * @return d traduis en chaine de charactere
+		 */
 		static public String toString (Difficulte d) {
 			switch(d) {
 				case FACILE:
@@ -31,6 +38,11 @@ public abstract class Joueur {
 			}
 		}
 		
+		/**
+		 * 
+		 * @param s
+		 * @return la difficulte corespondante a s
+		 */
 		static public Difficulte fromString (String s) {
 			switch(s) {
 				case "facile":
@@ -48,37 +60,50 @@ public abstract class Joueur {
 	 * Constructeur pour la classe Joueur
 	 * 
 	 * @param p un plateau de jeu
+	 * @author Louka Soret
 	 */
-	Joueur(Plateau p) {
-	        plateau = p;
-	    }
+	Joueur() {
+	 }
 
 	/**
 	 * Méthode appelée lorsque le tour d'un joueur vient
 	 * 
 	 * @return un temps à attendre en millisecondes ou 0 si aucune temporisation requise
+	 * @author Louka Soret
 	 */
 	int delai() {
 		return 0;
 	}
 
 	/**
-	 * Méthode appelée une fois le temps écoulé
+	 * Méthode appelée une fois le temps écoulé, calcule et joue un coup 
+	 * selon la difficulte actuelle
 	 * 
 	 * @return True si le traitement a reussi, False sinon
+	 * @author Louka Soret
 	 */
-	boolean delaiEcoule() {
-		return false;
+	Couple prochainCoup(Plateau p) {
+		return new Couple(-2,-2);
 	}
-
+	
 	/**
 	 * Méthode appelée lors d'un clic sur le plateau
 	 * 
 	 * @param i absisse
 	 * @param j ordonnée
 	 * @return True si le coup a bien été joué, False si le coup n'était pas jouable
+	 * @author Louka Soret
 	 */
-	boolean jouerCoup(Couple pos) {
+	boolean jouerCoup(Plateau p, Couple pos) {
 		return false;
+	}
+	
+	/**
+	 * 
+	 * @return true si le joueur est une IA false sinon
+	 * @author Louka Soret
+	 */
+	boolean estIA() {
+		return true;
 	}
 }
