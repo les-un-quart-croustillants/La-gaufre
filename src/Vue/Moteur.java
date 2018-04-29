@@ -1,7 +1,9 @@
-package Modele;
+package Vue;
 
+import Modele.Couple;
 import Modele.Plateau;
-import Vue.GameObject.PlateauGraphique;
+import Vue.GameObject.AnimationGraphique;
+import Vue.GameObject.OnDestroyHandler;
 
 public class Moteur {
 	public enum FSA_state {
@@ -14,16 +16,35 @@ public class Moteur {
 		}
 	}
 	
-	PlateauGraphique pg;
-	Plateau p;
-	FSA_state etat_courant;
-	int joueur_courant;
+	public Plateau plateau;
+	public PanePrincipal panePrincipal;
+	private FSA_state etat_courant;
+	private int joueur_courant;
 	
 	// Joueur [] joueurs;
 	
-	public void jouer_un_coup(Couple c) {
-		p.manger(c);
-		joueur_courant = (joueur_courant + 1) % 2;
+	public Moteur(PanePrincipal pp) {
+		this.panePrincipal= pp;
+		etat_courant=FSA_state.PLAYER;
+	}
+	
+	public boolean jouer_un_coup(Couple c) {
+		if(panePrincipal.plateau.manger(c)) {
+			joueur_courant = (joueur_courant + 1) % 2;
+			next_state();
+			long delay = 10; //attente en ms
+			AnimationGraphique an = new AnimationGraphique(delay);//ceci est un exemple
+			an.setOnDestroyHandler(new OnDestroyHandler() {
+				@Override
+				public void handle() {
+					next_state();
+					panePrincipal.enteteView.label.setText("Joueur "+(joueur_courant()+1));
+				}
+			});
+			panePrincipal.gameView.gameObjects.add(an);
+			return true;
+		}
+		return false;
 	}
 	
 	public void update() {
@@ -57,4 +78,12 @@ public class Moteur {
 			break;
 		}
 	}
+	
+	public int joueur_courant() {
+		return joueur_courant;
+	}
+	public FSA_state etat_courant() {
+		return etat_courant;
+	}
+
 }

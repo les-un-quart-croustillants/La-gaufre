@@ -15,18 +15,24 @@ import Vue.Cadre.PlateauCadre;
 
 public class PanePrincipal extends GridPane {
 
-	Cadre gameView;
-	Cadre enteteView;
-	Cadre infoView;
+	public PlateauCadre gameView;
+	public EnteteCadre enteteView;
+	public Cadre infoView;
 	
-	public Plateau plateau;
+	public Plateau plateau;	
+	public Moteur moteur;
 
 	public PanePrincipal(){
 		super();
 		
-		gameView = new PlateauCadre(800,600, new Plateau(6,8));
+		plateau = new Plateau(6,8);
+		
+		gameView = new PlateauCadre(800,600, this);
 		enteteView = new EnteteCadre(100,50);
 		infoView = new InfoCadre(100,50);
+		
+		moteur=new Moteur(this);
+
 
 		//Mise en place des Pane à la bonne position
 		GridPane.setConstraints(enteteView,0,0);
@@ -53,6 +59,7 @@ public class PanePrincipal extends GridPane {
 
 	//Cette fonction destiné à la mise à jour est appelée une fois par frame
 	void Update() {
+		moteur.update();
 		gameView.update();
 		enteteView.update();
 		infoView.update();
