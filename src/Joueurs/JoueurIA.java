@@ -150,7 +150,7 @@ public class JoueurIA extends Joueur {
 		if(minimaxA(a.racine(),memo)) {
 			LinkedList<Noeud> cp = a.racine().filsTaggue(); //recuperations des solutions
 			int rand = r.nextInt(cp.size()); //choix d'une solution admissible aleatoire
-			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur(),plateau.largeur(),plateau.hauteur()); //traduction de la solution en Plateau
+			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur()); //traduction de la solution en Plateau
 			Couple res = reconstruireCoup(plateau , nouveau); //traduction de la solution en Couple
 			//plateau.manger(res); //Appliquer solution
 			return res;
