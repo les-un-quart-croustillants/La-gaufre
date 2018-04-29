@@ -3,7 +3,7 @@ package Modele;
 import java.util.Arrays;
 
 public class Plateau {
-	 int [][] tab;
+	int [][] tab;
 	int compteurCoups,
 		hauteur,
 		largeur;
@@ -21,6 +21,17 @@ public class Plateau {
 		this.hauteur = hauteur;
 		this.compteurCoups = compteurCoups;
 		this.tab = initTab(largeur, hauteur);
+	}
+
+	public Plateau(int hauteur, int largeur, int [][] tab) {
+		this(hauteur, largeur, 1, tab);
+	}
+
+	public Plateau(int hauteur, int largeur, int compteurCoups, int [][] tab) {
+		this.hauteur = hauteur;
+		this.largeur = largeur;
+		this.tab = tab;
+		this.compteurCoups = compteurCoups;
 	}
 
 	private int[][] initTab(int largeur, int hauteur) {
@@ -49,7 +60,7 @@ public class Plateau {
 				&& 0 <= coord.j && coord.j < largeur;
 	}
 
-	/** FIXME : possible redondance avec estMangeable
+	/**
 	 * estMangee : Si une case a déjà été mangée ou non
 	 * @param coord : coordonnée de la case
 	 * @return : vrai si la case a été mangée faux sinon
@@ -76,7 +87,7 @@ public class Plateau {
 			}
 			compteurCoups++;
 		}
-		return tmp == compteurCoups;
+		return tmp != compteurCoups;
 	}
 
 	/**
@@ -100,6 +111,23 @@ public class Plateau {
 			}
 		}
 		return res;
+	}
+
+	/**
+	 * estPoison
+	 * @param coord : les coordonnées de la case
+	 * @return : si la case est le poison ou non
+	 */
+	public boolean estPoison(Couple coord) {
+		return coord.i == 0 && coord.j == 0;
+	}
+
+	/**
+	 * getCasePoison
+	 * @return le couple de coordonnées la case poison
+	 */
+	public Couple getCasePoison() {
+		return new Couple(0,0);
 	}
 
 	/**
