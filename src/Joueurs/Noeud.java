@@ -5,6 +5,7 @@ import java.util.LinkedList;
 public class Noeud {
 	private int valeur;
 	private boolean tag;
+	private int heuristic;
 	private Noeud pere;
 	private LinkedList<Noeud> fils;
 	
@@ -29,8 +30,22 @@ public class Noeud {
 		this.fils = new LinkedList<Noeud>();
 	}
 	
+	/**
+	 * Test pour savoir si le noeud est une feuille
+	 * 
+	 * @return true si le noeud est une feuille false sinon
+	 */
 	public boolean estFeuille() {
 		return this.fils.isEmpty();
+	}
+	
+	/**
+	 * retourne la valeur heuristique du noeud
+	 * 
+	 * @return le champ heuristic du noeud
+	 */
+	public int heuristic() {
+		return this.heuristic;
 	}
 	
 	/**
@@ -90,6 +105,15 @@ public class Noeud {
 	 */
 	public void setValeur(int v) {
 		this.valeur = v;
+	}
+	
+	/**
+	 * Change la valeur de l'heuristique
+	 * 
+	 * @param h nouvelle heuristique
+	 */
+	public void setHeuristic(int h) {
+		this.heuristic = h;
 	}
 	
 	/**
