@@ -24,8 +24,9 @@ public class ClicVuePlateau implements EventHandler<MouseEvent> {
 			float i, j;
 			i = (float) ((event.getY() - pc.plateauGraphique().position().y) / pc.plateauGraphique().tailleCase());
 			j =  (float) ((event.getX() - pc.plateauGraphique().position().x) / pc.plateauGraphique().tailleCase());
-			if(moteur.etat_courant()==FSA_state.PLAYER ) {
-				moteur.jouer_un_coup(new Couple((int)i,(int)j));
+			if(moteur.etat_courant()==FSA_state.CHOISIR_COUP && !moteur.joueur_courant().estIA() && i>=0 && j>=0) {
+				if(pp.plateau.manger(new Couple((int)i,(int)j)))
+					moteur.setEtatCourant(FSA_state.FIN_COUP);
 			}
 		}
 

@@ -5,7 +5,7 @@ import Modele.Plateau;
 
 public class JoueurPhysique extends Joueur{
 	
-	JoueurPhysique(){
+	public JoueurPhysique(){
 		super();
 	}
 	
@@ -20,7 +20,7 @@ public class JoueurPhysique extends Joueur{
 	}
 	
 	@Override
-	boolean estIA() {
+	public boolean estIA() {
 		return false;
 	}
 }

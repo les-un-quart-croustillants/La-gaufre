@@ -1,89 +1,167 @@
 package Vue;
 
+import Joueurs.Joueur;
+import Joueurs.JoueurIA;
+import Joueurs.JoueurPhysique;
 import Modele.Couple;
 import Modele.Plateau;
-import Vue.GameObject.AnimationGraphique;
-import Vue.GameObject.OnDestroyHandler;
+import Vue.GameObject.CibleurGraphique;
+import javafx.scene.paint.Color;
 
 public class Moteur {
 	public enum FSA_state {
-		WAIT(0), PLAYER(1);
-		
+		DEBUT_TOUR(0), CHOISIR_COUP(1), CASE_CIBLE(2), FIN_COUP(3), FIN_TOUR(4), FIN_PARTIE(5);
+
 		public int value;
-		
+
 		FSA_state(int value) {
 			this.value = value;
 		}
 	}
-	
+
 	public Plateau plateau;
 	public PanePrincipal panePrincipal;
+
 	private FSA_state etat_courant;
-	private int joueur_courant;
-	
-	// Joueur [] joueurs;
-	
+	private int i_joueur_courant;
+	private long timeA;
+	private float vitesseDelais = 1f;
+	private int delayDebutIA = (int) (250 / vitesseDelais);
+	private int delayEntreTour = (int) (250 / vitesseDelais);
+	private int delayCiblage = (int) (500 / vitesseDelais);
+	private Joueur[] joueurs;
+	private Color[] couleursJoueurs;
+	private CibleurGraphique cibleur;
+	private Couple coupIA;
+
 	public Moteur(PanePrincipal pp) {
-		this.panePrincipal= pp;
-		etat_courant=FSA_state.PLAYER;
+		this.panePrincipal = pp;
+		etat_courant = FSA_state.DEBUT_TOUR;
+		joueurs = new Joueur[2];
+		joueurs[0] = new JoueurPhysique();
+		// joueurs[0] = new JoueurIA(panePrincipal.plateau,
+		// Joueur.Difficulte.FACILE);
+		joueurs[1] = new JoueurIA(panePrincipal.plateau, Joueur.Difficulte.FACILE);
+		joueurs[1] = new JoueurPhysique();
+		couleursJoueurs = new Color[2];
+		couleursJoueurs[0] = new Color(100f / 255f, 160f / 255f, 50f / 255f, 1);
+		couleursJoueurs[1] = new Color(230f / 255f, 60f / 255f, 60f / 255f, 1);
+		cibleur = new CibleurGraphique(panePrincipal.gameView.plateauGraphique(), 0, 0);
+		panePrincipal.gameView.gameObjects.add(cibleur);
+		panePrincipal.enteteView.label.setText(nom_joueur(i_joueur_courant));
+		panePrincipal.enteteView.label.setTextFill(couleur_courante());
 	}
-	
-	public boolean jouer_un_coup(Couple c) {
-		if(panePrincipal.plateau.manger(c)) {
-			joueur_courant = (joueur_courant + 1) % 2;
-			next_state();
-			long delay = 10; //attente en ms
-			AnimationGraphique an = new AnimationGraphique(delay);//ceci est un exemple
-			an.setOnDestroyHandler(new OnDestroyHandler() {
-				@Override
-				public void handle() {
-					next_state();
-					panePrincipal.enteteView.label.setText("Joueur "+(joueur_courant()+1));
-				}
-			});
-			panePrincipal.gameView.gameObjects.add(an);
-			return true;
-		}
-		return false;
-	}
-	
+
 	public void update() {
-		switch(etat_courant) {
-		case WAIT:
-			// On attend que l'interface graphique fasse son animation
+		switch (etat_courant) {
+		case DEBUT_TOUR:
+			if (!joueurs[i_joueur_courant].estIA() || timeA + delayDebutIA < System.currentTimeMillis()) {
+				etat_courant = FSA_state.CHOISIR_COUP;
+				cibleur.setCouleur(couleur_courante());
+			}
+			if (!joueurs[i_joueur_courant].estIA()) {
+				panePrincipal.gameView.cibleurGraphique().setCouleur(couleur_courante());
+			}
 			break;
-		case PLAYER:
-			/* Pas encore utilisable, on n'a pas pour l'instant de moyen de discriminer un joueur IA ou joueur humain
-			// Ici on remplacera l'ancien Plateau contenu dans PlateauGraphique par le Plateau actuel (modifié par le précedent coup)
-			if(joueurs[joueur_courant].est_joueur_humain()) {
-				// On attend que l'interface graphique fasse son animation
-				// L'intergace graphique s'occupe dans ce cas de faire évoluer l'était du FSA
-			} else {
-				// On fait joueur l'IA
-				jouer_un_coup(joueurs.prochain_coup());
-				next_state();
-			}*/
+		case CHOISIR_COUP:
+			if (joueurs[i_joueur_courant].estIA()
+					&& panePrincipal.plateau.estMangeable(panePrincipal.plateau.getCasePoison())) {
+				coupIA = joueurs[i_joueur_courant].prochainCoup(panePrincipal.plateau);
+				cibleur.setCaseCible(coupIA);
+				etat_courant = FSA_state.CASE_CIBLE;
+				timeA = System.currentTimeMillis();
+			}
+			break;
+		case CASE_CIBLE:
+			if (timeA + delayCiblage < System.currentTimeMillis()) {
+				cibleur.setCaseCible(new Couple(-1, -1));
+				panePrincipal.plateau.manger(coupIA);
+				etat_courant = FSA_state.FIN_COUP;
+			}
+			break;
+
+		case FIN_COUP:
+			timeA = System.currentTimeMillis();
+			etat_courant = FSA_state.FIN_TOUR;
+			break;
+		case FIN_TOUR:
+			if (timeA + delayEntreTour < System.currentTimeMillis()) {
+				if (!panePrincipal.plateau.estMangeable(panePrincipal.plateau.getCasePoison()))
+					etat_courant = FSA_state.FIN_PARTIE;
+				else
+					etat_courant = FSA_state.DEBUT_TOUR;
+				timeA = System.currentTimeMillis();
+				joueur_suivant();
+			}
+			break;
+		case FIN_PARTIE:
 			break;
 		}
 	}
-	
-	public void next_state() {
-		switch(etat_courant) {
-		case WAIT:
-			etat_courant = FSA_state.PLAYER;
-			break;
-		case PLAYER:
-			etat_courant = FSA_state.WAIT;
-			
-			break;
-		}
+
+	public void setEtatCourant(FSA_state s) {
+		etat_courant = s;
 	}
-	
-	public int joueur_courant() {
-		return joueur_courant;
+
+	public Joueur joueur_courant() {
+		return joueurs[i_joueur_courant];
 	}
+
 	public FSA_state etat_courant() {
 		return etat_courant;
+	}
+
+	public Color couleur_courante() {
+		return couleursJoueurs[i_joueur_courant];
+	}
+
+	private String nom_joueur(int n) {
+		if (joueurs[0].estIA() && joueurs[1].estIA()) {
+			return "Ordinateur " + (n + 1);
+		} else if (!joueurs[0].estIA() && !joueurs[1].estIA()) {
+			return "Joueur " + (n + 1);
+		} else {
+			if (joueurs[n].estIA())
+				return "Ordinateur";
+			else
+				return "Joueur";
+		}
+	}
+
+	private void joueur_suivant() {
+		i_joueur_courant = 1 - i_joueur_courant;
+		panePrincipal.enteteView.label.setText(nom_joueur(i_joueur_courant));
+		panePrincipal.enteteView.label.setTextFill(couleur_courante());
+	}
+
+	public void undo() {
+		if (!joueurs[i_joueur_courant].estIA()) {
+			if (joueurs[1 - i_joueur_courant].estIA()) {
+				panePrincipal.plateau.undo();
+				panePrincipal.plateau.undo();
+			} else {
+				if (panePrincipal.plateau.undo())
+					joueur_suivant();
+			}
+			etat_courant = FSA_state.CHOISIR_COUP;
+		}
+	}
+
+	public void redo() {
+		if (!joueurs[i_joueur_courant].estIA()) {
+			if (joueurs[1 - i_joueur_courant].estIA()) {
+				panePrincipal.plateau.redo();
+				panePrincipal.plateau.redo();
+			} else {
+				if (panePrincipal.plateau.redo())
+					joueur_suivant();
+			}
+			etat_courant = FSA_state.CHOISIR_COUP;
+		}
+	}
+
+	public void setVitesseDelais(float v) {
+		vitesseDelais = v;
 	}
 
 }

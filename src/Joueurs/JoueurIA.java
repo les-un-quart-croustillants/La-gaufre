@@ -21,7 +21,7 @@ public class JoueurIA extends Joueur {
 	 * @param p plateau de jeu
 	 * @param d difficulte de l'IA
 	 */
-	JoueurIA (Plateau p, Difficulte d){
+	public JoueurIA (Plateau p, Difficulte d){
 		super();
 		r = new Random();
 		this.difficulte = d;
@@ -160,7 +160,7 @@ public class JoueurIA extends Joueur {
 	}
 	
 	@Override
-	int delai() {
+	public int delai() {
 		switch(this.difficulte) {
 			case FACILE: 
 			case MOYEN:
@@ -173,7 +173,7 @@ public class JoueurIA extends Joueur {
 	}
 	
 	@Override
-	Couple prochainCoup(Plateau p) {
+	public Couple prochainCoup(Plateau p) {
 		switch(this.difficulte) {
 			case FACILE:
 				return jouerCoupFacile(p);
