@@ -6,7 +6,6 @@ import javafx.geometry.Pos;
 import javafx.event.*;
 
 public class PaneMenu extends VBox {
-	private Button nouvelle_partie, charger, quitter;
 	private MenuAction choix = MenuAction.NOTHING;
 	
 	public enum MenuAction {
@@ -23,9 +22,9 @@ public class PaneMenu extends VBox {
 		super();
 		this.setAlignment(Pos.CENTER);
 		this.getStylesheets().add("menu.css");
-		nouvelle_partie = creer_bouton_nouvelle_partie();
-		charger = creer_bouton_charger();
-		quitter = creer_bouton_quitter();
+		creer_bouton_nouvelle_partie();
+		creer_bouton_charger();
+		creer_bouton_quitter();
 	}
 	
 	PaneMenu(double width, double height) {
@@ -33,9 +32,9 @@ public class PaneMenu extends VBox {
 		super();
 		this.setAlignment(Pos.CENTER);
 		this.getStylesheets().add("menu.css");
-		nouvelle_partie = creer_bouton_nouvelle_partie();
-		charger = creer_bouton_charger();
-		quitter = creer_bouton_quitter();
+		creer_bouton_nouvelle_partie();
+		creer_bouton_charger();
+		creer_bouton_quitter();
 		this.setMinSize(width, height);
 	}
 	

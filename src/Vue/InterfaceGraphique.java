@@ -4,11 +4,10 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import Vue.PaneMenu.MenuAction;
 
 public class InterfaceGraphique extends Application {
 	public enum Appli_state {
-		MENU(0), NEW_GAME(1), LOAD(2), QUIT(3);
+		MENU(0), NEW_GAME(1), LOAD(2);
 		
 		public int value;
 		
