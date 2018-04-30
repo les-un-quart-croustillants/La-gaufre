@@ -354,7 +354,8 @@ public class TabConverter {
 						int curr = ToInt(new Plateau(hauteur,largeur,simule));
 						Noeud Aadd = new Noeud(curr,N);
 						filsN.add(Aadd);
-						Aadd.setHeuristic(Heuristique.calcule_heuristique(Aadd));
+						// ligne qu'on va devoir ajouter soon
+						//Aadd.setHeuristic(Heuristique.calcule_heuristique(Aadd));
 					}
 				}
 			}
