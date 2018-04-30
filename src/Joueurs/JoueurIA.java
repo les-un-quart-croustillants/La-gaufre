@@ -14,6 +14,7 @@ import Modele.Plateau;
 public class JoueurIA extends Joueur {
 	Random r;
 	Difficulte difficulte;
+	HashMap<Integer,Integer> memo;
 	
 	/**
 	 * Constructeur d'une IA pour une difficulte donnee
@@ -25,6 +26,7 @@ public class JoueurIA extends Joueur {
 		super();
 		r = new Random();
 		this.difficulte = d;
+		this.memo = new HashMap<Integer,Integer>();
 	}
 	
 	/**
@@ -164,9 +166,8 @@ public class JoueurIA extends Joueur {
 	 */
 	Couple jouerCoupDifficile(Plateau plateau) {
 		ArbreConfiguration a = new ArbreConfiguration(TabConverter.ToInt(plateau)); // construction de l'arbre des configurations
-		HashMap<Integer,Integer> memo = new HashMap<Integer,Integer>();
 		int profondeur = evaluerProfondeur(plateau);
-		if(minimaxA(a.racine(),memo,profondeur) > 0) {
+		if(minimaxA(a.racine(),this.memo,profondeur) > 0) {
 			LinkedList<Noeud> cp = a.racine().filsTaggue(); //recuperations des solutions
 			int rand = r.nextInt(cp.size()); //choix d'une solution admissible aleatoire
 			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur()); //traduction de la solution en Plateau
