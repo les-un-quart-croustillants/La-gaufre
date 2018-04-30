@@ -28,7 +28,7 @@ public class InterfaceGraphique extends Application {
 	public void start(Stage primaryStage) throws Exception {	
 		PanePrincipal gp = new PanePrincipal();
 		PaneMenu m = new PaneMenu(gp.getWidth(), gp.getHeight());
-        Scene partie = new Scene(gp, 800, 600);
+        //Scene partie = new Scene(gp, 800, 600);
         Scene menu = new Scene(m, 800, 600);
         primaryStage.setScene(menu);  
 		primaryStage.show();
@@ -42,6 +42,7 @@ public class InterfaceGraphique extends Application {
 				case MENU:
 					switch(m.Choix()) {
 					case NEW_GAME:
+						Scene partie = new Scene(gp, m.getWidth(), m.getHeight());
 						primaryStage.setScene(partie);
 						etat = Appli_state.NEW_GAME;
 						return;
