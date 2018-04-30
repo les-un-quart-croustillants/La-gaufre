@@ -38,8 +38,8 @@ public class JoueurIA extends Joueur {
 	private Couple reconstruireCoup(Plateau origin, Plateau nouveau) {
 		Couple c;
 		for(int i=0;i < origin.largeur();i++) {
-			for(int j=0;i < origin.hauteur();j++) {
-				c = new Couple(i,j);
+			for(int j=0;j < origin.hauteur();j++) {
+				c = new Couple(j,i);
 				if(nouveau.estMangee(c) && !origin.estMangee(c)) {
 					return c;
 				}
@@ -56,22 +56,24 @@ public class JoueurIA extends Joueur {
 	 * @return true si la configuration est gagnante pour le joueur A false sinon
 	 */
 	private boolean minimaxA(Noeud n, HashMap<Integer,Boolean> r) {
+		TabConverter.FilsNoeud (n);	//calcul des fils
 		if (n.estFeuille()) {
 			// la configuration ne permet pas de jouer,
 			// le joueur B gagne
-			r.put(n.valeur(), false);
-			n.setTag(false);
-			return false;
+			
+			r.put(n.valeur(), true);
+			n.setTag(true);
+			return true;
 		} else {
 			// Le joueur A doit jouer
-				//ajouter fonction calcul des fils ici
 			boolean tag = false;
 			// On parcours l'ensemble des coups jouables par A
 			for(Noeud fils : n.fils()) {
+				boolean curr = minimaxB(fils, r);
 				if(! r.containsKey(fils.valeur())) { // Si fils n'as pas encore ete calcule, le faire et mettre a jour r
-					r.put(fils.valeur(), minimaxB(fils, r));
+					r.put(fils.valeur(), curr);
 				}
-				tag = tag || r.get(fils.valeur());
+				tag = r.get(fils.valeur()) || tag;
 			}
 			r.put(n.valeur(), tag);
 			n.setTag(tag);
@@ -87,20 +89,21 @@ public class JoueurIA extends Joueur {
 	 * @return true si la configuration est gagnante pour le joueur A false sinon
 	 */
 	private boolean minimaxB(Noeud n,HashMap<Integer,Boolean> r) {
+		TabConverter.FilsNoeud (n);	//calcul des fils
 		if (n.estFeuille()) {
 			// la configuration ne permet pas de jouer
 			// le joueur A gagne
-			r.put(n.valeur(), true);
-			n.setTag(true);
-			return true;
+			r.put(n.valeur(), false);
+			n.setTag(false);
+			return false;
 		} else {
 			// Le joueur B doit jouer
-				//ajouter fonction calcul des fils ici
 			boolean tag = true;
 			// On parcours l'ensemble des coups jouables par B
 			for(Noeud fils : n.fils()) {
+				boolean curr = minimaxA(fils, r);
 				if(! r.containsKey(fils.valeur())) { // Si fils n'as pas encore ete calcule, le faire et mettre a jour r
-					r.put(fils.valeur(), minimaxA(fils, r));
+					r.put(fils.valeur(), curr);
 				}
 				tag = tag && r.get(fils.valeur());
 			}
@@ -145,7 +148,7 @@ public class JoueurIA extends Joueur {
 	 * @return True si le coup a bien ete joue, False sinon
 	 */
 	Couple jouerCoupDifficile(Plateau plateau) {
-		ArbreConfiguration a = new ArbreConfiguration(); // construction de l'arbre des configurations
+		ArbreConfiguration a = new ArbreConfiguration(TabConverter.ToInt(plateau)); // construction de l'arbre des configurations
 		HashMap<Integer,Boolean> memo = new HashMap<Integer,Boolean>();
 		if(minimaxA(a.racine(),memo)) {
 			LinkedList<Noeud> cp = a.racine().filsTaggue(); //recuperations des solutions
