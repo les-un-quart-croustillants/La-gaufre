@@ -1,30 +1,32 @@
 package Controleur;
 
 import Modele.Couple;
-import Modele.Plateau;
-import Vue.PlateauGraphique;
+import Vue.Moteur;
+import Vue.PanePrincipal;
+import Vue.Moteur.FSA_state;
+import Vue.Cadre.PlateauCadre;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 public class ClicVuePlateau implements EventHandler<MouseEvent> {
 
-	PlateauGraphique gv;
-	Plateau p;
+	PanePrincipal pp;
 
-	public ClicVuePlateau(PlateauGraphique gv, Plateau p) {
-		this.gv = gv;
-		this.p = p;
+	public ClicVuePlateau(PanePrincipal pp) {
+		this.pp = pp;
 	}
 
 	@Override
 	public void handle(MouseEvent event) {
 		if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
+			PlateauCadre pc = pp.gameView;
+			Moteur moteur = pp.moteur;
 			float i, j;
-			i = (float) ((event.getY() - gv.origine.y) / gv.tailleCase);
-			j =  (float) ((event.getX() - gv.origine.x) / gv.tailleCase);
-			p.manger(new Couple((int)i,(int)j));
-			//p.notifier();
-			//System.out.println(i+" "+j);
+			i = (float) ((event.getY() - pc.plateauGraphique().position().y) / pc.plateauGraphique().tailleCase());
+			j =  (float) ((event.getX() - pc.plateauGraphique().position().x) / pc.plateauGraphique().tailleCase());
+			if(moteur.etat_courant()==FSA_state.PLAYER ) {
+				moteur.jouer_un_coup(new Couple((int)i,(int)j));
+			}
 		}
 
 	}
