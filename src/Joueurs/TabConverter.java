@@ -352,12 +352,12 @@ public class TabConverter {
 					if(tableau[i][j] == 0) {
 						int[][] simule = simule_coup(tableau,i,j,largeur,hauteur);
 						int curr = ToInt(new Plateau(hauteur,largeur,simule));
-						filsN.add(new Noeud(curr,N));
+						Noeud Aadd = new Noeud(curr,N);
+						filsN.add(Aadd);
+						Aadd.setHeuristic(Heuristique.calcule_heuristique(Aadd));
 					}
 				}
 			}
-			
 			N.setFils(filsN); // assignation des fils
-			
 		}	
 }
