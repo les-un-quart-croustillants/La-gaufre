@@ -48,6 +48,18 @@ public class JoueurIA extends Joueur {
 		return new Couple(0,0);
 	}
 	
+	private int evaluerProfondeur(Plateau p) {
+		return 1000;
+	}
+	
+	private int evaluerA(int p) {
+		return 1000;
+	}
+	
+	private int evaluerB(int p) {
+		return 0;
+	}
+	
 	/**
 	 * Calcule si la configuration a la racine de l'arbre des configurations
 	 * est gagnante pour le joueur A en sachant que c'est au joeur A de jouer
@@ -55,29 +67,30 @@ public class JoueurIA extends Joueur {
 	 * @param n racine de l'arbre des configurations
 	 * @return true si la configuration est gagnante pour le joueur A false sinon
 	 */
-	private boolean minimaxA(Noeud n, HashMap<Integer,Boolean> r) {
+	private int minimaxA(Noeud n, HashMap<Integer,Integer> r, int profondeur) {
 		TabConverter.FilsNoeud (n);	//calcul des fils
-		if (n.estFeuille()) {
+		int heuristique;
+		if (n.estFeuille() || profondeur == 0) {
 			// la configuration ne permet pas de jouer,
 			// le joueur B gagne
-			
-			r.put(n.valeur(), true);
-			n.setTag(true);
-			return true;
+			heuristique = evaluerA(n.valeur()); 
+			r.put(n.valeur(), heuristique);
+			n.setHeuristic(heuristique);
+			return heuristique;
 		} else {
 			// Le joueur A doit jouer
-			boolean tag = false;
+			heuristique = 0;
 			// On parcours l'ensemble des coups jouables par A
 			for(Noeud fils : n.fils()) {
-				boolean curr = minimaxB(fils, r);
+				int curr = minimaxB(fils, r, profondeur-1);
 				if(! r.containsKey(fils.valeur())) { // Si fils n'as pas encore ete calcule, le faire et mettre a jour r
 					r.put(fils.valeur(), curr);
 				}
-				tag = r.get(fils.valeur()) || tag;
+				heuristique = Math.max(heuristique,r.get(fils.valeur()));
 			}
-			r.put(n.valeur(), tag);
-			n.setTag(tag);
-			return tag;
+			r.put(n.valeur(), heuristique);
+			n.setHeuristic(heuristique);
+			return heuristique;
 		}
 	}
 	
@@ -88,28 +101,30 @@ public class JoueurIA extends Joueur {
 	 * @param n racine de l'arbre des configurations
 	 * @return true si la configuration est gagnante pour le joueur A false sinon
 	 */
-	private boolean minimaxB(Noeud n,HashMap<Integer,Boolean> r) {
+	private int minimaxB(Noeud n,HashMap<Integer,Integer> r, int profondeur) {
 		TabConverter.FilsNoeud (n);	//calcul des fils
-		if (n.estFeuille()) {
+		int heuristique;
+		if (n.estFeuille() || profondeur == 0) {
 			// la configuration ne permet pas de jouer
 			// le joueur A gagne
-			r.put(n.valeur(), false);
-			n.setTag(false);
-			return false;
+			heuristique = evaluerB(n.valeur());
+			r.put(n.valeur(), heuristique);
+			n.setHeuristic(heuristique);
+			return heuristique;
 		} else {
 			// Le joueur B doit jouer
-			boolean tag = true;
+			heuristique = 1000; // + infini
 			// On parcours l'ensemble des coups jouables par B
 			for(Noeud fils : n.fils()) {
-				boolean curr = minimaxA(fils, r);
+				int curr = minimaxA(fils, r, profondeur-1);
 				if(! r.containsKey(fils.valeur())) { // Si fils n'as pas encore ete calcule, le faire et mettre a jour r
 					r.put(fils.valeur(), curr);
 				}
-				tag = tag && r.get(fils.valeur());
+				heuristique = Math.min(heuristique,r.get(fils.valeur()));
 			}
-			r.put(n.valeur(), tag);
-			n.setTag(tag);
-			return tag;
+			r.put(n.valeur(), heuristique);
+			n.setHeuristic(heuristique);
+			return heuristique;
 		}
 	}
 	
@@ -149,8 +164,9 @@ public class JoueurIA extends Joueur {
 	 */
 	Couple jouerCoupDifficile(Plateau plateau) {
 		ArbreConfiguration a = new ArbreConfiguration(TabConverter.ToInt(plateau)); // construction de l'arbre des configurations
-		HashMap<Integer,Boolean> memo = new HashMap<Integer,Boolean>();
-		if(minimaxA(a.racine(),memo)) {
+		HashMap<Integer,Integer> memo = new HashMap<Integer,Integer>();
+		int profondeur = evaluerProfondeur(plateau);
+		if(minimaxA(a.racine(),memo,profondeur) > 0) {
 			LinkedList<Noeud> cp = a.racine().filsTaggue(); //recuperations des solutions
 			int rand = r.nextInt(cp.size()); //choix d'une solution admissible aleatoire
 			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur()); //traduction de la solution en Plateau
