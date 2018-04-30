@@ -7,12 +7,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class CibleurGraphique extends GameObject {
-	PlateauGraphique plateauGraphique;
-	Couple caseCible;
-	boolean visible;
-	Vec2d centre;
-	int largeurCibleur=0;
-	int hauteurCibleur=0;
+	private PlateauGraphique plateauGraphique;
+	private Couple caseCible;
+	private boolean visible;
+	private Vec2d centre;
+	private int largeurCibleur=0;
+	private int hauteurCibleur=0;
+	private Color couleur = new Color(1,1,1,1);
 
 	public CibleurGraphique(PlateauGraphique plateauGraphique, int x, int y) {
 		super(x, y);
@@ -26,6 +27,10 @@ public class CibleurGraphique extends GameObject {
 		caseCible.j = c.j;
 	}
 
+	public void setCouleur(Color c) {
+		couleur = c;
+	}
+	
 	int largeurCibleur() {
 		int j=0;
 		for(j=caseCible.j;j<plateauGraphique.plateau().largeur() && plateauGraphique.plateau().estMangeable(new Couple(caseCible.i,j));j++);
@@ -49,14 +54,16 @@ public class CibleurGraphique extends GameObject {
 	@Override
 	public void draw(GraphicsContext gc) {
 		if (visible) {
-			gc.setStroke(Color.WHITE);
+			gc.setStroke(couleur);
+			gc.setFill(couleur);
 			gc.setLineWidth(plateauGraphique.tailleCase()*0.05);
 			gc.strokeRoundRect(caseCible.j * plateauGraphique.tailleCase() + plateauGraphique.position().x,
 					caseCible.i * plateauGraphique.tailleCase() + plateauGraphique.position().y,
 					plateauGraphique.tailleCase(), plateauGraphique.tailleCase(),plateauGraphique.tailleCase()*0.2,plateauGraphique.tailleCase()*0.2);
-			gc.setFill(new Color(1,1,1,0.5));
+			gc.setGlobalAlpha(0.5);
 			gc.fillRect(caseCible.j * plateauGraphique.tailleCase() + plateauGraphique.position().x,
 					caseCible.i * plateauGraphique.tailleCase() + plateauGraphique.position().y, plateauGraphique.tailleCase() * largeurCibleur,plateauGraphique.tailleCase() * hauteurCibleur);
+			gc.setGlobalAlpha(1);
 			gc.setLineWidth(1);
 
 		}

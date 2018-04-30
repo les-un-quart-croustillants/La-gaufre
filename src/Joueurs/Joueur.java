@@ -71,7 +71,7 @@ public abstract class Joueur {
 	 * @return un temps à attendre en millisecondes ou 0 si aucune temporisation requise
 	 * @author Louka Soret
 	 */
-	int delai() {
+	public int delai() {
 		return 0;
 	}
 
@@ -82,7 +82,7 @@ public abstract class Joueur {
 	 * @return True si le traitement a reussi, False sinon
 	 * @author Louka Soret
 	 */
-	Couple prochainCoup(Plateau p) {
+	public Couple prochainCoup(Plateau p) {
 		return new Couple(-2,-2);
 	}
 	
@@ -103,7 +103,7 @@ public abstract class Joueur {
 	 * @return true si le joueur est une IA false sinon
 	 * @author Louka Soret
 	 */
-	boolean estIA() {
+	public boolean estIA() {
 		return true;
 	}
 }

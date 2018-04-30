@@ -26,7 +26,7 @@ public class EnteteCadre extends Cadre {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				panePrincipal.plateau.undo();
+				panePrincipal.moteur.undo();
 			}
 		});
 		return b;
@@ -38,7 +38,7 @@ public class EnteteCadre extends Cadre {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				panePrincipal.plateau.redo();
+				panePrincipal.moteur.redo();
 			}
 		});
 		return b;

@@ -36,7 +36,7 @@ public class PlateauCadre extends Cadre {
 		this.gameObjects.add(an);
 				
 		this.setOnMousePressed(new ClicVuePlateau(pp));
-		this.setOnMouseMoved(new SourisBougerCibleur(this, cibleurGraphique));
+		this.setOnMouseMoved(new SourisBougerCibleur(pp, cibleurGraphique));
 	}
 	
 	public PlateauCadre(PanePrincipal pp){
@@ -54,6 +54,9 @@ public class PlateauCadre extends Cadre {
 	}
 	public PlateauGraphique plateauGraphique() {
 		return plateauGraphique;
+	}
+	public CibleurGraphique cibleurGraphique() {
+		return cibleurGraphique;
 	}
 
 }
