@@ -35,7 +35,8 @@ public class Moteur {
 
 	public Moteur(PanePrincipal pp) {
 		this.panePrincipal = pp;
-		etat_courant = FSA_state.DEBUT_TOUR;
+		etat_courant = FSA_state.FIN_TOUR;
+		i_joueur_courant=1;
 		joueurs = new Joueur[2];
 		joueurs[0] = new JoueurPhysique();
 		joueurs[1] = new JoueurPhysique();
@@ -96,6 +97,8 @@ public class Moteur {
 			}
 			break;
 		case FIN_PARTIE:
+			ConfirmationPopup c = new ConfirmationPopup(null, null);
+			panePrincipal.getChildren().add(c);
 			break;
 		}
 	}
@@ -128,7 +131,11 @@ public class Moteur {
 				return "Joueur";
 		}
 	}
-
+	
+	public String nom_joueur_courant() {
+		return nom_joueur(i_joueur_courant);
+	}
+	
 	private void joueur_suivant() {
 		i_joueur_courant = 1 - i_joueur_courant;
 		panePrincipal.enteteView.label.setText(nom_joueur(i_joueur_courant));

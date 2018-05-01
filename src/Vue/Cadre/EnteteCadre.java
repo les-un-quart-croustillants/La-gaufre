@@ -132,7 +132,7 @@ public class EnteteCadre extends Cadre {
 	
 	private void Initialisation(PanePrincipal pp) {	
 		this.panePrincipal = pp;
-		label = new Label("Joueur 1");
+		label = new Label();
 		label.setFont(Donnees.FONT_TEXT);
 		label.setTextFill(Donnees.COULEUR_TEXT);
 		
