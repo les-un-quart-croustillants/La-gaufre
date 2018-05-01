@@ -44,6 +44,10 @@
 	-fx-background-position: center;
 }
 
+.loadbtn {
+	-fx-background-image: url("logo_load_night.png");
+}
+
 .gamebtn:hover {
 	-fx-background-size: 100%;
 	-fx-effect:  none;

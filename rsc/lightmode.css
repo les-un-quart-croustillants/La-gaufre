@@ -30,13 +30,17 @@
 }
 
 .savebtn {
-	-fx-background-image: url("logo_save.png");	
+	-fx-background-image: url("logo_save.png");
 }
 
 .gamebtn {
 	-fx-background-size: 80%;
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;
+}
+
+.loadbtn {
+	-fx-background-image: url("logo_load.png");
 }
 
 .gamebtn:hover {

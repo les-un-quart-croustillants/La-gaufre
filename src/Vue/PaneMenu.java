@@ -34,7 +34,7 @@ public class PaneMenu extends VBox {
 		this.setAlignment(Pos.CENTER);
 		this.getStylesheets().add("lightmode.css");
 		creer_bouton_nouvelle_partie();
-		creer_bouton_charger();
+		creer_bouton_regles();
 		creer_bouton_quitter();
 		creer_mode();
 		creer_bouton_style();
@@ -47,7 +47,7 @@ public class PaneMenu extends VBox {
 		this.setAlignment(Pos.CENTER);
 		this.getStylesheets().add(css);
 		creer_bouton_nouvelle_partie();
-		creer_bouton_charger();
+		creer_bouton_regles();
 		creer_bouton_quitter();
 		creer_mode();
 		creer_bouton_style();
@@ -79,8 +79,8 @@ public class PaneMenu extends VBox {
 		this.getChildren().add(choix_general);
 	}
 	
-	private void creer_bouton_charger() {
-		Button tmp = new Button("Charger");
+	private void creer_bouton_regles() {
+		Button tmp = new Button("Règles");
 		tmp.setFont(Donnees.FONT_TEXT);
 		choix_general.getChildren().add(tmp);
 	}

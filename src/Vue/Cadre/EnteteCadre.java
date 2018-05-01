@@ -91,7 +91,7 @@ public class EnteteCadre extends Cadre {
 	
 	private Button creerBoutonCharger() {
 		Button b = new Button();
-		b.getStyleClass().add("savebtn");
+		b.getStyleClass().add("loadbtn");
 		b.getStyleClass().add("gamebtn");
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			
