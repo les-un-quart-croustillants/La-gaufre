@@ -48,13 +48,10 @@ public class Heuristique {
 			 * qui est perdant
 			 */
 			if(tabcurrent[0][0] > 0) {
-				System.out.println("1000 B 1");
 				return 1000;
 				
 			}
 			if((tabcurrent[0][1] == 0 && tabcurrent[1][0] > 0 ) || (tabcurrent[1][0] == 0 && tabcurrent[0][1] > 0))  {
-				System.out.println("0 B 1");
-
 				return 0;
 
 			}
@@ -92,7 +89,7 @@ public class Heuristique {
 			if(tabcurrent[0][0] > 0) {
 				return 0;	
 			}
-			
+
 			return 10;
 		}
 }
