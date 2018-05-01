@@ -46,7 +46,7 @@ public class InterfaceGraphique extends Application {
 				case MENU:
 					switch(m.Choix()) {
 					case NEW_GAME:
-						gp = new PanePrincipal(m.height, m.width, m.get_css());
+						gp = new PanePrincipal(m.height, m.width,m.get_css());
 						gp.moteur.remplacerJoueur(m.joueur1, m.joueur2);
 						Scene partie = new Scene(gp, m.getWidth(), m.getHeight());
 						primaryStage.setScene(partie);
