@@ -283,7 +283,6 @@ public class JoueurIA extends Joueur {
 		HashMap<Integer,Integer> memo = new HashMap<Integer,Integer>();
 		int profondeur = evaluerProfondeur(plateau);
 		if(minimaxA(a.racine(),memo,profondeur) > 0) {
-			System.out.println("heur racine : "+a.racine().heuristic() );
 			LinkedList<Noeud> cp;
 			if(( a.racine().filsTaggue().size()) != 0) {
 				cp = a.racine().filsTaggue(); //recuperations des solutions
