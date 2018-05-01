@@ -1,14 +1,19 @@
 package Vue.Cadre;
 
+import Vue.ConfirmationPopup;
 import Vue.Donnees;
 
 import java.io.IOException;
 
 import Vue.ImageBouton;
+import Vue.InterfaceGraphique;
+import Vue.InterfaceGraphique.Appli_state;
+import Vue.PaneMenu;
 import Vue.PanePrincipal;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -71,7 +76,24 @@ public class EnteteCadre extends Cadre {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Retour");
+				ConfirmationPopup c = new ConfirmationPopup(null,null);
+				panePrincipal.getChildren().add(c);
+				EventHandler<ActionEvent> non = new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						panePrincipal.getChildren().remove(c);
+					}
+				};
+				EventHandler<ActionEvent> oui = new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						InterfaceGraphique.etat=Appli_state.MENU;
+						InterfaceGraphique.m = new PaneMenu(panePrincipal.getWidth(),panePrincipal.getHeight());
+						InterfaceGraphique.primaryStage.setScene(new Scene(InterfaceGraphique.m));
+					}
+				};
+				c.setOuiAction(oui);
+				c.setNonAction(non);
 			}
 		});
 		return b;
