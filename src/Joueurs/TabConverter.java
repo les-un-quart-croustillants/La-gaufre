@@ -133,8 +133,8 @@ public class TabConverter {
 			binary = intToBinary(base); // representation binaire de l'int
 
 			if(binary.size() >= 2) {
-				int osef = binary.removeFirst(); // on enleve le premier et dernier 1 de la liste (warning normal)
-				osef = binary.removeLast();
+				binary.removeFirst(); // on enleve le premier et dernier 1 de la liste (warning normal)
+				binary.removeLast();
 			}
 			int N=0, M=0; // on reconstruit la taille du tableau
 			for(int i = 0; i < binary.size(); i++) {
@@ -294,8 +294,8 @@ public class TabConverter {
 			vector = intToBinary(N.valeur()); // valeur binaire de la valeur du noeud N
 			
 			if(vector.size() >= 2) {
-				int osef = vector.removeFirst(); // on enleve le premier et dernier 1 de la liste (warning normal)
-				osef = vector.removeLast();
+				vector.removeFirst(); // on enleve le premier et dernier 1 de la liste (warning normal)
+				vector.removeLast();
 			}
 			
 			nbun = nbunfun(vector);
