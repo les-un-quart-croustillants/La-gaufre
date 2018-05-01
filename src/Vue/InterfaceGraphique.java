@@ -28,8 +28,8 @@ public class InterfaceGraphique extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		gp = new PanePrincipal();
-		PaneMenu m = new PaneMenu(800, 600);
-        Scene menu = new Scene(m, 800, 600);
+		PaneMenu m = new PaneMenu(1000, 800);
+        Scene menu = new Scene(m, 1000, 800);
         primaryStage.setScene(menu);  
 		primaryStage.show();
 		primaryStage.setMinHeight(400);

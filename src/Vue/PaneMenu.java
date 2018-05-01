@@ -125,7 +125,7 @@ public class PaneMenu extends VBox {
 		plusheight.setFont(Donnees.FONT_TEXT);
 		minusheight.setFont(Donnees.FONT_TEXT);
 		
-		accept.setFont(Donnees.FONT_TEXT);
+		accept.setFont(Donnees.FONT_PLAY);
 		back.setFont(Donnees.FONT_TEXT);
 		
 		difficultej1.setFont(Donnees.FONT_TEXT);

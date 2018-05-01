@@ -9,6 +9,7 @@ public abstract class Donnees {
 	public static Color COULEUR_TEXT = new Color(37f/255f,37f/255f,37f/255f,1);
 	
 	public static Font FONT_TEXT = Font.loadFont(ClassLoader.getSystemClassLoader().getResourceAsStream("LuckiestGuy.ttf"), 42);
+	public static Font FONT_PLAY = Font.loadFont(ClassLoader.getSystemClassLoader().getResourceAsStream("LuckiestGuy.ttf"), 72);
 
 	public static String GAUFRE_M = "gaufreM.png";
 	public static String GAUFRE_BD = "gaufreBD.png";
