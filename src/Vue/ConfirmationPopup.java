@@ -18,11 +18,12 @@ public class ConfirmationPopup extends StackPane {
 	
 	VBox vbox;
 	HBox hbox;
-	String str="Retourner au menu?";
+	String str;
 	EventHandler<ActionEvent> ouiAction;
 	EventHandler<ActionEvent> nonAction;
 
-	public ConfirmationPopup(EventHandler<ActionEvent> oui, EventHandler<ActionEvent> non) {
+	public ConfirmationPopup(String str,String strOui, String strNon, EventHandler<ActionEvent> oui, EventHandler<ActionEvent> non) {
+		this.str = str;
 		vbox = new VBox();
 		vbox.getChildren().add(creer_label(str));
 
@@ -37,7 +38,7 @@ public class ConfirmationPopup extends StackPane {
 	
 		ouiAction = oui;
 		nonAction = non;
-		hbox = creer_hbox();
+		hbox = creer_hbox(strOui,strNon);
 		vbox.getChildren().add(hbox);
 	}
 	
@@ -49,24 +50,24 @@ public class ConfirmationPopup extends StackPane {
 		return l;
 	}
 	
-	private HBox creer_hbox() {
+	private HBox creer_hbox(String strOui, String strNon) {
 		HBox h = new HBox();
 		h.setAlignment(Pos.CENTER);
-		h.getChildren().add(creer_bouton_oui());
-		h.getChildren().add(creer_bouton_non());
+		h.getChildren().add(creer_bouton_oui(strOui));
+		h.getChildren().add(creer_bouton_non(strNon));
 		return h;
 	}
 	
-	private Button creer_bouton_oui() {
-		Button tmp = new Button("Oui");
+	private Button creer_bouton_oui(String strOui) {
+		Button tmp = new Button(strOui);
 		tmp.setFont(Donnees.FONT_TEXT);
 		this.getChildren().add(tmp);
 		tmp.setOnAction(ouiAction);
 		return tmp; 
 	}
 	
-	private Button creer_bouton_non() {
-		Button tmp = new Button("Non");
+	private Button creer_bouton_non(String strNon) {
+		Button tmp = new Button(strNon);
 		tmp.setFont(Donnees.FONT_TEXT);
 		this.getChildren().add(tmp);
 		tmp.setOnAction(nonAction);

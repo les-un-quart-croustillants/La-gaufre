@@ -76,7 +76,7 @@ public class EnteteCadre extends Cadre {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				ConfirmationPopup c = new ConfirmationPopup(null,null);
+				ConfirmationPopup c = new ConfirmationPopup("Retourner au menu?","Oui","Non",null,null);
 				panePrincipal.getChildren().add(c);
 				EventHandler<ActionEvent> non = new EventHandler<ActionEvent>() {
 					@Override

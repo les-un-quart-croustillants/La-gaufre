@@ -12,6 +12,7 @@ import Vue.GameObject.PoisonGaphique;
 
 public class PlateauCadre extends Cadre {
 	Plateau plateau;
+	PoisonGaphique poison;
 	PlateauGraphique plateauGraphique;
 	CibleurGraphique cibleurGraphique;
 		
@@ -21,7 +22,8 @@ public class PlateauCadre extends Cadre {
 		plateauGraphique = new PlateauGraphique(plateau,this,(int)this.getWidth()/2,(int)this.getHeight()/2,20);
 		this.gameObjects.add(plateauGraphique);
 		
-		this.gameObjects.add(new PoisonGaphique(plateauGraphique));
+		poison = new PoisonGaphique(plateauGraphique);
+		this.gameObjects.add(poison);
 		
 		cibleurGraphique = new CibleurGraphique(plateauGraphique,0,0);
 		this.gameObjects.add(cibleurGraphique);
@@ -57,6 +59,9 @@ public class PlateauCadre extends Cadre {
 	}
 	public CibleurGraphique cibleurGraphique() {
 		return cibleurGraphique;
+	}
+	public PoisonGaphique getPoison() {
+		return poison;
 	}
 
 }
