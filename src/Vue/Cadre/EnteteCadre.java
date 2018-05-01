@@ -1,6 +1,9 @@
 package Vue.Cadre;
 
 import Vue.Donnees;
+
+import java.io.IOException;
+
 import Vue.ImageBouton;
 import Vue.PanePrincipal;
 import javafx.event.ActionEvent;
@@ -51,6 +54,12 @@ public class EnteteCadre extends Cadre {
 			@Override
 			public void handle(ActionEvent event) {
 				System.out.println("Sauvegarder");
+				try {
+					panePrincipal.plateau.saveGame();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		return b;

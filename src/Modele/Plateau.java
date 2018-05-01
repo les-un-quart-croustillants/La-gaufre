@@ -1,5 +1,10 @@
 package Modele;
 
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -211,7 +216,75 @@ public class Plateau {
 				b = b && Arrays.equals(((Plateau) obj).getTab()[i], this.tab[i]);
 		return b;
 	}
-
+	/**
+	 * saveGame : sauvegarde la partie dans un fichier txt
+	 * @throws IOException 
+	 */
+	public void saveGame() throws IOException {
+		FileOutputStream f= new FileOutputStream("savedGameLaGaufre.txt");
+		OutputStreamWriter obs= new OutputStreamWriter(f,"UTF8");
+		int h = this.hauteur();
+		obs.write(h + "\n");
+		System.out.print(this.hauteur()+ "\n");
+		obs.write(this.largeur()+ "\n");
+		System.out.print(this.largeur() + "\n");
+		obs.write(this.compteurCoups + "\n");
+		System.out.print(this.getCompteurCoups() + "\n");
+		for(int i = 0;i<this.hauteur();i++) {
+			for(int j = 0;j<this.largeur();j++) {
+				obs.write(this.tab[i][j] + "\n");
+				System.out.print(this.tab[i][j]);
+			}
+			System.out.print(" fin de la ligne\n");
+			obs.write("\n");
+		}
+		for(int i=0;i<this.history.size();i++) {
+			Couple c = history.get(i);
+			obs.write(c.getI() + "\n");
+			System.out.print("\n"+ c.getI() +"+");
+			obs.write(c.getJ() + "\n");
+			System.out.print(c.getI());
+		}
+        obs.close();
+        f.close();
+	}
+	
+	/**
+	 * loadGame : load la partie dans un fichier txt
+	 * @throws ClassNotFoundException 
+	 * @throws IOException 
+	 * @throws NumberFormatException 
+	 */
+	public void loadGame() throws ClassNotFoundException, NumberFormatException, IOException {
+			BufferedReader load =
+				new BufferedReader(new FileReader("savedGameLaGaufre.txt"));
+			
+			this.hauteur = Integer.parseInt(load.readLine());
+			this.largeur = Integer.parseInt(load.readLine());
+			this.compteurCoups = Integer.parseInt(load.readLine());
+			System.out.print("hauteur" + this.hauteur()+ "\n");
+			System.out.print("largeur" + this.largeur()+ "\n");
+			System.out.print("compteurCoups" + this.compteurCoups+ "\n");
+			for(int i=0;i<this.hauteur;i++) {
+				for(int j=0;j<this.largeur;j++) {
+					this.tab[i][j]=Integer.parseInt(load.readLine());
+					System.out.print(this.tab[i][j]);
+				}
+				load.readLine();
+				System.out.print(" fin de la ligne \n");
+			}
+			this.history = new LinkedList<>();
+			int x=-1,y=-1;
+			Couple pos = new Couple(this.hauteur,this.largeur);
+			while(load.readLine()!=null) {
+				x = Integer.parseInt(load.readLine());
+				y = Integer.parseInt(load.readLine());
+				pos = new Couple(x, y);
+				history.add(pos);
+				System.out.print("couple"+ x + y +"\n");
+			}
+			load.close();
+	}
 	@Override
 	public String toString() {
 		String res = "[\n";
