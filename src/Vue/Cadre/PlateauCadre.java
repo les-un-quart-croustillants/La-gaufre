@@ -30,7 +30,6 @@ public class PlateauCadre extends Cadre {
 		an.setOnDestroyHandler(new OnDestroyHandler() {
 			@Override
 			public void handle() {
-				System.out.println("coucou");
 			}
 		});
 		this.gameObjects.add(an);
