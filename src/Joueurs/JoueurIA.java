@@ -166,12 +166,16 @@ public class JoueurIA extends Joueur {
 	 */
 	Couple jouerCoupFacile(Plateau plateau) {
 		int i, j;
-        
+        int count = 0;
         i = r.nextInt(plateau.hauteur());
         j = r.nextInt(plateau.largeur());
-        while (!plateau.estMangeable(new Couple(i,j))) {
+        while (!plateau.estMangeable(new Couple(i,j)) && count < 100 || (i<=1 && j<=1)) {
             i = r.nextInt(plateau.hauteur());
             j = r.nextInt(plateau.largeur());
+            count++;
+        }
+        if (count == 100) {
+        	return new Couple(0,0); //si elle n'as rien trouvée elle se suicide
         }
         //plateau.manger(new Couple(i,j));
         return new Couple(i,j);
