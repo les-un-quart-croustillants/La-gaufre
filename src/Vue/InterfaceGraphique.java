@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class InterfaceGraphique extends Application {
+	PanePrincipal gp;
+	
 	public enum Appli_state {
 		MENU(0), NEW_GAME(1), LOAD(2);
 		
@@ -25,8 +27,8 @@ public class InterfaceGraphique extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		PanePrincipal gp = new PanePrincipal();
-		PaneMenu m = new PaneMenu(gp);
+		gp = new PanePrincipal();
+		PaneMenu m = new PaneMenu(800, 600);
         Scene menu = new Scene(m, 800, 600);
         primaryStage.setScene(menu);  
 		primaryStage.show();
@@ -40,9 +42,10 @@ public class InterfaceGraphique extends Application {
 				case MENU:
 					switch(m.Choix()) {
 					case NEW_GAME:
+						gp = new PanePrincipal(m.height, m.width);
+						gp.moteur.remplacerJoueur(m.joueur1, m.joueur2);
 						Scene partie = new Scene(gp, m.getWidth(), m.getHeight());
 						primaryStage.setScene(partie);
-						gp.moteur.remplacerJoueur(m.joueur1, m.joueur2);
 						etat = Appli_state.NEW_GAME;
 						return;
 					case QUIT:

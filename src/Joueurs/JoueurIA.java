@@ -21,7 +21,7 @@ public class JoueurIA extends Joueur {
 	 * @param p plateau de jeu
 	 * @param d difficulte de l'IA
 	 */
-	public JoueurIA (Plateau p, Difficulte d){
+	public JoueurIA (Difficulte d){
 		super();
 		r = new Random();
 		this.difficulte = d;

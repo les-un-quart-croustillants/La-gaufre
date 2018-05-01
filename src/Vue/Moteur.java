@@ -1,7 +1,6 @@
 package Vue;
 
 import Joueurs.Joueur;
-import Joueurs.JoueurIA;
 import Joueurs.JoueurPhysique;
 import Modele.Couple;
 import Modele.Plateau;
@@ -39,9 +38,6 @@ public class Moteur {
 		etat_courant = FSA_state.DEBUT_TOUR;
 		joueurs = new Joueur[2];
 		joueurs[0] = new JoueurPhysique();
-		// joueurs[0] = new JoueurIA(panePrincipal.plateau,
-		// Joueur.Difficulte.FACILE);
-		joueurs[1] = new JoueurIA(panePrincipal.plateau, Joueur.Difficulte.FACILE);
 		joueurs[1] = new JoueurPhysique();
 		couleursJoueurs = new Color[2];
 		couleursJoueurs[0] = new Color(100f / 255f, 160f / 255f, 50f / 255f, 1);

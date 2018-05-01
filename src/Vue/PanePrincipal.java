@@ -23,10 +23,14 @@ public class PanePrincipal extends StackPane {
 	public Plateau plateau;	
 	public Moteur moteur;
 
-	public PanePrincipal(){
+	public PanePrincipal() {
+		// Utile dans l'interface graphique
+	}
+	
+	public PanePrincipal(int width, int height){
 		super();
 		
-		plateau = new Plateau(5,8);
+		plateau = new Plateau(width, height);
 		GridPane gridpane = new GridPane();
 		gameView = new PlateauCadre(800,600, this);
 		enteteView = new EnteteCadre(100,50, this);
