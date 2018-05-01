@@ -78,8 +78,11 @@ public class JoueurIA extends Joueur {
 	 * @param valeur
 	 * @return
 	 */
-	private int evaluerA(int valeur) {
-		if(TabConverter.ToTab(valeur).getTab()[0][0] != 0) { //la configuration est une feuille
+	private int evaluerA(Noeud N) {
+		return Heuristique.calcule_heuristique(N);
+		
+		
+		/*if(TabConverter.ToTab(valeur).getTab()[0][0] != 0) { //la configuration est une feuille
 			return 1000;
 		//Configurations qui permettent de gagner en un coup
 		} else if(TabConverter.ToTab(valeur).getTab()[1][0] < 0) { //plus qu'une ligne en hauteur
@@ -88,7 +91,7 @@ public class JoueurIA extends Joueur {
 			return 1000;
 		} else {
 			return 500; //on c'est arreter avant la fin, la configuration est peut etre bonne
-		}
+		}*/
 	}
 	
 	/**
@@ -97,8 +100,10 @@ public class JoueurIA extends Joueur {
 	 * @param valeur
 	 * @return
 	 */
-	private int evaluerB(int valeur) {
-		if(TabConverter.ToTab(valeur).getTab()[0][0] != 0) { //la configuration est une feuille
+	private int evaluerB(Noeud N) {
+		return HeuristiqueB.calcule_heuristique(N);
+
+		/*if(TabConverter.ToTab(valeur).getTab()[0][0] != 0) { //la configuration est une feuille
 			return 0;
 		//Configurations qui permettent de perdre en un coup
 		} else if(TabConverter.ToTab(valeur).getTab()[1][0] < 0) { //plus qu'une ligne en hauteur
@@ -107,7 +112,7 @@ public class JoueurIA extends Joueur {
 			return 0;
 		} else {
 			return 500; //on c'est arreter avant la fin, la configuration est peut etre bonne
-		}
+		}*/
 	}
 	
 	/**
@@ -118,12 +123,12 @@ public class JoueurIA extends Joueur {
 	 * @return true si la configuration est gagnante pour le joueur A false sinon
 	 */
 	private int minimaxA(Noeud n, HashMap<Integer,Integer> r, int profondeur) {
-		TabConverter.FilsNoeud (n);	//calcul des fils
+		TabConverter.FilsNoeud(n);	//calcul des fils
 		int heuristique;
 		if (n.estFeuille() || profondeur == 0) {
 			// la configuration ne permet pas de jouer,
 			// le joueur B gagne
-			heuristique = evaluerA(n.valeur()); 
+			heuristique = evaluerA(n); 
 			r.put(n.valeur(), heuristique);
 			n.setHeuristic(heuristique);
 			return heuristique;
@@ -158,7 +163,7 @@ public class JoueurIA extends Joueur {
 		if (n.estFeuille() || profondeur == 0) {
 			// la configuration ne permet pas de jouer
 			// le joueur A gagne
-			heuristique = evaluerB(n.valeur());
+			heuristique = evaluerB(n);
 			r.put(n.valeur(), heuristique);
 			n.setHeuristic(heuristique);
 			return heuristique;
