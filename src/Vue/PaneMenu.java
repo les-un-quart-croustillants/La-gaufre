@@ -6,11 +6,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.geometry.Pos;
 import javafx.event.*;
+import javafx.scene.image.*;
 import Joueurs.*;
 
 public class PaneMenu extends VBox {
 	private MenuAction choix = MenuAction.NOTHING;
 	private VBox choix_general, choix_mode;
+	private Button chgStyle;
 	private PaneMenu menu = this; // Pour les handlers
 	public Joueur joueur1, joueur2;
 	public int width = 8, height = 5;
@@ -19,7 +21,7 @@ public class PaneMenu extends VBox {
 		NOTHING(0), NEW_GAME(1), LOAD(2), QUIT(3);
 		
 		public int value;
-
+    
 		MenuAction(int value) {
 			this.value = value;
 		}
@@ -29,11 +31,12 @@ public class PaneMenu extends VBox {
 		super();
 		creer_groups();
 		this.setAlignment(Pos.CENTER);
-		this.getStylesheets().add("menu.css");
+		this.getStylesheets().add("lightmode.css");
 		creer_bouton_nouvelle_partie();
 		creer_bouton_charger();
 		creer_bouton_quitter();
 		creer_mode();
+		creer_bouton_style();
 		this.setMinSize(width, height);
 	}
 	
@@ -47,7 +50,9 @@ public class PaneMenu extends VBox {
 			public void handle(ActionEvent e) {
 				//choix = MenuAction.NEW_GAME;
 				menu.getChildren().remove(choix_general);
+				menu.getChildren().remove(chgStyle);
 				menu.getChildren().add(choix_mode);
+				menu.getChildren().add(chgStyle);
 			}
 		});
 		return tmp; 
@@ -188,7 +193,9 @@ public class PaneMenu extends VBox {
 			@Override
 			public void handle(ActionEvent e) {
 				menu.getChildren().remove(choix_mode);
+				menu.getChildren().remove(chgStyle);
 				menu.getChildren().add(choix_general);
+				menu.getChildren().add(chgStyle);
 			}
 		});
 		
@@ -246,7 +253,7 @@ public class PaneMenu extends VBox {
 				}
 			}
 		});
-		
+		  
 		pluswidth.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -292,6 +299,29 @@ public class PaneMenu extends VBox {
 		choix_mode.getChildren().add(boxwidth);
 		choix_mode.getChildren().add(accept);
 		choix_mode.getChildren().add(back);
+	}
+	
+	private void creer_bouton_style() {
+		chgStyle = new Button();
+		ImageView nightImage = new ImageView(new Image("night.png"));
+		ImageView lightImage = new ImageView(new Image("light.png"));
+		chgStyle.setGraphic(nightImage);
+		this.getChildren().add(chgStyle);
+		
+		chgStyle.setOnAction(new EventHandler<ActionEvent>() {
+			@Override  
+			public void handle(ActionEvent e) {
+				if(chgStyle.getGraphic() == nightImage) {
+					chgStyle.setGraphic(lightImage);
+					menu.getStylesheets().remove("lightmode.css");
+					menu.getStylesheets().add("nightmode.css");
+				} else if(chgStyle.getGraphic() == lightImage) {
+					chgStyle.setGraphic(nightImage);
+					menu.getStylesheets().remove("nightmode.css");
+					menu.getStylesheets().add("lightmode.css");
+				}
+			}
+		});
 	}
 	
 	public MenuAction Choix() {

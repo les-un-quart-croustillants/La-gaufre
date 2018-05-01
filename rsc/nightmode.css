@@ -1,0 +1,18 @@
+.label {
+	-fx-text-fill:	rgb(195, 195, 190);
+}
+
+.button {
+	-fx-text-fill:	rgb(195, 195, 190);
+	-fx-background-color: transparent;
+	-fx-effect:  dropshadow(three-pass-box, rgba(225,225,220,0.2), 5, 0, 0, 0);
+}
+
+.button:hover {
+	-fx-text-fill:	white;
+	-fx-effect:  dropshadow(three-pass-box, rgba(225,225,220,0.6), 15, 0, 0, 0);
+}
+
+* {
+	-fx-background-color: rgb(35, 35, 35);
+}
