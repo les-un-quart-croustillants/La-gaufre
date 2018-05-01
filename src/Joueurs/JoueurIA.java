@@ -51,6 +51,12 @@ public class JoueurIA extends Joueur {
 		return new Couple(0,0);
 	}
 	
+	/**
+	 * Renvois le nombre de cases mangeable de p
+	 * 
+	 * @param p
+	 * @return
+	 */
 	private int nbCaseMangeable(Plateau p) {
 		int res = 0;
 		for(int i=0;i<p.hauteur();i++) {
@@ -63,6 +69,12 @@ public class JoueurIA extends Joueur {
 		return res;
 	}
 	
+	/**
+	 * retourne la profondeur de l'arbre des configuration pour le plateau p
+	 * 
+	 * @param p
+	 * @return
+	 */
 	private int evaluerProfondeur(Plateau p) {
 		int n = nbCaseMangeable(p);
 		if(n <= 15) {
@@ -210,12 +222,24 @@ public class JoueurIA extends Joueur {
 	}
 	
 	/**
-	 * Joue un coup sur le plateau avec les regles d'IA moyennes
+	 * Joue un coup sur le plateau avec les regles d'IA moyennes (minimax avec un horizon de 1 equiveau a appliquer les regles heuristiques)
 	 * 
 	 * @return True si le coup a bien ete joue, False sinon
 	 */
 	Couple jouerCoupMoyen(Plateau plateau) {
-		return new Couple(-1,-1);
+		ArbreConfiguration a = new ArbreConfiguration(TabConverter.ToInt(plateau)); // construction de l'arbre des configurations
+		HashMap<Integer,Integer> memo = new HashMap<Integer,Integer>();
+		int profondeur = 1;
+		if(minimaxA(a.racine(),memo,profondeur) > 0) {
+			LinkedList<Noeud> cp = a.racine().filsTaggue(); //recuperations des solutions
+			int rand = r.nextInt(cp.size()); //choix d'une solution admissible aleatoire
+			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur()); //traduction de la solution en Plateau
+			Couple res = reconstruireCoup(plateau , nouveau); //traduction de la solution en Couple
+			//plateau.manger(res); //Appliquer solution
+			return res;
+		} else {
+			return jouerCoupFacile(plateau);
+		}
 	}
 	
 	/**
