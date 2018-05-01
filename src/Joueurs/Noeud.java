@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class Noeud {
 	private int valeur;
 	private int heuristic;
-	private Noeud pere;
+	private Noeud pere ;
 	private LinkedList<Noeud> fils;
 	
 	public Noeud() {

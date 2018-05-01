@@ -19,7 +19,9 @@ public class InterfaceGraphique extends Application {
 	}
 	
 	final static float dt = 0.0166f; //temps entre 2 frames en s (60 fps)
-	Appli_state etat = Appli_state.MENU;
+	static public Appli_state etat = Appli_state.MENU;
+	static public Stage primaryStage;
+	static public PaneMenu m ;//= new PaneMenu(1000, 800);
 	
 	public static void creer(String[] args) {
 		launch(args);
@@ -28,12 +30,14 @@ public class InterfaceGraphique extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		gp = new PanePrincipal();
-		PaneMenu m = new PaneMenu(1000, 800);
+		m = new PaneMenu(1000, 800);
         Scene menu = new Scene(m, 1000, 800);
         primaryStage.setScene(menu);  
 		primaryStage.show();
 		primaryStage.setMinHeight(400);
 		primaryStage.setMinWidth(400);
+		
+		InterfaceGraphique.primaryStage = primaryStage;
 		
 		new AnimationTimer() {
 			@Override

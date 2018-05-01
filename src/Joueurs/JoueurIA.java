@@ -77,10 +77,10 @@ public class JoueurIA extends Joueur {
 	 */
 	private int evaluerProfondeur(Plateau p) {
 		int n = nbCaseMangeable(p);
-		if(n <= 15) {
+		if(n <= 13) {
 			return 1000;
 		} else {
-			return (7 - (n-15))>0?(6 - (n-15)):1;
+			return (7 - (n-13))>0?(6 - (n-13)):1;
 		}
 	}
 	
@@ -227,11 +227,30 @@ public class JoueurIA extends Joueur {
 	 * @return True si le coup a bien ete joue, False sinon
 	 */
 	Couple jouerCoupMoyen(Plateau plateau) {
+		//ajoute de ca pour tester un cas ou ca plante si on le laisse tourner
+		int[][] test = plateau.getTab();
+		int htest = plateau.hauteur();
+		int ltest = plateau.largeur();
+		if(ltest == 2 && htest == 2 && test[1][1] > 0 && test[0][1] == 0 && test[1][0] == 0) {
+			int testrand = r.nextInt(2);
+			if(testrand == 1)
+				return new Couple(1,0);
+			else 
+				return new Couple(0,1);
+		}else if (test[0][1] > 0 && test[1][0] > 0)
+			return new Couple(0,0);
+		
 		ArbreConfiguration a = new ArbreConfiguration(TabConverter.ToInt(plateau)); // construction de l'arbre des configurations
 		HashMap<Integer,Integer> memo = new HashMap<Integer,Integer>();
 		int profondeur = 1;
 		if(minimaxA(a.racine(),memo,profondeur) > 0) {
-			LinkedList<Noeud> cp = a.racine().filsTaggue(); //recuperations des solutions
+			LinkedList<Noeud> cp;
+			if(( a.racine().filsTaggue().size()) != 0) {
+				cp = a.racine().filsTaggue(); //recuperations des solutions
+			}
+			else {
+				return jouerCoupFacile(plateau);
+			}
 			int rand = r.nextInt(cp.size()); //choix d'une solution admissible aleatoire
 			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur()); //traduction de la solution en Plateau
 			Couple res = reconstruireCoup(plateau , nouveau); //traduction de la solution en Couple
@@ -248,11 +267,31 @@ public class JoueurIA extends Joueur {
 	 * @return True si le coup a bien ete joue, False sinon
 	 */
 	Couple jouerCoupDifficile(Plateau plateau) {
+		//ajoute de ca pour tester un cas ou ca plante si on le laisse tourner
+		int[][] test = plateau.getTab();
+		int htest = plateau.hauteur();
+		int ltest = plateau.largeur();
+
+		if(ltest == 2 && htest == 2 && test[1][1] > 0 && test[0][1] == 0 && test[1][0] == 0) {
+			int testrand = r.nextInt(2);
+			if(testrand == 1)
+				return new Couple(1,0);
+			else 
+				return new Couple(0,1);
+		}else if (test[0][1] > 0 && test[1][0] > 0)
+			return new Couple(0,0);
+		
 		ArbreConfiguration a = new ArbreConfiguration(TabConverter.ToInt(plateau)); // construction de l'arbre des configurations
 		HashMap<Integer,Integer> memo = new HashMap<Integer,Integer>();
 		int profondeur = evaluerProfondeur(plateau);
 		if(minimaxA(a.racine(),memo,profondeur) > 0) {
-			LinkedList<Noeud> cp = a.racine().filsTaggue(); //recuperations des solutions
+			LinkedList<Noeud> cp;
+			if(( a.racine().filsTaggue().size()) != 0) {
+				cp = a.racine().filsTaggue(); //recuperations des solutions
+			}
+			else {
+				return jouerCoupFacile(plateau);
+			}
 			int rand = r.nextInt(cp.size()); //choix d'une solution admissible aleatoire
 			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur()); //traduction de la solution en Plateau
 			Couple res = reconstruireCoup(plateau , nouveau); //traduction de la solution en Couple

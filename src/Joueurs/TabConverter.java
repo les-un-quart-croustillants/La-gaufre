@@ -281,7 +281,7 @@ public class TabConverter {
 	     *  @param N : le noeud
 	     */
 		public static void FilsNoeud (Noeud N) {
-			//version vecteur de bit qui marche moyen (d'un point de vu algo pas implementation)
+			//version vecteur de bit qui marche moyen (d'un point de vu algo pas implementation, je la laisse parceque c'est faisable)
 			/*
 			LinkedList<Noeud> filsN = new LinkedList<Noeud>(); // la linked list de fils a integrer
 			LinkedList<Integer> vector = new LinkedList<Integer>(); // la linked list de la representation binaire de la valeur du noeud
@@ -337,7 +337,8 @@ public class TabConverter {
 			}	
 			N.setFils(filsN); // assignation des fils
 			*/
-			// super version de merde en O(n puissance infini) mais qui marche
+			
+			// super version nulle en O(n puissance infini) mais qui marche
 			
 			LinkedList<Noeud> filsN = new LinkedList<Noeud>(); // la linked list de fils a integrer
 			LinkedList<Integer> vector = new LinkedList<Integer>(); // la linked list de la representation binaire de la valeur du noeud
@@ -354,8 +355,6 @@ public class TabConverter {
 						int curr = ToInt(new Plateau(hauteur,largeur,simule));
 						Noeud Aadd = new Noeud(curr,N);
 						filsN.add(Aadd);
-						// ligne qu'on va devoir ajouter soon
-						//Aadd.setHeuristic(Heuristique.calcule_heuristique(Aadd));
 					}
 				}
 			}

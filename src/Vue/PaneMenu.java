@@ -25,7 +25,7 @@ public class PaneMenu extends VBox {
 		}
 	}
 	
-	PaneMenu(double width, double height) {
+	public PaneMenu(double width, double height) {
 		super();
 		creer_groups();
 		this.setAlignment(Pos.CENTER);
