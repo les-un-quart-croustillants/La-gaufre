@@ -111,11 +111,11 @@ public class Moteur {
 				@Override
 				public void handle(ActionEvent event) {
 					InterfaceGraphique.etat=Appli_state.MENU;
-					InterfaceGraphique.m = new PaneMenu(panePrincipal.getWidth(),panePrincipal.getHeight());
+					InterfaceGraphique.m = new PaneMenu(panePrincipal.getWidth(),panePrincipal.getHeight(), InterfaceGraphique.m.get_css());
 					InterfaceGraphique.primaryStage.setScene(new Scene(InterfaceGraphique.m));
 				}
 			};
-			ConfirmationPopup c = new ConfirmationPopup(nom_joueur_courant()+" a gagné!","Rejouer","Menu",oui, non, InterfaceGraphique.m.get_css());
+			ConfirmationPopup c = new ConfirmationPopup(nom_joueur_courant()+" a gagnï¿½!","Rejouer","Menu",oui, non, InterfaceGraphique.m.get_css());
 			panePrincipal.getChildren().add(c);
 			etat_courant=FSA_state.CHOIX_FIN;
 			break;

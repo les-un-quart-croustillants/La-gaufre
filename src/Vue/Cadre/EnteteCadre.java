@@ -30,6 +30,7 @@ public class EnteteCadre extends Cadre {
 	private Button creerBoutonUndo() {
 		Button b = new Button();
 		b.getStyleClass().add("undobtn");
+		b.getStyleClass().add("gamebtn");
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -43,6 +44,7 @@ public class EnteteCadre extends Cadre {
 	private Button creerBoutonRedo() {
 		Button b = new Button();
 		b.getStyleClass().add("redobtn");
+		b.getStyleClass().add("gamebtn");
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -56,6 +58,7 @@ public class EnteteCadre extends Cadre {
 	private Button creerBoutonSauvegarder() {
 		Button b = new Button();
 		b.getStyleClass().add("savebtn");
+		b.getStyleClass().add("gamebtn");
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -75,6 +78,7 @@ public class EnteteCadre extends Cadre {
 	private Button creerBoutonRetour() {
 		Button b = new Button();
 		b.getStyleClass().add("closebtn");
+		b.getStyleClass().add("gamebtn");
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
