@@ -21,3 +21,51 @@
 	-fx-background-color: rgb(35, 35, 35);
 	-fx-background-radius: 30;
 }
+
+.closebtn {
+	-fx-background-image: url("logo_fermer_night.png");
+	-fx-background-size: 80%;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+}
+
+.closebtn:hover {
+	-fx-background-size: 100%;
+	-fx-effect:  none;
+}
+
+.undobtn {
+	-fx-background-image: url("logo_fleche_gauche_night.png");
+	-fx-background-size: 80%;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+}
+
+.undobtn:hover {
+	-fx-background-size: 100%;
+	-fx-effect:  none;
+}
+
+.redobtn {
+	-fx-background-image: url("logo_fleche_droite_night.png");
+	-fx-background-size: 80%;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+}
+
+.redobtn:hover {
+	-fx-background-size: 100%;
+	-fx-effect:  none;
+}
+
+.savebtn {
+	-fx-background-image: url("logo_save_night.png");
+	-fx-background-size: 80%;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+}
+
+.savebtn:hover {
+	-fx-background-size: 100%;
+	-fx-effect:  none;
+}

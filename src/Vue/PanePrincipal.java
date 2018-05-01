@@ -1,10 +1,7 @@
 package Vue;
 
-import javafx.geometry.Insets;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+
 import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
@@ -34,7 +31,7 @@ public class PanePrincipal extends StackPane {
 		plateau = new Plateau(width, height);
 		GridPane gridpane = new GridPane();
 		gameView = new PlateauCadre(800,600, this);
-		enteteView = new EnteteCadre(100,50, this);
+		enteteView = new EnteteCadre(100,50, this, css);
 		infoView = new InfoCadre(100,50);
 		
 		moteur=new Moteur(this);

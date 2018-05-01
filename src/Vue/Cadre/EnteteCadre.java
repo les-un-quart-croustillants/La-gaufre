@@ -5,7 +5,6 @@ import Vue.Donnees;
 
 import java.io.IOException;
 
-import Vue.ImageBouton;
 import Vue.InterfaceGraphique;
 import Vue.InterfaceGraphique.Appli_state;
 import Vue.PaneMenu;
@@ -28,8 +27,9 @@ public class EnteteCadre extends Cadre {
 	HBox hbox;
 	Button b1,b2,b3,b4;
 	
-	private ImageBouton creerBoutonUndo() {
-		ImageBouton b = new ImageBouton(Donnees.LOGO_FLECHE_GAUCHE);
+	private Button creerBoutonUndo() {
+		Button b = new Button();
+		b.getStyleClass().add("undobtn");
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -40,8 +40,9 @@ public class EnteteCadre extends Cadre {
 		return b;
 	}
 	
-	private ImageBouton creerBoutonRedo() {
-		ImageBouton b = new ImageBouton(Donnees.LOGO_FLECHE_DROITE);
+	private Button creerBoutonRedo() {
+		Button b = new Button();
+		b.getStyleClass().add("redobtn");
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -52,8 +53,9 @@ public class EnteteCadre extends Cadre {
 		return b;
 	}
 	
-	private ImageBouton creerBoutonSauvegarder() {
-		ImageBouton b = new ImageBouton(Donnees.LOGO_SAUVEGARDE);
+	private Button creerBoutonSauvegarder() {
+		Button b = new Button();
+		b.getStyleClass().add("savebtn");
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -70,8 +72,9 @@ public class EnteteCadre extends Cadre {
 		return b;
 	}
 	
-	private ImageBouton creerBoutonRetour() {
-		ImageBouton b = new ImageBouton(Donnees.LOGO_FERMER);
+	private Button creerBoutonRetour() {
+		Button b = new Button();
+		b.getStyleClass().add("closebtn");
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -82,7 +85,7 @@ public class EnteteCadre extends Cadre {
 					@Override
 					public void handle(ActionEvent event) {
 						panePrincipal.getChildren().remove(c);
-					}
+					} 
 				};
 				EventHandler<ActionEvent> oui = new EventHandler<ActionEvent>() {
 					@Override
@@ -130,11 +133,12 @@ public class EnteteCadre extends Cadre {
 		return hbox;
 	}
 	
-	private void Initialisation(PanePrincipal pp) {	
+	private void Initialisation(PanePrincipal pp, String css) {	
 		this.panePrincipal = pp;
 		label = new Label("Joueur 1");
 		label.setFont(Donnees.FONT_TEXT);
 		label.setTextFill(Donnees.COULEUR_TEXT);
+		this.getStylesheets().add(css);
 		
 		
 		this.getChildren().add(label);
@@ -142,9 +146,9 @@ public class EnteteCadre extends Cadre {
 		
 	}
 	
-	public EnteteCadre(PanePrincipal pp){
+	public EnteteCadre(PanePrincipal pp, String css){
 		super();
-		Initialisation(pp);
+		Initialisation(pp, css);
 	}
 	
 	@Override
@@ -160,8 +164,8 @@ public class EnteteCadre extends Cadre {
 		gc.clearRect(0, 0, this.getWidth(), this.getHeight());
 	}
 	
-	public EnteteCadre(int wpref,int hpref,PanePrincipal pp){
+	public EnteteCadre(int wpref,int hpref,PanePrincipal pp, String css){
 		super(wpref,hpref);
-		Initialisation(pp);
+		Initialisation(pp, css);
 	}
 }

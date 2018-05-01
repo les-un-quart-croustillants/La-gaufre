@@ -321,9 +321,9 @@ public class PaneMenu extends VBox {
 		if(this.getStylesheets().get(0) == "lightmode.css") {
 			chgStyle.setGraphic(nightImage);	
 		} else {
-			chgStyle.setGraphic(lightImage);
+			chgStyle.setGraphic(lightImage); 
 		}
-		this.getChildren().add(chgStyle);
+		this.getChildren().add(chgStyle); 
 		
 		chgStyle.setOnAction(new EventHandler<ActionEvent>() {
 			@Override  
