@@ -68,7 +68,7 @@ public class JoueurIA extends Joueur {
 		if(n <= 15) {
 			return 1000;
 		} else {
-			return (6 - (n-15))>0?(6 - (n-15)):1;
+			return (7 - (n-15))>0?(6 - (n-15)):1;
 		}
 	}
 	
