@@ -27,9 +27,10 @@ public class PanePrincipal extends StackPane {
 		// Utile dans l'interface graphique
 	}
 	
-	public PanePrincipal(int width, int height){
+	public PanePrincipal(int width, int height, String css) {
 		super();
 		
+		this.getStylesheets().add(css);
 		plateau = new Plateau(width, height);
 		GridPane gridpane = new GridPane();
 		gameView = new PlateauCadre(800,600, this);
@@ -58,11 +59,9 @@ public class PanePrincipal extends StackPane {
 		ColumnConstraints column1 = new ColumnConstraints();
 	    column1.setPercentWidth(100);
 	    gridpane.getColumnConstraints().addAll(column1);
-		
-	    gridpane.setBackground(new Background(new BackgroundFill(Donnees.COULEUR_BG, CornerRadii.EMPTY, Insets.EMPTY)));
 	
 	    System.out.println(gridpane.getWidth());
-	    this.getChildren().add(gridpane);
+	    this.getChildren().add(gridpane); 
 	}
 
 	//Cette fonction destin� � la mise � jour est appel�e une fois par frame

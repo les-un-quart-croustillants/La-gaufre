@@ -7,6 +7,12 @@
 	-fx-effect:  dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);
 }
 
-.body {
 
+.root {
+	-fx-background-color: rgb(225, 225, 220);
+}
+
+.popup {
+	-fx-background-color: rgb(225, 225, 220);
+	-fx-background-radius: 30;
 }

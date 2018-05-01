@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.geometry.Pos;
 import javafx.event.*;
 import javafx.scene.image.*;
+
 import Joueurs.*;
 
 public class PaneMenu extends VBox {
@@ -40,6 +41,18 @@ public class PaneMenu extends VBox {
 		this.setMinSize(width, height);
 	}
 	
+	public PaneMenu(double width, double height, String css) {
+		super();
+		creer_groups();
+		this.setAlignment(Pos.CENTER);
+		this.getStylesheets().add(css);
+		creer_bouton_nouvelle_partie();
+		creer_bouton_charger();
+		creer_bouton_quitter();
+		creer_mode();
+		creer_bouton_style();
+		this.setMinSize(width, height);
+	}
 	
 	private Button creer_bouton_nouvelle_partie() {
 		Button tmp = new Button("Nouvelle Partie");
@@ -305,7 +318,11 @@ public class PaneMenu extends VBox {
 		chgStyle = new Button();
 		ImageView nightImage = new ImageView(new Image("night.png"));
 		ImageView lightImage = new ImageView(new Image("light.png"));
-		chgStyle.setGraphic(nightImage);
+		if(this.getStylesheets().get(0) == "lightmode.css") {
+			chgStyle.setGraphic(nightImage);	
+		} else {
+			chgStyle.setGraphic(lightImage);
+		}
 		this.getChildren().add(chgStyle);
 		
 		chgStyle.setOnAction(new EventHandler<ActionEvent>() {
@@ -322,6 +339,10 @@ public class PaneMenu extends VBox {
 				}
 			}
 		});
+	}
+	
+	public String get_css() {
+		return this.getStylesheets().get(0);
 	}
 	
 	public MenuAction Choix() {

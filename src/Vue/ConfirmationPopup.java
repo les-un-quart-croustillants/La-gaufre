@@ -20,20 +20,21 @@ public class ConfirmationPopup extends StackPane {
 	HBox hbox;
 	String str="Retourner au menu?";
 	EventHandler<ActionEvent> ouiAction;
-	EventHandler<ActionEvent> nonAction;
+	EventHandler<ActionEvent> nonAction; 
 
-	public ConfirmationPopup(EventHandler<ActionEvent> oui, EventHandler<ActionEvent> non) {
+	public ConfirmationPopup(EventHandler<ActionEvent> oui, EventHandler<ActionEvent> non, String css) {
 		vbox = new VBox();
+		vbox.getStyleClass().add("popup");
 		vbox.getChildren().add(creer_label(str));
 
 		vbox.setAlignment(Pos.CENTER);
-		vbox.setBackground(new Background(new BackgroundFill(Donnees.COULEUR_BG, new CornerRadii(30),Insets.EMPTY)));
+		//vbox.setBackground(new Background(new BackgroundFill(Donnees.COULEUR_BG, new CornerRadii(30),Insets.EMPTY)));
 		vbox.maxWidthProperty().bind(this.widthProperty().multiply(0.5));
 		vbox.maxHeightProperty().bind(this.heightProperty().multiply(0.5));
 		vbox.setAlignment(Pos.CENTER);
 		this.setBackground(new Background(new BackgroundFill(new Color(0,0,0,0.5), CornerRadii.EMPTY,Insets.EMPTY)));
 		this.getChildren().add(vbox);
-		this.getStylesheets().add("menu.css");
+		this.getStylesheets().add(css);
 	
 		ouiAction = oui;
 		nonAction = non;

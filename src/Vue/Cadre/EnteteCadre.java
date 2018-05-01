@@ -76,7 +76,7 @@ public class EnteteCadre extends Cadre {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				ConfirmationPopup c = new ConfirmationPopup(null,null);
+				ConfirmationPopup c = new ConfirmationPopup(null,null, InterfaceGraphique.m.get_css());
 				panePrincipal.getChildren().add(c);
 				EventHandler<ActionEvent> non = new EventHandler<ActionEvent>() {
 					@Override
@@ -88,7 +88,7 @@ public class EnteteCadre extends Cadre {
 					@Override
 					public void handle(ActionEvent event) {
 						InterfaceGraphique.etat=Appli_state.MENU;
-						InterfaceGraphique.m = new PaneMenu(panePrincipal.getWidth(),panePrincipal.getHeight());
+						InterfaceGraphique.m = new PaneMenu(panePrincipal.getWidth(),panePrincipal.getHeight(), InterfaceGraphique.m.get_css());
 						InterfaceGraphique.primaryStage.setScene(new Scene(InterfaceGraphique.m));
 					}
 				};
