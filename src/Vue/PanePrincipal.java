@@ -13,7 +13,6 @@ import Vue.Cadre.Cadre;
 import Vue.Cadre.EnteteCadre;
 import Vue.Cadre.InfoCadre;
 import Vue.Cadre.PlateauCadre;
-import Joueurs.Joueur;
 
 public class PanePrincipal extends StackPane {
 

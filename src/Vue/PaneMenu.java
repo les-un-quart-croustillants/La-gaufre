@@ -10,7 +10,7 @@ import Joueurs.*;
 
 public class PaneMenu extends VBox {
 	private MenuAction choix = MenuAction.NOTHING;
-	private VBox choix_general, choix_mode, choix_difficulte;
+	private VBox choix_general, choix_mode;
 	private PanePrincipal gp;
 	private PaneMenu menu = this; // Pour les handlers
 	public Joueur joueur1, joueur2;
@@ -57,10 +57,8 @@ public class PaneMenu extends VBox {
 	private void creer_groups() {
 		choix_general = new VBox();
 		choix_mode = new VBox();
-		choix_difficulte = new VBox();
 		choix_general.setAlignment(Pos.CENTER);
 		choix_mode.setAlignment(Pos.CENTER);
-		choix_difficulte.setAlignment(Pos.CENTER);
 		this.getChildren().add(choix_general);
 	}
 	
