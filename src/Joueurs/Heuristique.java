@@ -26,18 +26,25 @@ public class Heuristique {
 	     *  @param N : le noeud duquel il faut calculer l'heuristique
 	     */
 		public static int calcule_heuristique(Noeud N) {
-			//on recupere le tableau du pere
-			Plateau Ppere = TabConverter.ToTab(N.pere().valeur());
-			int[][] tabpere = Ppere.getTab();
-			
 			//on recupere le tableau du noeud courant
 			Plateau Pcurrent = TabConverter.ToTab(N.valeur());
 			int[][] tabcurrent = Pcurrent.getTab();
 			
 			//on recupere les dimensions
 			int hauteur = Pcurrent.hauteur();
-			int largeur = Ppere.largeur();
+			int largeur = Pcurrent.largeur();
 			
+			//on recupere le tableau du pere
+			if (N.pere().valeur() >= 0) {
+				Plateau Ppere = TabConverter.ToTab(N.pere().valeur());
+				int[][] tabpere = Ppere.getTab();
+				if(nbzeroligne(tabpere,0,largeur) == nbzerocolonne(tabpere,0,hauteur) && tabpere[1][1] == 0 && tabcurrent[1][1] > 0) {
+					return 1000;
+				}
+			}
+			else 
+				return 1000;
+		
 			//traitement 
 			
 			/*
@@ -82,9 +89,7 @@ public class Heuristique {
 				return 0;
 			}
 			// ..
-			if(nbzeroligne(tabpere,0,largeur) == nbzerocolonne(tabpere,0,hauteur) && tabpere[1][1] == 0 && tabcurrent[1][1] > 0) {
-				return 1000;
-			}
+
 			//obvious
 			if(tabcurrent[0][0] > 0) {
 				return 0;	
