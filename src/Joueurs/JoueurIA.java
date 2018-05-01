@@ -77,10 +77,10 @@ public class JoueurIA extends Joueur {
 	 */
 	private int evaluerProfondeur(Plateau p) {
 		int n = nbCaseMangeable(p);
-		if(n <= 15) {
+		if(n <= 13) {
 			return 1000;
 		} else {
-			return (7 - (n-15))>0?(6 - (n-15)):1;
+			return (7 - (n-13))>0?(6 - (n-13)):1;
 		}
 	}
 	
