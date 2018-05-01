@@ -6,7 +6,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import Modele.Plateau;
@@ -14,6 +13,7 @@ import Vue.Cadre.Cadre;
 import Vue.Cadre.EnteteCadre;
 import Vue.Cadre.InfoCadre;
 import Vue.Cadre.PlateauCadre;
+import Joueurs.Joueur;
 
 public class PanePrincipal extends StackPane {
 
@@ -36,7 +36,7 @@ public class PanePrincipal extends StackPane {
 		moteur=new Moteur(this);
 
 
-		//Mise en place des Pane à la bonne position
+		//Mise en place des Pane ï¿½ la bonne position
 		GridPane.setConstraints(enteteView,0,0);
 		GridPane.setConstraints(infoView,0,1);
 		GridPane.setConstraints(gameView,0,2);
@@ -62,7 +62,7 @@ public class PanePrincipal extends StackPane {
 	    this.getChildren().add(gridpane);
 	}
 
-	//Cette fonction destiné à la mise à jour est appelée une fois par frame
+	//Cette fonction destinï¿½ ï¿½ la mise ï¿½ jour est appelï¿½e une fois par frame
 	void Update() {
 		moteur.update();
 		gameView.update();
@@ -70,7 +70,7 @@ public class PanePrincipal extends StackPane {
 		infoView.update();
 	}
 	
-	//Cette fonction destiné au dessin est appelée une fois par frame
+	//Cette fonction destinï¿½ au dessin est appelï¿½e une fois par frame
 	void Draw() {
 		gameView.Draw();
 		enteteView.Draw();

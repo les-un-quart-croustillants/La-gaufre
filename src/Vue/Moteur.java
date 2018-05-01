@@ -51,6 +51,11 @@ public class Moteur {
 		panePrincipal.enteteView.label.setText(nom_joueur(i_joueur_courant));
 		panePrincipal.enteteView.label.setTextFill(couleur_courante());
 	}
+	
+	public void remplacerJoueur(Joueur j1, Joueur j2) {
+		joueurs[0] = j1;
+		joueurs[1] = j2;
+	}
 
 	public void update() {
 		switch (etat_courant) {
