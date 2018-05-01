@@ -7,13 +7,14 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 import Modele.Plateau;
 import Vue.Cadre.Cadre;
 import Vue.Cadre.EnteteCadre;
 import Vue.Cadre.InfoCadre;
 import Vue.Cadre.PlateauCadre;
 
-public class PanePrincipal extends GridPane {
+public class PanePrincipal extends StackPane {
 
 	public PlateauCadre gameView;
 	public EnteteCadre enteteView;
@@ -22,11 +23,15 @@ public class PanePrincipal extends GridPane {
 	public Plateau plateau;	
 	public Moteur moteur;
 
-	public PanePrincipal(){
+	public PanePrincipal() {
+		// Utile dans l'interface graphique
+	}
+	
+	public PanePrincipal(int width, int height){
 		super();
 		
-		plateau = new Plateau(5,8);
-		
+		plateau = new Plateau(width, height);
+		GridPane gridpane = new GridPane();
 		gameView = new PlateauCadre(800,600, this);
 		enteteView = new EnteteCadre(100,50, this);
 		infoView = new InfoCadre(100,50);
@@ -38,7 +43,7 @@ public class PanePrincipal extends GridPane {
 		GridPane.setConstraints(enteteView,0,0);
 		GridPane.setConstraints(infoView,0,1);
 		GridPane.setConstraints(gameView,0,2);
-		this.getChildren().addAll(enteteView,infoView,gameView);
+		gridpane.getChildren().addAll(enteteView,infoView,gameView);
 		
 		//Hauteur prise par les pane en %
 		RowConstraints row1 = new RowConstraints();
@@ -47,14 +52,17 @@ public class PanePrincipal extends GridPane {
 	    row2.setPercentHeight(10);
 	    RowConstraints row3 = new RowConstraints();
 	    row3.setPercentHeight(80);
-		this.getRowConstraints().addAll(row1,row2,row3);
+		gridpane.getRowConstraints().addAll(row1,row2,row3);
 		
 		//Largeur prise par les pane en %
 		ColumnConstraints column1 = new ColumnConstraints();
 	    column1.setPercentWidth(100);
-		this.getColumnConstraints().addAll(column1);
+	    gridpane.getColumnConstraints().addAll(column1);
 		
-		this.setBackground(new Background(new BackgroundFill(Donnees.COULEUR_BG, CornerRadii.EMPTY, Insets.EMPTY)));
+	    gridpane.setBackground(new Background(new BackgroundFill(Donnees.COULEUR_BG, CornerRadii.EMPTY, Insets.EMPTY)));
+	
+	    System.out.println(gridpane.getWidth());
+	    this.getChildren().add(gridpane);
 	}
 
 	//Cette fonction destin� � la mise � jour est appel�e une fois par frame
