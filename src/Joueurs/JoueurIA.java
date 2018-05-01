@@ -72,16 +72,38 @@ public class JoueurIA extends Joueur {
 		}
 	}
 	
+	/**
+	 * Heuristique quand c'est au tour du joueur A
+	 * 
+	 * @param valeur
+	 * @return
+	 */
 	private int evaluerA(int valeur) {
 		if(TabConverter.ToTab(valeur).getTab()[0][0] != 0) { //la configuration est une feuille
+			return 1000;
+		//Configurations qui permettent de gagner en un coup
+		} else if(TabConverter.ToTab(valeur).getTab()[1][0] < 0) { //plus qu'une ligne en hauteur
+			return 1000;
+		} else if(TabConverter.ToTab(valeur).getTab()[0][1] < 0) { // plus qu'une ligne en largeur
 			return 1000;
 		} else {
 			return 500; //on c'est arreter avant la fin, la configuration est peut etre bonne
 		}
 	}
 	
+	/**
+	 * Heuristique quand c'est au tour du joueur B
+	 * 
+	 * @param valeur
+	 * @return
+	 */
 	private int evaluerB(int valeur) {
 		if(TabConverter.ToTab(valeur).getTab()[0][0] != 0) { //la configuration est une feuille
+			return 0;
+		//Configurations qui permettent de perdre en un coup
+		} else if(TabConverter.ToTab(valeur).getTab()[1][0] < 0) { //plus qu'une ligne en hauteur
+			return 0;
+		} else if(TabConverter.ToTab(valeur).getTab()[0][1] < 0) { // plus qu'une ligne en largeur
 			return 0;
 		} else {
 			return 500; //on c'est arreter avant la fin, la configuration est peut etre bonne
@@ -169,6 +191,7 @@ public class JoueurIA extends Joueur {
         int count = 0;
         i = r.nextInt(plateau.hauteur());
         j = r.nextInt(plateau.largeur());
+        // l'IA essaye de ne pas se suicider et de manger quelque chose
         while (!plateau.estMangeable(new Couple(i,j)) && count < 100 || (i<=1 && j<=1)) {
             i = r.nextInt(plateau.hauteur());
             j = r.nextInt(plateau.largeur());
@@ -179,7 +202,6 @@ public class JoueurIA extends Joueur {
         }
         //plateau.manger(new Couple(i,j));
         return new Couple(i,j);
-
 	}
 	
 	/**
