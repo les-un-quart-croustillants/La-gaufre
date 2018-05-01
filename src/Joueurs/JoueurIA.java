@@ -231,13 +231,14 @@ public class JoueurIA extends Joueur {
 		int[][] test = plateau.getTab();
 		int htest = plateau.hauteur();
 		int ltest = plateau.largeur();
-		if(ltest == 2 && htest == 2 && test[1][1] > 0) {
+		if(ltest == 2 && htest == 2 && test[1][1] > 0 && test[0][1] == 0 && test[1][0] == 0) {
 			int testrand = r.nextInt(2);
 			if(testrand == 1)
 				return new Couple(1,0);
 			else 
 				return new Couple(0,1);
-		}
+		}else if (test[0][1] > 0 && test[1][0] > 0)
+			return new Couple(0,0);
 		
 		ArbreConfiguration a = new ArbreConfiguration(TabConverter.ToInt(plateau)); // construction de l'arbre des configurations
 		HashMap<Integer,Integer> memo = new HashMap<Integer,Integer>();
@@ -271,13 +272,14 @@ public class JoueurIA extends Joueur {
 		int htest = plateau.hauteur();
 		int ltest = plateau.largeur();
 
-		if(ltest == 2 && htest == 2 && test[1][1] > 0) {
+		if(ltest == 2 && htest == 2 && test[1][1] > 0 && test[0][1] == 0 && test[1][0] == 0) {
 			int testrand = r.nextInt(2);
 			if(testrand == 1)
 				return new Couple(1,0);
 			else 
 				return new Couple(0,1);
-		}
+		}else if (test[0][1] > 0 && test[1][0] > 0)
+			return new Couple(0,0);
 		
 		ArbreConfiguration a = new ArbreConfiguration(TabConverter.ToInt(plateau)); // construction de l'arbre des configurations
 		HashMap<Integer,Integer> memo = new HashMap<Integer,Integer>();
