@@ -34,7 +34,7 @@ public class PanePrincipal extends GridPane {
 		moteur=new Moteur(this);
 
 
-		//Mise en place des Pane à la bonne position
+		//Mise en place des Pane ï¿½ la bonne position
 		GridPane.setConstraints(enteteView,0,0);
 		GridPane.setConstraints(infoView,0,1);
 		GridPane.setConstraints(gameView,0,2);
@@ -57,7 +57,7 @@ public class PanePrincipal extends GridPane {
 		this.setBackground(new Background(new BackgroundFill(Donnees.COULEUR_BG, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
-	//Cette fonction destiné à la mise à jour est appelée une fois par frame
+	//Cette fonction destinï¿½ ï¿½ la mise ï¿½ jour est appelï¿½e une fois par frame
 	void Update() {
 		moteur.update();
 		gameView.update();
@@ -65,7 +65,7 @@ public class PanePrincipal extends GridPane {
 		infoView.update();
 	}
 	
-	//Cette fonction destiné au dessin est appelée une fois par frame
+	//Cette fonction destinï¿½ au dessin est appelï¿½e une fois par frame
 	void Draw() {
 		gameView.Draw();
 		enteteView.Draw();

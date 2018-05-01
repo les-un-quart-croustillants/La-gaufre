@@ -41,8 +41,8 @@ public class Moteur {
 		joueurs[0] = new JoueurPhysique();
 		// joueurs[0] = new JoueurIA(panePrincipal.plateau,
 		// Joueur.Difficulte.FACILE);
-		joueurs[1] = new JoueurIA(panePrincipal.plateau, Joueur.Difficulte.FACILE);
-		joueurs[1] = new JoueurPhysique();
+		joueurs[1] = new JoueurIA(panePrincipal.plateau, Joueur.Difficulte.DIFFICILE);
+		//joueurs[1] = new JoueurPhysique();
 		couleursJoueurs = new Color[2];
 		couleursJoueurs[0] = new Color(100f / 255f, 160f / 255f, 50f / 255f, 1);
 		couleursJoueurs[1] = new Color(230f / 255f, 60f / 255f, 60f / 255f, 1);

@@ -15,6 +15,9 @@ public class JoueurIA extends Joueur {
 	Random r;
 	Difficulte difficulte;
 	
+	public static final int MAX_PROFONDEUR = 100; // pronfondeur max apres laquel on ce dit que meme avec un facteur de branchement faible ca fait trop.
+	public static final long CALCUL_LIMIT = 30000000000L; // limite de caclul a partir de laquelle le pc ram. A modifier tu des petits pc !(3E10)
+	
 	/**
 	 * Constructeur d'une IA pour une difficulte donnee
 	 * 
@@ -38,14 +41,78 @@ public class JoueurIA extends Joueur {
 	private Couple reconstruireCoup(Plateau origin, Plateau nouveau) {
 		Couple c;
 		for(int i=0;i < origin.largeur();i++) {
-			for(int j=0;i < origin.hauteur();j++) {
-				c = new Couple(i,j);
+			for(int j=0;j < origin.hauteur();j++) {
+				c = new Couple(j,i);
 				if(nouveau.estMangee(c) && !origin.estMangee(c)) {
 					return c;
 				}
 			}
 		}
 		return new Couple(0,0);
+	}
+	
+	private int nbCaseMangeable(Plateau p) {
+		int res = 0;
+		for(int i=0;i<p.hauteur();i++) {
+			for(int j=0;j<p.largeur();j++) {
+				if(p.getTab()[i][j] == 0) {
+					res++;
+				}
+			}
+		}
+		return res;
+	}
+	
+	private int evaluerProfondeur(Plateau p) {
+		int n = nbCaseMangeable(p);
+		if(n <= 15) {
+			return 1000;
+		} else {
+			return (7 - (n-15))>0?(6 - (n-15)):1;
+		}
+	}
+	
+	/**
+	 * Heuristique quand c'est au tour du joueur A
+	 * 
+	 * @param valeur
+	 * @return
+	 */
+	private int evaluerA(Noeud N) {
+		return Heuristique.calcule_heuristique(N);
+		
+		
+		/*if(TabConverter.ToTab(valeur).getTab()[0][0] != 0) { //la configuration est une feuille
+			return 1000;
+		//Configurations qui permettent de gagner en un coup
+		} else if(TabConverter.ToTab(valeur).getTab()[1][0] < 0) { //plus qu'une ligne en hauteur
+			return 1000;
+		} else if(TabConverter.ToTab(valeur).getTab()[0][1] < 0) { // plus qu'une ligne en largeur
+			return 1000;
+		} else {
+			return 500; //on c'est arreter avant la fin, la configuration est peut etre bonne
+		}*/
+	}
+	
+	/**
+	 * Heuristique quand c'est au tour du joueur B
+	 * 
+	 * @param valeur
+	 * @return
+	 */
+	private int evaluerB(Noeud N) {
+		return HeuristiqueB.calcule_heuristique(N);
+
+		/*if(TabConverter.ToTab(valeur).getTab()[0][0] != 0) { //la configuration est une feuille
+			return 0;
+		//Configurations qui permettent de perdre en un coup
+		} else if(TabConverter.ToTab(valeur).getTab()[1][0] < 0) { //plus qu'une ligne en hauteur
+			return 0;
+		} else if(TabConverter.ToTab(valeur).getTab()[0][1] < 0) { // plus qu'une ligne en largeur
+			return 0;
+		} else {
+			return 500; //on c'est arreter avant la fin, la configuration est peut etre bonne
+		}*/
 	}
 	
 	/**
@@ -55,27 +122,31 @@ public class JoueurIA extends Joueur {
 	 * @param n racine de l'arbre des configurations
 	 * @return true si la configuration est gagnante pour le joueur A false sinon
 	 */
-	private boolean minimaxA(Noeud n, HashMap<Integer,Boolean> r) {
-		if (n.estFeuille()) {
+	private int minimaxA(Noeud n, HashMap<Integer,Integer> r, int profondeur) {
+		TabConverter.FilsNoeud(n);	//calcul des fils
+		int heuristique;
+		if (n.estFeuille() || profondeur == 0) {
 			// la configuration ne permet pas de jouer,
 			// le joueur B gagne
-			r.put(n.valeur(), false);
-			n.setTag(false);
-			return false;
+			heuristique = evaluerA(n); 
+			r.put(n.valeur(), heuristique);
+			n.setHeuristic(heuristique);
+			return heuristique;
 		} else {
 			// Le joueur A doit jouer
-				//ajouter fonction calcul des fils ici
-			boolean tag = false;
+			heuristique = 0;
 			// On parcours l'ensemble des coups jouables par A
 			for(Noeud fils : n.fils()) {
-				if(! r.containsKey(fils.valeur())) { // Si fils n'as pas encore ete calcule, le faire et mettre a jour r
-					r.put(fils.valeur(), minimaxB(fils, r));
+				int curr = minimaxB(fils, r, profondeur-1);
+				// Si fils n'as pas encore ete calcule, le faire et mettre a jour r
+				if(!r.containsKey(fils.valeur())) {
+					r.put(fils.valeur(), curr);
 				}
-				tag = tag || r.get(fils.valeur());
+				heuristique = Math.max(heuristique,r.get(fils.valeur()));
 			}
-			r.put(n.valeur(), tag);
-			n.setTag(tag);
-			return tag;
+			r.put(n.valeur(), heuristique);
+			n.setHeuristic(heuristique);
+			return heuristique;
 		}
 	}
 	
@@ -86,27 +157,31 @@ public class JoueurIA extends Joueur {
 	 * @param n racine de l'arbre des configurations
 	 * @return true si la configuration est gagnante pour le joueur A false sinon
 	 */
-	private boolean minimaxB(Noeud n,HashMap<Integer,Boolean> r) {
-		if (n.estFeuille()) {
+	private int minimaxB(Noeud n,HashMap<Integer,Integer> r, int profondeur) {
+		TabConverter.FilsNoeud (n);	//calcul des fils
+		int heuristique;
+		if (n.estFeuille() || profondeur == 0) {
 			// la configuration ne permet pas de jouer
 			// le joueur A gagne
-			r.put(n.valeur(), true);
-			n.setTag(true);
-			return true;
+			heuristique = evaluerB(n);
+			r.put(n.valeur(), heuristique);
+			n.setHeuristic(heuristique);
+			return heuristique;
 		} else {
 			// Le joueur B doit jouer
-				//ajouter fonction calcul des fils ici
-			boolean tag = true;
+			heuristique = 1000; // + infini
 			// On parcours l'ensemble des coups jouables par B
 			for(Noeud fils : n.fils()) {
-				if(! r.containsKey(fils.valeur())) { // Si fils n'as pas encore ete calcule, le faire et mettre a jour r
-					r.put(fils.valeur(), minimaxA(fils, r));
+				int curr = minimaxA(fils, r, profondeur-1);
+				// Si fils n'as pas encore ete calcule , le faire et mettre a jour r
+				if(! r.containsKey(fils.valeur())) {
+					r.put(fils.valeur(), curr);
 				}
-				tag = tag && r.get(fils.valeur());
+				heuristique = Math.min(heuristique,r.get(fils.valeur()));
 			}
-			r.put(n.valeur(), tag);
-			n.setTag(tag);
-			return tag;
+			r.put(n.valeur(), heuristique);
+			n.setHeuristic(heuristique);
+			return heuristique;
 		}
 	}
 	
@@ -118,16 +193,20 @@ public class JoueurIA extends Joueur {
 	 */
 	Couple jouerCoupFacile(Plateau plateau) {
 		int i, j;
-        
+        int count = 0;
         i = r.nextInt(plateau.hauteur());
         j = r.nextInt(plateau.largeur());
-        while (!plateau.estMangeable(new Couple(i,j))) {
+        // l'IA essaye de ne pas se suicider et de manger quelque chose
+        while (!plateau.estMangeable(new Couple(i,j)) && count < 100 || (i<=1 && j<=1)) {
             i = r.nextInt(plateau.hauteur());
             j = r.nextInt(plateau.largeur());
+            count++;
+        }
+        if (count == 100) {
+        	return new Couple(0,0); //si elle n'as rien trouvée elle se suicide
         }
         //plateau.manger(new Couple(i,j));
         return new Couple(i,j);
-
 	}
 	
 	/**
@@ -145,12 +224,13 @@ public class JoueurIA extends Joueur {
 	 * @return True si le coup a bien ete joue, False sinon
 	 */
 	Couple jouerCoupDifficile(Plateau plateau) {
-		ArbreConfiguration a = new ArbreConfiguration(); // construction de l'arbre des configurations
-		HashMap<Integer,Boolean> memo = new HashMap<Integer,Boolean>();
-		if(minimaxA(a.racine(),memo)) {
+		ArbreConfiguration a = new ArbreConfiguration(TabConverter.ToInt(plateau)); // construction de l'arbre des configurations
+		HashMap<Integer,Integer> memo = new HashMap<Integer,Integer>();
+		int profondeur = evaluerProfondeur(plateau);
+		if(minimaxA(a.racine(),memo,profondeur) > 0) {
 			LinkedList<Noeud> cp = a.racine().filsTaggue(); //recuperations des solutions
 			int rand = r.nextInt(cp.size()); //choix d'une solution admissible aleatoire
-			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur(),plateau.largeur(),plateau.hauteur()); //traduction de la solution en Plateau
+			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur()); //traduction de la solution en Plateau
 			Couple res = reconstruireCoup(plateau , nouveau); //traduction de la solution en Couple
 			//plateau.manger(res); //Appliquer solution
 			return res;

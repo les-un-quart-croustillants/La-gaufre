@@ -4,33 +4,46 @@ import java.util.LinkedList;
 
 public class Noeud {
 	private int valeur;
-	private boolean tag;
+	private int heuristic;
 	private Noeud pere;
 	private LinkedList<Noeud> fils;
 	
 	public Noeud() {
 		this.valeur = 0;
-		this.tag = false;
+		this.heuristic = 0;
 		this.pere = null;
 		this.fils = new LinkedList<Noeud>();
 	}
 	
 	public Noeud(int v) {
 		this.valeur = v;
-		this.tag = false;
 		this.pere = null;
 		this.fils = new LinkedList<Noeud>();
 	}
 	
 	public Noeud(int v, Noeud p) {
 		this.valeur = v;
-		this.tag = false;
+		this.heuristic = 0;
 		this.pere = p;
 		this.fils = new LinkedList<Noeud>();
 	}
 	
+	/**
+	 * Test pour savoir si le noeud est une feuille
+	 * 
+	 * @return true si le noeud est une feuille false sinon
+	 */
 	public boolean estFeuille() {
 		return this.fils.isEmpty();
+	}
+	
+	/**
+	 * retourne la valeur heuristique du noeud
+	 * 
+	 * @return le champ heuristic du noeud
+	 */
+	public int heuristic() {
+		return this.heuristic;
 	}
 	
 	/**
@@ -39,14 +52,6 @@ public class Noeud {
 	 */
 	public int valeur() {
 		return this.valeur;
-	}
-	
-	/**
-	 * 
-	 * @return tag du noeud
- 	 */
-	public boolean tag() {
-		return this.tag;
 	}
 	
 	/**
@@ -77,7 +82,7 @@ public class Noeud {
 	public LinkedList<Noeud> filsTaggue(){
 		LinkedList<Noeud> res = new LinkedList<Noeud>();
 		for(Noeud n : this.fils) {
-			if (n.tag()) {
+			if (n.heuristic() == this.heuristic()) {
 				res.add(n);
 			}
 		}
@@ -93,11 +98,12 @@ public class Noeud {
 	}
 	
 	/**
+	 * Change la valeur de l'heuristique
 	 * 
-	 * @param t nouveau tag pour le noeud
- 	 */
-	public void setTag(boolean t) {
-		this.tag = t; 
+	 * @param h nouvelle heuristique
+	 */
+	public void setHeuristic(int h) {
+		this.heuristic = h;
 	}
 	
 	/**
