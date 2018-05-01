@@ -225,25 +225,18 @@ public class Plateau {
 		OutputStreamWriter obs= new OutputStreamWriter(f,"UTF8");
 		int h = this.hauteur();
 		obs.write(h + "\n");
-		System.out.print(this.hauteur()+ "\n");
 		obs.write(this.largeur()+ "\n");
-		System.out.print(this.largeur() + "\n");
 		obs.write(this.compteurCoups + "\n");
-		System.out.print(this.getCompteurCoups() + "\n");
 		for(int i = 0;i<this.hauteur();i++) {
 			for(int j = 0;j<this.largeur();j++) {
 				obs.write(this.tab[i][j] + "\n");
-				System.out.print(this.tab[i][j]);
 			}
-			System.out.print(" fin de la ligne\n");
 			obs.write("\n");
 		}
 		for(int i=0;i<this.history.size();i++) {
 			Couple c = history.get(i);
 			obs.write(c.getI() + "\n");
-			System.out.print("\n"+ c.getI() +"+");
 			obs.write(c.getJ() + "\n");
-			System.out.print(c.getI());
 		}
         obs.close();
         f.close();
@@ -262,16 +255,11 @@ public class Plateau {
 			this.hauteur = Integer.parseInt(load.readLine());
 			this.largeur = Integer.parseInt(load.readLine());
 			this.compteurCoups = Integer.parseInt(load.readLine());
-			System.out.print("hauteur" + this.hauteur()+ "\n");
-			System.out.print("largeur" + this.largeur()+ "\n");
-			System.out.print("compteurCoups" + this.compteurCoups+ "\n");
 			for(int i=0;i<this.hauteur;i++) {
 				for(int j=0;j<this.largeur;j++) {
 					this.tab[i][j]=Integer.parseInt(load.readLine());
-					System.out.print(this.tab[i][j]);
 				}
-				load.readLine();
-				System.out.print(" fin de la ligne \n");
+				load.readLine();;
 			}
 			this.history = new LinkedList<>();
 			int x=-1,y=-1;
@@ -281,7 +269,6 @@ public class Plateau {
 				y = Integer.parseInt(load.readLine());
 				pos = new Couple(x, y);
 				history.add(pos);
-				System.out.print("couple"+ x + y +"\n");
 			}
 			load.close();
 	}
