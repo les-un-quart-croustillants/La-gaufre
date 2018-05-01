@@ -218,7 +218,12 @@ public class JoueurIA extends Joueur {
         	return new Couple(0,0); //si elle n'as rien trouvée elle se suicide
         }
         //plateau.manger(new Couple(i,j));
-        return new Couple(i,j);
+		System.out.println("case choisie facile : "+ new Couple(i,j));
+		if(plateau.getTab()[i][j] == 0)
+			return new Couple(i,j);
+		else 
+			return new Couple(0,0);
+
 	}
 	
 	/**
@@ -296,6 +301,7 @@ public class JoueurIA extends Joueur {
 			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur()); //traduction de la solution en Plateau
 			Couple res = reconstruireCoup(plateau , nouveau); //traduction de la solution en Couple
 			//plateau.manger(res); //Appliquer solution
+			System.out.println("case choisie : "+ res);
 			return res;
 		} else {
 			return jouerCoupFacile(plateau);
