@@ -19,48 +19,27 @@
 
 .closebtn {
 	-fx-background-image: url("logo_fermer.png");
-	-fx-background-size: 80%;
-	-fx-background-repeat: no-repeat;
-	-fx-background-position: center;
-}
-
-.closebtn:hover {
-	-fx-background-size: 100%;
-	-fx-effect:  none;
 }
 
 .undobtn {
 	-fx-background-image: url("logo_fleche_gauche.png");
-	-fx-background-size: 80%;
-	-fx-background-repeat: no-repeat;
-	-fx-background-position: center;
-}
-
-.undobtn:hover {
-	-fx-background-size: 100%;
-	-fx-effect:  none;
 }
 
 .redobtn {
 	-fx-background-image: url("logo_fleche_droite.png");
-	-fx-background-size: 80%;
-	-fx-background-repeat: no-repeat;
-	-fx-background-position: center;
-}
-
-.redobtn:hover {
-	-fx-background-size: 100%;
-	-fx-effect:  none;
 }
 
 .savebtn {
-	-fx-background-image: url("logo_save.png");
+	-fx-background-image: url("logo_save.png");	
+}
+
+.gamebtn {
 	-fx-background-size: 80%;
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;
 }
 
-.savebtn:hover {
+.gamebtn:hover {
 	-fx-background-size: 100%;
 	-fx-effect:  none;
 }

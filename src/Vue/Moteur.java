@@ -101,21 +101,23 @@ public class Moteur {
 			}
 			break;
 		case FIN_PARTIE:
+			ConfirmationPopup c = new ConfirmationPopup(nom_joueur_courant()+" gagne!","Rejouer","Menu",null, null, InterfaceGraphique.m.get_css());
 			EventHandler<ActionEvent> oui = new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					
+					InterfaceGraphique.etat=Appli_state.MENU;
 				}
 			};
 			EventHandler<ActionEvent> non = new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
 					InterfaceGraphique.etat=Appli_state.MENU;
-					InterfaceGraphique.m = new PaneMenu(panePrincipal.getWidth(),panePrincipal.getHeight());
+					InterfaceGraphique.m = new PaneMenu(panePrincipal.getWidth(),panePrincipal.getHeight(), InterfaceGraphique.m.get_css());
 					InterfaceGraphique.primaryStage.setScene(new Scene(InterfaceGraphique.m));
 				}
 			};
-			ConfirmationPopup c = new ConfirmationPopup(nom_joueur_courant()+" a gagné!","Rejouer","Menu",oui, non, InterfaceGraphique.m.get_css());
+			c.setOuiAction(oui);
+			c.setNonAction(non);
 			panePrincipal.getChildren().add(c);
 			etat_courant=FSA_state.CHOIX_FIN;
 			break;
