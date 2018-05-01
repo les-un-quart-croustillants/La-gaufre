@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 
 public class InfoCadre extends Cadre{
 	
-	private Label label;
+	public Label label;
 	
 	private void Initialisation() {	
 		label = new Label("Cliquez sur une case");

@@ -9,6 +9,7 @@ import Vue.InterfaceGraphique;
 import Vue.InterfaceGraphique.Appli_state;
 import Vue.PaneMenu;
 import Vue.PanePrincipal;
+import Vue.GameObject.AnimationGraphique;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -25,7 +26,7 @@ public class EnteteCadre extends Cadre {
 	
 	StackPane sp;
 	HBox hbox;
-	Button b1,b2,b3,b4;
+	Button b1,b2,b3,b4,b5;
 	
 	private Button creerBoutonUndo() {
 		Button b = new Button();
@@ -63,10 +64,48 @@ public class EnteteCadre extends Cadre {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Sauvegarder");
 				try {
 					panePrincipal.plateau.saveGame();
+					AnimationGraphique an = new AnimationGraphique(1000) {
+						public String tmp = panePrincipal.infoView.label.getText();;
+						@Override
+						public void update() {
+							super.update();
+							panePrincipal.infoView.label.setText("Sauvegarde");
+						}
+						
+						@Override
+						public void onDestroy() {
+							panePrincipal.infoView.label.setText(tmp);
+						}
+					};
+					panePrincipal.gameView.gameObjects.add(an);
 				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		return b;
+	}
+	
+	private Button creerBoutonCharger() {
+		Button b = new Button();
+		b.getStyleClass().add("savebtn");
+		b.getStyleClass().add("gamebtn");
+		b.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					panePrincipal.plateau.loadGame();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -127,13 +166,16 @@ public class EnteteCadre extends Cadre {
 		b3 = creerBoutonSauvegarder();
 		b3.prefHeightProperty().bind(hbox.heightProperty().multiply(echelle));
 		b3.prefWidthProperty().bind(hbox.heightProperty().multiply(echelle));
+		b5 = creerBoutonCharger();
+		b5.prefHeightProperty().bind(hbox.heightProperty().multiply(echelle));
+		b5.prefWidthProperty().bind(hbox.heightProperty().multiply(echelle));
 		b4 = creerBoutonRetour();
 		b4.prefHeightProperty().bind(hbox.heightProperty().multiply(echelle));
 		b4.prefWidthProperty().bind(hbox.heightProperty().multiply(echelle));
 		sp.getChildren().addAll(b4);
 		sp.setAlignment(Pos.CENTER_RIGHT);
 		sp.prefWidthProperty().bind(this.widthProperty().subtract(this.heightProperty().multiply(3)));
-		hbox.getChildren().addAll(b1,b2,b3,sp);
+		hbox.getChildren().addAll(b1,b2,b3,b5,sp);
 		return hbox;
 	}
 	

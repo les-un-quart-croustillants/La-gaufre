@@ -255,6 +255,7 @@ public class Plateau {
 			this.hauteur = Integer.parseInt(load.readLine());
 			this.largeur = Integer.parseInt(load.readLine());
 			this.compteurCoups = Integer.parseInt(load.readLine());
+			this.tab=new int[hauteur][largeur];
 			for(int i=0;i<this.hauteur;i++) {
 				for(int j=0;j<this.largeur;j++) {
 					this.tab[i][j]=Integer.parseInt(load.readLine());

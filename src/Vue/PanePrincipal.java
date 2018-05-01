@@ -6,7 +6,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import Modele.Plateau;
-import Vue.Cadre.Cadre;
 import Vue.Cadre.EnteteCadre;
 import Vue.Cadre.InfoCadre;
 import Vue.Cadre.PlateauCadre;
@@ -15,7 +14,7 @@ public class PanePrincipal extends StackPane {
 
 	public PlateauCadre gameView;
 	public EnteteCadre enteteView;
-	public Cadre infoView;
+	public InfoCadre infoView;
 	
 	public Plateau plateau;	
 	public Moteur moteur;
@@ -57,7 +56,6 @@ public class PanePrincipal extends StackPane {
 	    column1.setPercentWidth(100);
 	    gridpane.getColumnConstraints().addAll(column1);
 	
-	    System.out.println(gridpane.getWidth());
 	    this.getChildren().add(gridpane); 
 	}
 

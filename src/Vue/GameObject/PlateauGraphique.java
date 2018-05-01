@@ -24,7 +24,10 @@ public class PlateauGraphique extends GameObject {
 
 	@Override
 	public void update() {
-		tailleCase = (int) (cadre.getHeight() * 0.9 / plateau.hauteur());
+		if(cadre.getWidth()/plateau.largeur()>cadre.getHeight()/plateau.hauteur())
+			tailleCase = (int) (cadre.getHeight() * 0.9 / plateau.hauteur());
+		else
+			tailleCase = (int) (cadre.getWidth() * 0.9 / plateau.largeur());
 		position.x = cadre.getWidth() / 2 - (tailleCase * plateau.largeur() / 2);
 		position.y = cadre.getHeight() / 2 - (tailleCase * plateau.hauteur() / 2);
 	}

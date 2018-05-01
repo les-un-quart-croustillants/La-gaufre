@@ -35,7 +35,7 @@ public class InterfaceGraphique extends Application {
         primaryStage.setScene(menu);  
 		primaryStage.show();
 		primaryStage.setMinHeight(400);
-		primaryStage.setMinWidth(400);
+		primaryStage.setMinWidth(600);
 		
 		InterfaceGraphique.primaryStage = primaryStage;
 		

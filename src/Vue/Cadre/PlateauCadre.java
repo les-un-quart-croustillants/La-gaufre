@@ -4,9 +4,7 @@ import Controleur.ClicVuePlateau;
 import Controleur.SourisBougerCibleur;
 import Modele.Plateau;
 import Vue.PanePrincipal;
-import Vue.GameObject.AnimationGraphique;
 import Vue.GameObject.CibleurGraphique;
-import Vue.GameObject.OnDestroyHandler;
 import Vue.GameObject.PlateauGraphique;
 import Vue.GameObject.PoisonGaphique;
 
@@ -27,14 +25,6 @@ public class PlateauCadre extends Cadre {
 		
 		cibleurGraphique = new CibleurGraphique(plateauGraphique,0,0);
 		this.gameObjects.add(cibleurGraphique);
-
-		AnimationGraphique an = new AnimationGraphique(5000);//ceci est un exemple
-		an.setOnDestroyHandler(new OnDestroyHandler() {
-			@Override
-			public void handle() {
-			}
-		});
-		this.gameObjects.add(an);
 				
 		this.setOnMousePressed(new ClicVuePlateau(pp));
 		this.setOnMouseMoved(new SourisBougerCibleur(pp, cibleurGraphique));
