@@ -34,16 +34,6 @@ public class Heuristique {
 			int hauteur = Pcurrent.hauteur();
 			int largeur = Pcurrent.largeur();
 			
-			//on recupere le tableau du pere
-			if (N.pere().valeur() >= 0) {
-				Plateau Ppere = TabConverter.ToTab(N.pere().valeur());
-				int[][] tabpere = Ppere.getTab();
-				if(nbzeroligne(tabpere,0,largeur) == nbzerocolonne(tabpere,0,hauteur) && tabpere[1][1] == 0 && tabcurrent[1][1] > 0) {
-					return 1000;
-				}
-			}
-			else 
-				return 1000;
 		
 			//traitement 
 			
@@ -62,6 +52,7 @@ public class Heuristique {
 				return 0;
 
 			}
+		
 			/*
 			 * favorise ce cas :
 			 * 0 1 1 		0 1 1
@@ -79,7 +70,9 @@ public class Heuristique {
 			if(tabcurrent[0][1] > 0 && tabcurrent[1][0] > 0) {
 				return 0;
 			}
-			
+			if(nbzeroligne(tabcurrent,0,largeur) == nbzerocolonne(tabcurrent,0,hauteur) && tabcurrent[1][1] >0) {
+				return 1000;
+			}
 			// ..
 			if(nbzeroligne(tabcurrent,0,largeur) != nbzerocolonne(tabcurrent,0,hauteur) && tabcurrent[1][1] > 0) {
 				return 1000;

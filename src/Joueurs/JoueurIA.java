@@ -231,7 +231,13 @@ public class JoueurIA extends Joueur {
 		HashMap<Integer,Integer> memo = new HashMap<Integer,Integer>();
 		int profondeur = 1;
 		if(minimaxA(a.racine(),memo,profondeur) > 0) {
-			LinkedList<Noeud> cp = a.racine().filsTaggue(); //recuperations des solutions
+			LinkedList<Noeud> cp;
+			if(( a.racine().filsTaggue().size()) != 0) {
+				cp = a.racine().filsTaggue(); //recuperations des solutions
+			}
+			else {
+				return jouerCoupFacile(plateau);
+			}
 			int rand = r.nextInt(cp.size()); //choix d'une solution admissible aleatoire
 			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur()); //traduction de la solution en Plateau
 			Couple res = reconstruireCoup(plateau , nouveau); //traduction de la solution en Couple
@@ -252,7 +258,14 @@ public class JoueurIA extends Joueur {
 		HashMap<Integer,Integer> memo = new HashMap<Integer,Integer>();
 		int profondeur = evaluerProfondeur(plateau);
 		if(minimaxA(a.racine(),memo,profondeur) > 0) {
-			LinkedList<Noeud> cp = a.racine().filsTaggue(); //recuperations des solutions
+			System.out.println("heur racine : "+a.racine().heuristic() );
+			LinkedList<Noeud> cp;
+			if(( a.racine().filsTaggue().size()) != 0) {
+				cp = a.racine().filsTaggue(); //recuperations des solutions
+			}
+			else {
+				return jouerCoupFacile(plateau);
+			}
 			int rand = r.nextInt(cp.size()); //choix d'une solution admissible aleatoire
 			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur()); //traduction de la solution en Plateau
 			Couple res = reconstruireCoup(plateau , nouveau); //traduction de la solution en Couple
