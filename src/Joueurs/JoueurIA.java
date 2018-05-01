@@ -94,16 +94,7 @@ public class JoueurIA extends Joueur {
 		return Heuristique.calcule_heuristique(N);
 		
 		
-		/*if(TabConverter.ToTab(valeur).getTab()[0][0] != 0) { //la configuration est une feuille
-			return 1000;
-		//Configurations qui permettent de gagner en un coup
-		} else if(TabConverter.ToTab(valeur).getTab()[1][0] < 0) { //plus qu'une ligne en hauteur
-			return 1000;
-		} else if(TabConverter.ToTab(valeur).getTab()[0][1] < 0) { // plus qu'une ligne en largeur
-			return 1000;
-		} else {
-			return 500; //on c'est arreter avant la fin, la configuration est peut etre bonne
-		}*/
+
 	}
 	
 	/**
@@ -115,16 +106,8 @@ public class JoueurIA extends Joueur {
 	private int evaluerB(Noeud N) {
 		return HeuristiqueB.calcule_heuristique(N);
 
-		/*if(TabConverter.ToTab(valeur).getTab()[0][0] != 0) { //la configuration est une feuille
-			return 0;
-		//Configurations qui permettent de perdre en un coup
-		} else if(TabConverter.ToTab(valeur).getTab()[1][0] < 0) { //plus qu'une ligne en hauteur
-			return 0;
-		} else if(TabConverter.ToTab(valeur).getTab()[0][1] < 0) { // plus qu'une ligne en largeur
-			return 0;
-		} else {
-			return 500; //on c'est arreter avant la fin, la configuration est peut etre bonne
-		}*/
+
+
 	}
 	
 	/**
@@ -218,7 +201,6 @@ public class JoueurIA extends Joueur {
         	return new Couple(0,0); //si elle n'as rien trouvée elle se suicide
         }
         //plateau.manger(new Couple(i,j));
-		System.out.println("case choisie facile : "+ new Couple(i,j));
 		if(plateau.getTab()[i][j] == 0)
 			return new Couple(i,j);
 		else 
@@ -301,7 +283,6 @@ public class JoueurIA extends Joueur {
 			Plateau nouveau = TabConverter.ToTab(cp.get(rand).valeur()); //traduction de la solution en Plateau
 			Couple res = reconstruireCoup(plateau , nouveau); //traduction de la solution en Couple
 			//plateau.manger(res); //Appliquer solution
-			System.out.println("case choisie : "+ res);
 			return res;
 		} else {
 			return jouerCoupFacile(plateau);
