@@ -47,7 +47,9 @@ public class Heuristique {
 			if(nbzeroligne(tabcurrent,0,largeur) != nbzerocolonne(tabcurrent,0,hauteur) && tabcurrent[1][1] > 0) {
 				return 1000;
 			}
-			
+			if(nbzeroligne(tabcurrent,0,largeur) == nbzerocolonne(tabcurrent,0,hauteur) && tabcurrent[1][1]  == 0 && tabcurrent[0][0] == 0) {
+				return 1000;
+			}
 			if((tabcurrent[0][1] > 0 && tabcurrent[1][0] > 0) && tabcurrent[0][0] == 0) {
 				return 0;
 			}

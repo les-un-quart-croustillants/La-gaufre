@@ -50,7 +50,9 @@ public class HeuristiqueB {
 			return 0;
 
 		}
-		
+		if(nbzeroligne(tabcurrent,0,largeur) == nbzerocolonne(tabcurrent,0,hauteur) && tabcurrent[1][1]  == 0 && tabcurrent[0][0] == 0) {
+			return 0;
+		}
 		if(nbzeroligne(tabcurrent,0,largeur) != nbzerocolonne(tabcurrent,0,hauteur) && tabcurrent[1][1] > 0) {
 			return 0;
 		}
