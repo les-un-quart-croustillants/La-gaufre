@@ -12,14 +12,14 @@ import Joueurs.*;
 
 public class PaneMenu extends VBox {
 	private MenuAction choix = MenuAction.NOTHING;
-	private VBox choix_general, choix_mode;
+	private VBox choix_general, choix_mode, regles;
 	private Button chgStyle;
 	private PaneMenu menu = this; // Pour les handlers
 	public Joueur joueur1, joueur2;
 	public int width = 8, height = 5;
 	
 	public enum MenuAction {
-		NOTHING(0), NEW_GAME(1), LOAD(2), QUIT(3);
+		NOTHING(0), NEW_GAME(1), QUIT(2);
 		
 		public int value;
     
@@ -37,6 +37,7 @@ public class PaneMenu extends VBox {
 		creer_bouton_regles();
 		creer_bouton_quitter();
 		creer_mode();
+		creer_regles();
 		creer_bouton_style();
 		this.setMinSize(width, height);
 	}
@@ -50,6 +51,7 @@ public class PaneMenu extends VBox {
 		creer_bouton_regles();
 		creer_bouton_quitter();
 		creer_mode();
+		creer_regles();
 		creer_bouton_style();
 		this.setMinSize(width, height);
 	}
@@ -74,8 +76,10 @@ public class PaneMenu extends VBox {
 	private void creer_groups() {
 		choix_general = new VBox();
 		choix_mode = new VBox();
+		regles = new VBox();
 		choix_general.setAlignment(Pos.CENTER);
 		choix_mode.setAlignment(Pos.CENTER);
+		regles.setAlignment(Pos.CENTER);
 		this.getChildren().add(choix_general);
 	}
 	
@@ -83,6 +87,14 @@ public class PaneMenu extends VBox {
 		Button tmp = new Button("Règles");
 		tmp.setFont(Donnees.FONT_TEXT);
 		choix_general.getChildren().add(tmp);
+		tmp.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				menu.getChildren().remove(choix_general);
+				menu.getChildren().remove(chgStyle);
+				menu.getChildren().add(regles);
+			}
+		});
 	}
 	
 	private void creer_bouton_quitter() {
@@ -94,6 +106,37 @@ public class PaneMenu extends VBox {
 			@Override
 			public void handle(ActionEvent e) {
 				choix = MenuAction.QUIT;
+			}
+		});
+	}
+	
+	private void creer_regles() {
+		Label title = new Label("Règles");
+		Label line1 = new Label("Deux joueurs mangent tour");
+		Label line2 = new Label("à tour un morceau d'une gaufre");
+		Label line3 = new Label("dont le carreau haut-gauche");
+		Label line4 = new Label("est empoisonné.");
+		Label line5 = new Label("Le joueur qui mange ce carreau");
+		Label line6 = new Label("perd la partie.");
+		Button back = new Button("Retour");
+		
+		title.setFont(Donnees.FONT_PLAY);
+		line1.setFont(Donnees.FONT_TEXT);
+		line2.setFont(Donnees.FONT_TEXT);
+		line3.setFont(Donnees.FONT_TEXT);
+		line4.setFont(Donnees.FONT_TEXT);
+		line5.setFont(Donnees.FONT_TEXT);
+		line6.setFont(Donnees.FONT_TEXT);
+		back.setFont(Donnees.FONT_TEXT);
+		
+		regles.getChildren().addAll(title, line1, line2, line3, line4, line5, line6, new Label(" "), new Label(" "), back);
+		
+		back.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				menu.getChildren().remove(regles);
+				menu.getChildren().add(choix_general);
+				menu.getChildren().add(chgStyle);
 			}
 		});
 	}

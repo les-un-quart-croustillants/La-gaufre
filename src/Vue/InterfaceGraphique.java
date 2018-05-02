@@ -9,7 +9,7 @@ public class InterfaceGraphique extends Application {
 	PanePrincipal gp;
 	
 	public enum Appli_state {
-		MENU(0), NEW_GAME(1), LOAD(2);
+		MENU(0), NEW_GAME(1);
 		
 		public int value;
 		
@@ -56,9 +56,6 @@ public class InterfaceGraphique extends Application {
 						// On ferme l'appli
 						primaryStage.close();
 						break;
-					case LOAD:
-						etat = Appli_state.LOAD;
-						break;
 					case NOTHING:
 						// On ne fait rien
 						break;
@@ -68,9 +65,6 @@ public class InterfaceGraphique extends Application {
 					// On joue la partie comme avant
 					gp.Update();
 					gp.Draw();
-					break;
-				case LOAD:
-					// Code du chargement
 					break;
 				}
 				
