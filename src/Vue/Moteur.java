@@ -5,11 +5,15 @@ import Joueurs.JoueurPhysique;
 import Modele.Couple;
 import Modele.Plateau;
 import Vue.GameObject.CibleurGraphique;
+import Vue.InterfaceGraphique.Appli_state;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 
 public class Moteur {
 	public enum FSA_state {
-		DEBUT_TOUR(0), CHOISIR_COUP(1), CASE_CIBLE(2), FIN_COUP(3), FIN_TOUR(4), FIN_PARTIE(5);
+		DEBUT_TOUR(0), CHOISIR_COUP(1), CASE_CIBLE(2), FIN_COUP(3), FIN_TOUR(4), FIN_PARTIE(5), CHOIX_FIN(6);
 
 		public int value;
 
@@ -35,7 +39,8 @@ public class Moteur {
 
 	public Moteur(PanePrincipal pp) {
 		this.panePrincipal = pp;
-		etat_courant = FSA_state.DEBUT_TOUR;
+		etat_courant = FSA_state.FIN_TOUR;
+		i_joueur_courant = 1;
 		joueurs = new Joueur[2];
 		joueurs[0] = new JoueurPhysique();
 		joueurs[1] = new JoueurPhysique();
@@ -47,7 +52,7 @@ public class Moteur {
 		panePrincipal.enteteView.label.setText(nom_joueur(i_joueur_courant));
 		panePrincipal.enteteView.label.setTextFill(couleur_courante());
 	}
-	
+
 	public void remplacerJoueur(Joueur j1, Joueur j2) {
 		joueurs[0] = j1;
 		joueurs[1] = j2;
@@ -96,6 +101,25 @@ public class Moteur {
 			}
 			break;
 		case FIN_PARTIE:
+			EventHandler<ActionEvent> oui = new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					
+				}
+			};
+			EventHandler<ActionEvent> non = new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					InterfaceGraphique.etat=Appli_state.MENU;
+					InterfaceGraphique.m = new PaneMenu(panePrincipal.getWidth(),panePrincipal.getHeight());
+					InterfaceGraphique.primaryStage.setScene(new Scene(InterfaceGraphique.m));
+				}
+			};
+			ConfirmationPopup c = new ConfirmationPopup(nom_joueur_courant()+" a gagné!","Rejouer","Menu",oui, non);
+			panePrincipal.getChildren().add(c);
+			etat_courant=FSA_state.CHOIX_FIN;
+			break;
+		case CHOIX_FIN:
 			break;
 		}
 	}
@@ -127,6 +151,10 @@ public class Moteur {
 			else
 				return "Joueur";
 		}
+	}
+
+	public String nom_joueur_courant() {
+		return nom_joueur(i_joueur_courant);
 	}
 
 	private void joueur_suivant() {

@@ -79,7 +79,7 @@ public class EnteteCadre extends Cadre {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				ConfirmationPopup c = new ConfirmationPopup(null,null, InterfaceGraphique.m.get_css());
+				ConfirmationPopup c = new ConfirmationPopup("Retourner au menu?","Oui","Non",null,null, InterfaceGraphique.m.get_css());
 				panePrincipal.getChildren().add(c);
 				EventHandler<ActionEvent> non = new EventHandler<ActionEvent>() {
 					@Override
@@ -135,7 +135,7 @@ public class EnteteCadre extends Cadre {
 	
 	private void Initialisation(PanePrincipal pp, String css) {	
 		this.panePrincipal = pp;
-		label = new Label("Joueur 1");
+		label = new Label();
 		label.setFont(Donnees.FONT_TEXT);
 		label.setTextFill(Donnees.COULEUR_TEXT);
 		this.getStylesheets().add(css);
