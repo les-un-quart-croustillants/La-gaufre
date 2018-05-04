@@ -53,6 +53,7 @@ public class GameObject {
 	}
 	
 	public void onDestroy() {
-		odh.handle();
+		if(odh!=null)
+			odh.handle();
 	}
 }
