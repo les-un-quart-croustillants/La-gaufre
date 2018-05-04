@@ -115,7 +115,7 @@ public class Moteur {
 					InterfaceGraphique.primaryStage.setScene(new Scene(InterfaceGraphique.m));
 				}
 			};
-			ConfirmationPopup c = new ConfirmationPopup(nom_joueur_courant()+" a gagné!","Rejouer","Menu",oui, non);
+			ConfirmationPopup c = new ConfirmationPopup(nom_joueur_courant()+" a gagné!","Rejouer","Menu",oui, non, InterfaceGraphique.m.get_css());
 			panePrincipal.getChildren().add(c);
 			etat_courant=FSA_state.CHOIX_FIN;
 			break;
